@@ -1,0 +1,8 @@
+*.o
+*.a
+
+.*.sw?
+*~
+#*#
+
+.ycm_extra_conf.py
