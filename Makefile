@@ -18,6 +18,7 @@ CFLAGS += -g
 endif
 
 include ft_readline/files.mk
+include ft_exec/files.mk
 
 .PHONY: all clean fclean norm
 
