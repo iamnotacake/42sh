@@ -3,5 +3,6 @@
 
 # include <readline/readline.h>
 # include "ft_readline.h"
+# include <stdlib.h>
 
 #endif
