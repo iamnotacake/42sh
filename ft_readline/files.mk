@@ -1,8 +1,63 @@
-CFLAGS += -Ift_readline
+CFLAGS += -Ift_readline -Ift_readline/libft
 LDFLAGS += -lreadline
-SOURCES += ft_readline/ft_readline.c
-
-
-# all: 
-# 	make -C ./libft
-
+SOURCES += ft_readline/ft_readline.c \
+			ft_readline/libft/ft_strtrim.c \
+			ft_readline/libft/ft_tolower.c \
+			ft_readline/libft/ft_memdel.c \
+			ft_readline/libft/ft_strcpy.c \
+			ft_readline/libft/ft_isalnum.c \
+			ft_readline/libft/ft_memmove.c \
+			ft_readline/libft/ft_striter.c \
+			ft_readline/libft/ft_strmapi.c \
+			ft_readline/libft/ft_atoi.c \
+			ft_readline/libft/ft_lstmap.c \
+			ft_readline/libft/ft_putstr_fd.c \
+			ft_readline/libft/ft_bzero.c \
+			ft_readline/libft/ft_freejoin.c \
+			ft_readline/libft/ft_putstr.c \
+			ft_readline/libft/ft_striteri.c \
+			ft_readline/libft/ft_putendl.c \
+			ft_readline/libft/ft_itoa.c \
+			ft_readline/libft/ft_strmap.c \
+			ft_readline/libft/ft_strnstr.c \
+			ft_readline/libft/ft_strncmp.c \
+			ft_readline/libft/ft_memcmp.c \
+			ft_readline/libft/ft_strdel.c \
+			ft_readline/libft/ft_strjoin.c \
+			ft_readline/libft/ft_strequ.c \
+			ft_readline/libft/ft_memcpy.c \
+			ft_readline/libft/ft_strnew.c \
+			ft_readline/libft/ft_strsplit.c \
+			ft_readline/libft/ft_putchar.c \
+			ft_readline/libft/ft_strncpy.c \
+			ft_readline/libft/ft_strcmp.c \
+			ft_readline/libft/ft_strlcat.c \
+			ft_readline/libft/ft_strdup.c \
+			ft_readline/libft/ft_isascii.c \
+			ft_readline/libft/ft_memalloc.c \
+			ft_readline/libft/ft_strsub.c \
+			ft_readline/libft/ft_memset.c \
+			ft_readline/libft/ft_strclr.c \
+			ft_readline/libft/ft_isalpha.c \
+			ft_readline/libft/ft_lstnew.c \
+			ft_readline/libft/ft_lstdelone.c \
+			ft_readline/libft/ft_strncat.c \
+			ft_readline/libft/ft_strnequ.c \
+			ft_readline/libft/ft_strlen.c \
+			ft_readline/libft/ft_memchr.c \
+			ft_readline/libft/ft_lstdel.c \
+			ft_readline/libft/ft_freedup.c \
+			ft_readline/libft/ft_putnbr.c \
+			ft_readline/libft/ft_putnbr_fd.c \
+			ft_readline/libft/ft_memccpy.c \
+			ft_readline/libft/ft_strstr.c \
+			ft_readline/libft/ft_lstiter.c \
+			ft_readline/libft/ft_strrchr.c \
+			ft_readline/libft/ft_putchar_fd.c \
+			ft_readline/libft/ft_toupper.c \
+			ft_readline/libft/ft_putendl_fd.c \
+			ft_readline/libft/ft_isdigit.c \
+			ft_readline/libft/ft_strchr.c \
+			ft_readline/libft/ft_isprint.c \
+			ft_readline/libft/ft_strcat.c \
+			ft_readline/libft/ft_lstadd.c \
