@@ -30,7 +30,7 @@ char	**ft_copy_env(const char **envp)
 }
 
 
-void	*ft_readline(const char **envp)
+void	ft_readline(const char **envp)
 {
 	char	**env;
 	int		i;
