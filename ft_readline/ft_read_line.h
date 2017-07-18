@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_read_line.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/22 16:29:52 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/04/22 16:29:54 by olyuboch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef M21SH_H
 # define M21SH_H
 # define BUFF_SIZE 100
@@ -46,6 +58,7 @@ typedef struct		s_focu
 void				ft_signals(void);
 void				ft_start(char **env);
 void				ft_parse_args(char **str, char ***env, t_his **his);
+void				ft_get_line(char **line, t_his **his);
 void				ft_get_line_save(char **lft, char **rgt, char **line,
 					t_his **his);
 void				ft_move_cursor(char **lft, char **rgt, char *buf);
@@ -67,8 +80,5 @@ int					ft_tab_match_get(t_match *mat);
 void				ft_tab_print_match(char *fold, char *cut, char **lft);
 void				ft_tab_try_to_paste(t_focu *fo, char *find,
 					int num, char **lft);
-void				ft_history_find(char **lft, char **rgt, t_his *his);
-void				ft_history_check(char **new, t_his *his);
-void				ft_get_line(char **line, t_his **his);
 
 #endif
