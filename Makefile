@@ -30,12 +30,12 @@ $(NAME): $(bin)
 
 $(bin): $(OBJECTS)
 	@$(CC) -o $@ $^ $(LDFLAGS)
-	@echo -e "\033[1;35mCCLD \033[0;35m$@\033[0m"
+	@echo "\033[1;35mCCLD \033[0;35m$@\033[0m"
 
 $(obj)/%.o: %.c
 	@mkdir -p $(obj)/$(shell dirname $<)
 	@$(CC) $(CFLAGS) -c -o $@ $<
-	@echo -e "\033[1;32mCC \033[0;32m$@\033[0m"
+	@echo "\033[1;32mCC \033[0;32m$@\033[0m"
 
 clean:
 	rm -rf build-*/obj

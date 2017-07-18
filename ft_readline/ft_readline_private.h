@@ -13,6 +13,7 @@
 # include <term.h>
 # include <signal.h>
 # include "../libft/libft.h"
+# include "ft_readline.h"
 # define CTRU "\033[1;5A"
 # define CTRD "\033[1;5B"
 # define PIPE 1
@@ -22,14 +23,6 @@
 # define RDTL 5
 # define FLOW 6
 
-
-typedef struct		s_his
-{
-	char			*tory;
-	char			*tmp;
-	struct s_his	*prev;
-	struct s_his	*next;
-}					t_his;
 
 typedef struct		s_match
 {
@@ -42,6 +35,18 @@ typedef struct		s_focu
 	char			*fold;
 	char			*cut;
 }					t_focu;
+
+typedef struct		s_his
+{
+	char			*tory;
+	char			*tmp;
+	struct s_his	*prev;
+	struct s_his	*next;
+}					t_his;
+
+void				ft_get_line(char **line, t_his **his);
+void				ft_add_to_history(t_his **his, char *line);
+void				ft_terminal_set(void);
 
 void				ft_signals(void);
 void				ft_start(char **env);
