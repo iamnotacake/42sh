@@ -19,6 +19,7 @@ endif
 
 include ft_readline/files.mk
 include ft_exec/files.mk
+include libft/files.mk
 
 .PHONY: all clean fclean norm
 
