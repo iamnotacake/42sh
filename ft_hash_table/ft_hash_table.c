@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash_table.h                                    :+:      :+:    :+:   */
+/*   ft_hash_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 19:47:45 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/07/18 19:47:48 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/07/18 20:05:02 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/07/18 20:05:04 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASH_TABLE
-# define FT_HASH_TABLE
+#include "ft_hash_table_private.h"
 
-t_hash	*ft_hash_table(const char *const envp[]);
-
-#endif
+t_hash	*ft_hash_table(const char *const envp[])
+{
+	
+}
