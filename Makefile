@@ -17,6 +17,7 @@ else ifeq ($(TYPE),debug)
 CFLAGS += -g
 endif
 
+include ft_hash_table/files.mk
 include ft_readline/files.mk
 include ft_exec/files.mk
 include libft/files.mk

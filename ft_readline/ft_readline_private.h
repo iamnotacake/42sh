@@ -1,5 +1,5 @@
-#ifndef M21SH_H
-# define M21SH_H
+#ifndef FT_READLINE_H_PRIVATE
+# define FT_READLINE_H_PRIVATE
 # define BUFF_SIZE 100
 # define READ_SIZE 16
 # include <fcntl.h>

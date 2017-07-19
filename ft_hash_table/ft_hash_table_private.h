@@ -10,9 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASH_TABLE_PRIVATE
-# define FT_HASH_TABLE_PRIVATE
+#ifndef FT_HASH_TABLE_PRIVATE_H
+# define FT_HASH_TABLE_PRIVATE_H
+# include <stdlib.h>
 
+typedef struct		s_lst
+{
+	char			*com;
+	char			*pth;
+	struct s_lst	*next;
+}					t_lst;
 
+typedef struct		s_hash
+{
+	struct s_lst	*list;
+}					t_hash;
 
 #endif

@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASH_TABLE
-# define FT_HASH_TABLE
+#ifndef __FT_HASH_TABLE_H
+# define __FT_HASH_TABLE_H
+# include "ft_hash_table_private.h"
 
 t_hash	*ft_hash_table(const char *const envp[]);
 

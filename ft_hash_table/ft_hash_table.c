@@ -14,5 +14,11 @@
 
 t_hash	*ft_hash_table(const char *const envp[])
 {
-	
+	t_hash	*new;
+
+	new = NULL;
+	if (*envp[0])
+		write(1, "afaf\n", 5);
+	// new = (t_hash *)malloc(sizeof(t_hash));
+	return (new);
 }
