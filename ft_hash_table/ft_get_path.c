@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash_table_private.h                            :+:      :+:    :+:   */
+/*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 20:07:29 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/07/18 20:07:31 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/07/19 20:17:42 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/07/19 20:17:44 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASH_TABLE_PRIVATE_H
-# define FT_HASH_TABLE_PRIVATE_H
-# include <stdlib.h>
-# include <unistd.h>
-# include <dirent.h>
-# include "../libft/libft.h"
+#include "ft_hash_table_private.h"
 
-typedef struct		s_lst
+char	**ft_get_path(const char *const env[])
 {
-	char			*com;
-	char			*pth;
-	struct s_lst	*next;
-}					t_lst;
+	int		e;
+	int		i;
+	char	*tmp;
+	char	**pth;
+	char	*str;
 
-typedef struct		s_hash
-{
-	struct s_lst	*list;
-}					t_hash;
-
-char				**ft_get_path(const char *const envp[]);
-t_lst				*ft_create_lst(char **pth);
-
-#endif
+	str = "PATH";
+	e = 0;
+	while (env[e])
+	{
+		i = 0;
+		while (env[e][i] == str[i])
+		{
+			if (env[e][i + 1] == '=')
+			{
+				tmp = ft_strdup(env[e] + i + 2);
+				pth = ft_strsplit(tmp, ':');
+				free(tmp);
+				return (pth);
+			}
+			i++;
+		}
+		e++;
+	}
+	return (NULL);
+}

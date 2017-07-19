@@ -9,5 +9,6 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	char *a = ft_readline("Hello! > ");
 	write(1, "\n", 1);
 	puts(a);
+	sleep(10);
 	return (0);
 }
