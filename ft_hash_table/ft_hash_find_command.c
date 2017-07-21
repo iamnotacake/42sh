@@ -17,13 +17,13 @@ char	*ft_hash_find_command(char *com)
 	int		hash;
 	t_lst	*tmp;
 
-	if (table == NULL || com == NULL)
+	if (g_table == NULL || com == NULL)
 		return (NULL);
 	hash = ft_hash_function(com);
 	// ft_putnbr(hash);
-	if (table[hash].lst)
+	if (g_table[hash].lst)
 	{
-		tmp = table[hash].lst;
+		tmp = g_table[hash].lst;
 		while (tmp)
 		{
 			if (!ft_strcmp(com, tmp->com))

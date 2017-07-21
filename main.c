@@ -5,7 +5,7 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 {
 	char	*pth;
 
-	table = NULL;
+	g_table = NULL;
 	ft_hash_table(envp);
 	char *a = ft_readline("Hello! > ");
 	write(1, "\n", 1);

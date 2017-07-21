@@ -36,11 +36,11 @@ void	ft_add_to_table(char *d_name, char *full_pth)
 	i = ft_hash_function(d_name);
 	if (!(new = ft_new_lst(d_name, full_pth)))
 		return ;
-	if (!(table[i].lst))
-		table[i].lst = new;
+	if (!(g_table[i].lst))
+		g_table[i].lst = new;
 	else
 	{
-		tmp = table[i].lst;
+		tmp = g_table[i].lst;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;

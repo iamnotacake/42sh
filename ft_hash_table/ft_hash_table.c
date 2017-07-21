@@ -12,7 +12,7 @@
 
 #include "ft_hash_table_private.h"
 
-t_hash	*table;
+t_hash	*g_table;
 
 void	ft_free_pth(char **pth)
 {
@@ -34,12 +34,12 @@ void	ft_create_table(void)
 	int		i;
 
 	i = 0;
-	table = NULL;
-	if (!(table = (t_hash *)malloc(sizeof(t_hash) * (HASH_SIZE + 1))))
+	g_table = NULL;
+	if (!(g_table = (t_hash *)malloc(sizeof(t_hash) * (HASH_SIZE + 1))))
 		return ;
 	while (i <= HASH_SIZE)
 	{
-		table[i].lst = NULL;
+		g_table[i].lst = NULL;
 		i++;
 	}
 }
@@ -53,10 +53,10 @@ void	ft_print_table(void)
 	i = 0;
 	while(i < HASH_SIZE)
 	{
-		if (table[i].lst != NULL)
+		if (g_table[i].lst != NULL)
 		{
 			ft_putstr("\n");
-			tmp = table[i].lst;
+			tmp = g_table[i].lst;
 			if (tmp->next)
 			{
 				n = 1;
@@ -78,10 +78,9 @@ void	ft_print_table(void)
 
 void	ft_hash_table(const char *const envp[])
 {
-	// t_hash	*table;
 	char	**path;
 
-	if (table != NULL)
+	if (g_table != NULL)
 		ft_hash_free_table();
 	if (!(path = ft_get_path(envp, "PATH")))
 		return ;
