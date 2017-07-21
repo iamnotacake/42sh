@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <dirent.h>
 # include "../libft/libft.h"
+# define HASH_SIZE 1000
 
 typedef struct		s_lst
 {
@@ -26,10 +27,13 @@ typedef struct		s_lst
 
 typedef struct		s_hash
 {
-	struct s_lst	*list;
+	struct s_lst	*lst;
 }					t_hash;
 
-char				**ft_get_path(const char *const envp[]);
-t_lst				*ft_create_lst(char **pth);
+char				**ft_get_path(const char *const envp[], char *str);
+void				ft_hash_create_lst(char **pth, t_hash **table);
+int					ft_hash_function(char *name);
+void				ft_hash_free_table(t_hash *table);
+char				*ft_hash_find_command(char *com, t_hash *table);
 
 #endif

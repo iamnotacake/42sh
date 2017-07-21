@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_path.c                                      :+:      :+:    :+:   */
+/*   ft_free_hash_table.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/19 20:17:42 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/07/19 20:17:44 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/07/21 10:41:05 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/07/21 10:41:07 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_hash_table_private.h"
 
-char	**ft_get_path(const char *const env[], char *str)
+void	ft_free_elem(t_lst *lst)
 {
-	int		e;
-	int		i;
-	char	*tmp;
-	char	**pth;
+	t_lst	*tmp;
 
-	e = 0;
-	while (env[e])
+	while (lst)
 	{
-		i = 0;
-		while (env[e][i] == str[i])
-		{
-			if (env[e][i + 1] == '=')
-			{
-				tmp = ft_strdup(env[e] + i + 2);
-				pth = ft_strsplit(tmp, ':');
-				free(tmp);
-				return (pth);
-			}
-			i++;
-		}
-		e++;
+		tmp = lst;
+		lst = lst->next;
+		free(tmp->com);
+		free(tmp->pth);
+		free(tmp);
 	}
-	return (NULL);
+}
+
+void	ft_hash_free_table(t_hash *table)
+{
+	int		i;
+
+	i = 0;
+	if (table == NULL)
+		return ;
+	while(i < HASH_SIZE)
+	{
+		if (table[i].lst != NULL)
+			ft_free_elem(table[i].lst); 
+		i++;
+	}
+	free(table);
+	table = NULL;
 }

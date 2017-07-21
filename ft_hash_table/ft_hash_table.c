@@ -12,7 +12,6 @@
 
 #include "ft_hash_table_private.h"
 
-
 void	ft_free_pth(char **pth)
 {
 	int	i;
@@ -27,30 +26,68 @@ void	ft_free_pth(char **pth)
 	free(pth);
 }
 
-void	ft_print_pth(char **pth)
+t_hash	*ft_create_table(void)
 {
-	int	i;
+	t_hash	*table;
+	int		i;
 
 	i = 0;
-	while (pth[i])
+	table = NULL;
+	if (!(table = (t_hash *)malloc(sizeof(t_hash) * (HASH_SIZE + 1))))
+		return (NULL);
+	while (i <= HASH_SIZE)
 	{
-		ft_putendl(pth[i]);
+		table[i].lst = NULL;
 		i++;
 	}
+	return (table);
+}
+
+void	ft_print_table(t_hash *table)
+{
+	int		i;
+	t_lst	*tmp;
+	int		n;
+
+	i = 0;
+	while(i < HASH_SIZE)
+	{
+		if (table[i].lst != NULL)
+		{
+			ft_putstr("\n");
+			tmp = table[i].lst;
+			if (tmp->next)
+			{
+				n = 1;
+				while (tmp->next)
+				{
+					n++;
+					tmp = tmp->next;
+				}
+				ft_putnbr(n);
+			}
+			else
+				ft_putstr("1");
+		}
+		ft_putstr("-");
+		i++;
+	}
+	write(1, "\n", 1);
 }
 
 t_hash	*ft_hash_table(const char *const envp[])
 {
-	t_hash	*new;
+	t_hash	*table;
 	char	**path;
-	t_lst	*lst;
 
-	new = NULL;
-	if (!(path = ft_get_path(envp)))
+	table = NULL;
+	if (!(path = ft_get_path(envp, "PATH")))
 		return (NULL);
-	lst = ft_create_lst(path);
-	// ft_print_pth(path);
+	if (!(table = ft_create_table()))
+		return (NULL);
+	ft_hash_create_lst(path, &table);
+	
+	ft_print_table(table);
 	ft_free_pth(path);
-	// new = (t_hash *)malloc(sizeof(t_hash));
-	return (new);
+	return (table);
 }
