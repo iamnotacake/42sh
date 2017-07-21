@@ -12,16 +12,16 @@
 
 #include "ft_hash_table_private.h"
 
-int	ft_hash_function(char *str)
+int	ft_hash_function(char *com)
 {
 	unsigned int	hash;
 	int				i;
 
 	hash = 0;
 	i = 0;
-	while (str[i])
+	while (com[i])
 	{
-		hash = (hash << 5) + (hash >> sizeof(hash)) + str[i];
+		hash = (hash << 5) + (hash >> sizeof(hash)) + com[i];
 		i++;
 	}
 	return (hash % HASH_SIZE);

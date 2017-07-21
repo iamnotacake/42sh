@@ -14,6 +14,6 @@
 # define __FT_HASH_TABLE_H
 # include "ft_hash_table_private.h"
 
-t_hash	*ft_hash_table(const char *const envp[]);
+void	ft_hash_table(const char *const envp[]);
 
 #endif

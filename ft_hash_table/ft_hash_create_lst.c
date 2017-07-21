@@ -25,7 +25,7 @@ t_lst	*ft_new_lst(char *d_name, char *full_pth)
 	return (new);
 }
 
-void	ft_add_to_table(char *d_name, char *full_pth, t_hash **table)
+void	ft_add_to_table(char *d_name, char *full_pth)
 {
 	t_lst	*new;
 	t_lst	*tmp;
@@ -36,18 +36,18 @@ void	ft_add_to_table(char *d_name, char *full_pth, t_hash **table)
 	i = ft_hash_function(d_name);
 	if (!(new = ft_new_lst(d_name, full_pth)))
 		return ;
-	if (!((*table)[i].lst))
-		(*table)[i].lst = new;
+	if (!(table[i].lst))
+		table[i].lst = new;
 	else
 	{
-		tmp = (*table)[i].lst;
+		tmp = table[i].lst;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
 }
 
-void	ft_readdir(char *pth, t_hash **table)
+void	ft_readdir(char *pth)
 {
 	DIR				*d;
 	struct dirent	*dir;
@@ -61,20 +61,20 @@ void	ft_readdir(char *pth, t_hash **table)
 		tmp = ft_strjoin(pth, "/");
 		full_pth = ft_freejoin(tmp, dir->d_name, 1);
 		if (access(full_pth, X_OK) == 0 && (dir->d_type == 8 || dir->d_type == 10))
-			ft_add_to_table(dir->d_name, full_pth, table);
+			ft_add_to_table(dir->d_name, full_pth);
 		free(full_pth);
 	}
 	closedir(d);
 }
 
-void	ft_hash_create_lst(char **pth, t_hash **table)
+void	ft_hash_create_lst(char **pth)
 {
 	int		i;
 
 	i = 0;
 	while (pth[i])
 	{
-		ft_readdir(pth[i], table);
+		ft_readdir(pth[i]);
 		i++;
 	}
 }

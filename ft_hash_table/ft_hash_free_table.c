@@ -26,19 +26,19 @@ void	ft_free_elem(t_lst *lst)
 	}
 }
 
-void	ft_hash_free_table(t_hash *table)
+void	ft_hash_free_table(void)
 {
 	int		i;
 
 	i = 0;
-	if (table == NULL)
+	if (g_table == NULL)
 		return ;
 	while(i < HASH_SIZE)
 	{
-		if (table[i].lst != NULL)
-			ft_free_elem(table[i].lst); 
+		if (g_table[i].lst != NULL)
+			ft_free_elem(g_table[i].lst); 
 		i++;
 	}
-	free(table);
-	table = NULL;
+	free(g_table);
+	g_table = NULL;
 }

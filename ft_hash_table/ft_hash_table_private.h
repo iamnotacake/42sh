@@ -30,10 +30,11 @@ typedef struct		s_hash
 	struct s_lst	*lst;
 }					t_hash;
 
+t_hash				*table;
 char				**ft_get_path(const char *const envp[], char *str);
-void				ft_hash_create_lst(char **pth, t_hash **table);
+void				ft_hash_create_lst(char **pth);
 int					ft_hash_function(char *name);
-void				ft_hash_free_table(t_hash *table);
-char				*ft_hash_find_command(char *com, t_hash *table);
+void				ft_hash_free_table(void);
+char				*ft_hash_find_command(char *com);
 
 #endif

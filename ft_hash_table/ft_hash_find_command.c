@@ -12,7 +12,7 @@
 
 #include "ft_hash_table_private.h"
 
-char	*ft_hash_find_command(char *com, t_hash *table)
+char	*ft_hash_find_command(char *com)
 {
 	int		hash;
 	t_lst	*tmp;
