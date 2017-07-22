@@ -1,4 +1,4 @@
-CFLAGS += -Iibft
+CFLAGS += -Ilibft
 SOURCES += 	libft/ft_strtrim.c \
 			libft/ft_tolower.c \
 			libft/ft_memdel.c \
