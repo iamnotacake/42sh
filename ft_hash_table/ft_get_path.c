@@ -1,19 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash_table.h                                    :+:      :+:    :+:   */
+/*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 19:47:45 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/07/18 19:47:48 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/07/19 20:17:42 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/07/19 20:17:44 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __FT_HASH_TABLE_H
-# define __FT_HASH_TABLE_H
-# include "ft_hash_table_private.h"
+#include "ft_hash_table_private.h"
 
-void	ft_hash_table(const char *const envp[]);
+char	**ft_get_path(const char *const env[], char *str)
+{
+	int		e;
+	int		i;
+	char	*tmp;
+	char	**pth;
 
-#endif
+	e = 0;
+	while (env[e])
+	{
+		i = 0;
+		while (env[e][i] == str[i])
+		{
+			if (env[e][i + 1] == '=')
+			{
+				tmp = ft_strdup(env[e] + i + 2);
+				pth = ft_strsplit(tmp, ':');
+				free(tmp);
+				return (pth);
+			}
+			i++;
+		}
+		e++;
+	}
+	return (NULL);
+}

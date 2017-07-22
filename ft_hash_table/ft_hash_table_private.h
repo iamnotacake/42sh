@@ -13,6 +13,10 @@
 #ifndef FT_HASH_TABLE_PRIVATE_H
 # define FT_HASH_TABLE_PRIVATE_H
 # include <stdlib.h>
+# include <unistd.h>
+# include <dirent.h>
+# include "../libft/libft.h"
+# define HASH_SIZE 1000
 
 typedef struct		s_lst
 {
@@ -23,7 +27,14 @@ typedef struct		s_lst
 
 typedef struct		s_hash
 {
-	struct s_lst	*list;
+	struct s_lst	*lst;
 }					t_hash;
+
+t_hash				*g_table;
+char				**ft_get_path(const char *const envp[], char *str);
+void				ft_hash_create_lst(char **pth);
+int					ft_hash_function(char *name);
+void				ft_hash_free_table(void);
+char				*ft_hash_find_command(char *com);
 
 #endif

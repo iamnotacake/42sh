@@ -1,19 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash_table.h                                    :+:      :+:    :+:   */
+/*   ft_free_hash_table.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 19:47:45 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/07/18 19:47:48 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/07/21 10:41:05 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/07/21 10:41:07 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __FT_HASH_TABLE_H
-# define __FT_HASH_TABLE_H
-# include "ft_hash_table_private.h"
+#include "ft_hash_table_private.h"
 
-void	ft_hash_table(const char *const envp[]);
+void	ft_free_elem(t_lst *lst)
+{
+	t_lst	*tmp;
 
-#endif
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp->com);
+		free(tmp->pth);
+		free(tmp);
+	}
+}
+
+void	ft_hash_free_table(void)
+{
+	int		i;
+
+	i = 0;
+	if (g_table == NULL)
+		return ;
+	while(i < HASH_SIZE)
+	{
+		if (g_table[i].lst != NULL)
+			ft_free_elem(g_table[i].lst); 
+		i++;
+	}
+	free(g_table);
+	g_table = NULL;
+}
