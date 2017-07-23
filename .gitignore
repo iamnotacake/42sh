@@ -2,6 +2,7 @@
 *.a
 a.out
 42sh
+test
 
 .*.sw?
 *~
