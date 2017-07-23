@@ -45,3 +45,9 @@ t_token			*token_scan_string(const char *string)
 	ft_lexer_post_string(g_tok);
 	return (g_tok);
 }
+
+void			never_called_shit(void)
+{
+	input();
+	yyunput(0, NULL);
+}
