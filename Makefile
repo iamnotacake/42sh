@@ -22,6 +22,7 @@ include ft_readline/files.mk
 include ft_exec/files.mk
 include libft/files.mk
 include ft_lexer/files.mk
+include ft_parser/files.mk
 
 .PHONY: all clean fclean norm
 

@@ -13,7 +13,7 @@ QUOTE_EOF		'[^']*
 DQUOTE			\"([^\"\\]|\\.)*\"
 DQUOTE_EOF		\"([^\"\\]|\\.)*
 OP_PIPE			"|"
-OP_REDIR		([12&]?>>?)|(<<?)
+OP_REDIR		([1-9&]?>>?)|(<<?)
 OP_BRACKET		"("|")"
 OP_SEMICOLON	";"
 OP_LOGIC		"||"|"&&"
