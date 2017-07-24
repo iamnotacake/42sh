@@ -34,7 +34,8 @@ t_hash				*g_table;
 char				**ft_get_path(const char *const envp[], char *str);
 void				ft_hash_create_lst(char **pth);
 int					ft_hash_function(char *name);
-void				ft_hash_free_table(void);
+// void				ft_hash_free_table(void);
 char				*ft_hash_find_command(char *com);
+void				ft_print_table(void);
 
 #endif

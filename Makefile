@@ -19,10 +19,11 @@ endif
 
 include ft_hash_table/files.mk
 include ft_readline/files.mk
-include ft_exec/files.mk
+# include ft_exec/files.mk
 include libft/files.mk
-include ft_lexer/files.mk
-include ft_parser/files.mk
+# include ft_lexer/files.mk
+# include ft_parser/files.mk
+include ft_free/files.mk
 
 .PHONY: all clean fclean norm
 
@@ -40,9 +41,9 @@ $(obj)/%.o: %.c
 	@mkdir -p $(obj)/$(shell dirname $<)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-%.c: %.lex
-	@echo "\033[1;33mFLEX \033[0;33m$@\033[0m"
-	@flex -o $@ $<
+# %.c: %.lex
+# 	@echo "\033[1;33mFLEX \033[0;33m$@\033[0m"
+# 	@flex -o $@ $<
 
 clean:
 	rm -rf build-*/obj

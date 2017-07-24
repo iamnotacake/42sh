@@ -1,6 +1,6 @@
 #include "ft_readline_private.h"
 
-t_his			*g_history = NULL;
+t_his			*g_history;
 
 char			*ft_readline(const char *prompt)
 {

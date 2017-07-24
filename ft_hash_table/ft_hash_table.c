@@ -30,7 +30,6 @@ void	ft_free_pth(char **pth)
 
 void	ft_create_table(void)
 {
-	// t_hash	*table;
 	int		i;
 
 	i = 0;
@@ -86,6 +85,6 @@ void	ft_hash_table(const char *const envp[])
 		return ;
 	ft_create_table();
 	ft_hash_create_lst(path);	
-	ft_print_table();
+	// ft_print_table();
 	ft_free_pth(path);
 }

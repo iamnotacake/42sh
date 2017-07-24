@@ -24,30 +24,29 @@
 # define FLOW 6
 
 
-typedef struct		s_match
-{
-	char			*find;
-	struct s_match	*next;
-}					t_match;
+// typedef struct		s_match
+// {
+// 	char			*find;
+// 	struct s_match	*next;
+// }					t_match;
 
-typedef struct		s_focu
-{
-	char			*fold;
-	char			*cut;
-}					t_focu;
+// typedef struct		s_focu
+// {
+// 	char			*fold;
+// 	char			*cut;
+// }					t_focu;
 
-typedef struct		s_his
-{
-	char			*tory;
-	char			*tmp;
-	struct s_his	*prev;
-	struct s_his	*next;
-}					t_his;
+// typedef struct		s_his
+// {
+// 	char			*tory;
+// 	char			*tmp;
+// 	struct s_his	*prev;
+// 	struct s_his	*next;
+// }					t_his;
 
 void				ft_get_line(char **line, t_his **his);
 void				ft_add_to_history(t_his **his, char *line);
 void				ft_terminal_set(void);
-
 void				ft_signals(void);
 void				ft_start(char **env);
 void				ft_parse_args(char **str, char ***env, t_his **his);

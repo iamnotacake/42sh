@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash_table_private.h"
+#include "ft_free_private.h"
 
 void	ft_free_elem(t_lst *lst)
 {
