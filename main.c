@@ -10,7 +10,7 @@ void	init_42(const char *const envp[])
 {
 	g_table = NULL; 
 	ft_hash_table(envp);
-	ft_print_table();
+	// ft_print_table();
 	// parser_init();
 }
 
