@@ -4,11 +4,9 @@
 // #include "ft_lexer.h"
 // #include "ft_parser.h"
 
-t_his	*g_history = NULL;
-
 void	init_42(const char *const envp[])
 {
-	g_table = NULL; 
+	g_table = NULL;
 	ft_hash_table(envp);
 	// ft_print_table();
 	// parser_init();
@@ -18,7 +16,7 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 {
 	char	*pth;
 
-
+	g_history = NULL;
 	init_42(envp);
 	char *cmd = ft_readline("Hello! > "); 
 	write(1, "\n", 1);
