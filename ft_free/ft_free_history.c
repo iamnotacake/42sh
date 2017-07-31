@@ -6,7 +6,9 @@ void	ft_free_history(void)
 {
 	t_his	*tmp;
 
-	while(g_history->next)
+	if (!g_history)
+		return ;
+	while (g_history->next)
 		g_history = g_history->next;
 	while(g_history)
 	{
