@@ -5,6 +5,7 @@ typedef enum	e_token_type
 {
 	T_WHITESPACE,
 	T_STRING,
+	T_OP_BQUOTE,
 	T_OP_PIPE,
 	T_OP_REDIR,
 	T_OP_SEMICOLON,
@@ -14,6 +15,7 @@ typedef enum	e_token_type
 
 typedef enum	e_token_subtype
 {
+	ST_ANY,
 	ST_NONE,
 	ST_QUOTE,
 	ST_DQUOTE,

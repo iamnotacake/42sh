@@ -4,6 +4,8 @@
 #define PUSH(t, st) token_append(&g_tok, token_new(t, st, yytext))
 
 t_token		*g_tok;
+int			g_bquote_count;
+
 %}
 
 WHITESPACE		[ \t]+
@@ -12,6 +14,7 @@ QUOTE			'[^']*'
 QUOTE_EOF		'[^']*
 DQUOTE			\"([^\"\\]|\\.)*\"
 DQUOTE_EOF		\"([^\"\\]|\\.)*
+OP_BQUOTE		"`"
 OP_PIPE			"|"
 OP_REDIR		([1-9&]?>>?)|(<<?)
 OP_BRACKET		"("|")"
@@ -24,6 +27,7 @@ OP_LOGIC		"||"|"&&"
 {STRING}		PUSH(T_STRING, ST_NONE);
 {QUOTE}			PUSH(T_STRING, ST_QUOTE);
 {DQUOTE}		PUSH(T_STRING, ST_DQUOTE);
+{OP_BQUOTE}		PUSH(T_OP_BQUOTE, (g_bquote_count++) & 1 ? ST_RIGHT : ST_LEFT);
 {QUOTE_EOF}		PUSH(T_STRING, ST_QUOTE_EOF);
 {DQUOTE_EOF}	PUSH(T_STRING, ST_DQUOTE_EOF);
 {OP_PIPE}		PUSH(T_OP_PIPE, ST_NONE);
@@ -37,6 +41,7 @@ OP_LOGIC		"||"|"&&"
 t_token			*token_scan_string(const char *string)
 {
 	g_tok = token_new(T_OP_SEMICOLON, ST_NONE, ";");
+	g_bquote_count = 0;
 	yy_scan_string(string);
 	yylex();
 	yy_delete_buffer(YY_CURRENT_BUFFER);
