@@ -3,15 +3,35 @@
 #define RETURN_SUCCESS() { return (tree); }
 #define RETURN_FAIL() { syntax_tree_free(tree); return (NULL); }
 
-t_syntax_tree	*syntax_args(void)
+t_syntax_tree 	*syntax_arg(void)
 {
 	t_syntax_tree	*tree;
 
+	if (parser_accept(T_OP_BQUOTE, ST_LEFT, NULL))
+	{
+		if (!(tree = syntax_bquote()))
+			RETURN_FAIL();
+		if (!parser_accept(T_OP_BQUOTE, ST_RIGHT, NULL))
+			RETURN_FAIL();
+		RETURN_SUCCESS();
+	}
+	tree = syntax_tree_new("string");
+	if (parser_accept(T_STRING, ST_ANY, tree))
+		RETURN_SUCCESS();
+	RETURN_FAIL();
+}
+
+t_syntax_tree	*syntax_args(void)
+{
+	t_syntax_tree	*tree;
+	t_syntax_tree	*elem;
+
 	tree = syntax_tree_new("arguments");
-	if (!parser_accept(T_STRING, ST_ANY, tree))
+	if (!(elem = syntax_arg()))
 		RETURN_FAIL();
-	while (parser_accept(T_STRING, ST_ANY, tree))
-		;
+	syntax_tree_append(tree, elem, NULL);
+	while ((elem = syntax_arg()))
+		syntax_tree_append(tree, elem, NULL);
 	RETURN_SUCCESS();
 }
 
@@ -40,19 +60,6 @@ t_syntax_tree	*syntax_expr(void)
 			RETURN_FAIL();
 		if (!parser_accept(T_OP_BRACKET, ST_RIGHT, NULL))
 			RETURN_FAIL();
-		RETURN_SUCCESS();
-	}
-	printf("check\n");
-	printf("g_curr_sym: %s\n", g_curr_sym->match);
-	if (parser_accept(T_OP_BQUOTE, ST_LEFT, NULL))
-	{
-		printf("have left `\n");
-		if (!(tree = syntax_bquote()))
-			RETURN_FAIL();
-		printf("have inner expr\n");
-		if (!parser_accept(T_OP_BQUOTE, ST_RIGHT, NULL))
-			RETURN_FAIL();
-		printf("have right `\n");
 		RETURN_SUCCESS();
 	}
 	tree = syntax_tree_new("expression");

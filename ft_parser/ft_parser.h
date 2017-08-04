@@ -30,6 +30,7 @@ void 			syntax_tree_free(t_syntax_tree *tree);
 
 void 			parser_init_symbol(t_token *tok);
 
+t_syntax_tree 	*syntax_arg(void);
 t_syntax_tree 	*syntax_args(void);
 t_syntax_tree 	*syntax_redir(void);
 t_syntax_tree 	*syntax_expr(void);
