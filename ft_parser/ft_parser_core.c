@@ -41,7 +41,7 @@ int				parser_accept(t_token_type type,
 		return (1);
 	}
 	return (0);
-}	
+}
 
 void			ft_tree_print(t_syntax_tree *tree, int level)
 {
