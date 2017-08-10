@@ -5,8 +5,9 @@
 #include "ft_parser.h"
 #include "ft_env.h"
 #include "ft_free.h"
+#include "ft_preprocessing.h"
 
-void			ft_tree_print(t_syntax_tree *tree, int level);
+// void	ft_tree_print(t_syntax_tree *tree, int level);
 
 void	init_42(const char *const envp[])
 {
@@ -19,6 +20,29 @@ void	init_42(const char *const envp[])
 	// parser_init();
 }
 
+void	go_42(void)
+{
+	char			*cmd;
+	t_syntax_tree	*tree;
+	t_token			*tokens;
+
+	while (1)
+	{
+		cmd = ft_readline("wtf? > ");
+		tokens = token_scan_string(cmd);
+		parser_init_symbol(tokens);
+		tree = syntax_exprl();
+		parser_simplify(&tree);
+		parser_simplify(&tree);
+		ft_tree_print(tree, 0);
+		ft_preprocessing(tree, 0);
+		ft_free_syntax_tree(tree);
+		token_free_all(tokens);
+		// ft_preprocessing(tree, 0);
+		free(cmd);
+	}
+}
+
 int		main(int argc, const char *const argv[], const char *const envp[])
 {
 	// char	*pth;
@@ -27,19 +51,21 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	(void)argv;
 	g_history = NULL;
 	init_42(envp);
+	go_42();
 	// char *cmd = ft_readline("Hello! > "); 
 	// write(1, "\n", 1);
 	// ft_putendl(cmd);
-	const char *cmd = argv[1];
-	t_token *tokens = token_scan_string(cmd);
-	// for (t_token *t = tokens; t; t = t->next)
-	// 	printf(">%s<\n", t->data ?: t->match);
-	// pth = ft_hash_find_command(cmd);
-	parser_init_symbol(tokens);
-	t_syntax_tree *tree = syntax_exprl();
-	parser_simplify(&tree);
-	parser_simplify(&tree);
-	ft_tree_print(tree, 0);
+	// const char *cmd = argv[1];
+	// t_token *tokens = token_scan_string(cmd);
+	// // for (t_token *t = tokens; t; t = t->next)
+	// // 	printf(">%s<\n", t->data ?: t->match);
+	// // pth = ft_hash_find_command(cmd);
+	// parser_init_symbol(tokens);
+	// t_syntax_tree *tree = syntax_exprl();
+	// parser_simplify(&tree);
+	// parser_simplify(&tree);
+	// ft_tree_print(tree, 0);
+	// ft_preprocessing(tree);
 	ft_free();
 	return (0);
 }

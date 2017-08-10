@@ -25,6 +25,7 @@ include ft_lexer/files.mk
 include ft_parser/files.mk
 include ft_free/files.mk
 include ft_env/files.mk
+include ft_preprocessing/files.mk
 
 .PHONY: all clean fclean norm
 
