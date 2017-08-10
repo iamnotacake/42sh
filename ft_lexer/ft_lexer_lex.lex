@@ -1,7 +1,36 @@
 %{
 #include "ft_lexer_private.h"
 
-#define PUSH(t, st) token_append(&g_tok, token_new(t, st, yytext))
+#define PUSH(t, st) \
+	token_append(&g_tok, token_new(t, st, \
+							t != T_OP_REDIR \
+								? yytext \
+								: ft_token_redir_seq(yytext)))
+
+static char		*ft_token_redir_seq(const char *op)
+{
+	static char	str[3];
+
+	if (op[0] == '&' || ('1' <= op[0] && op[0] <= '9'))
+		str[0] = op[0];
+	else
+		str[0] = '1';
+	if (op[1] == '>' && (op[0] == '>' || op[2] == '>'))
+		str[1] = 'a';
+	else if (op[0] == '>' || op[1] == '>')
+		str[1] = 'w';
+	else if (op[0] == '<' && op[1] == '<')
+	{
+		str[0] = '0';
+		str[1] = 'h';
+	}
+	else if (op[0] == '<' || op[1] == '<')
+		str[1] = 'r';
+	else
+		str[1] = '\0';
+	str[2] = '\0';
+	return (str);
+}
 
 t_token		*g_tok;
 int			g_bquote_count;
