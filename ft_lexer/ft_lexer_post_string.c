@@ -51,5 +51,6 @@ static void		ft_lexer_post_string_join(t_token *tok)
 void			ft_lexer_post_string(t_token *tok)
 {
 	ft_lexer_post_string_extract(tok);
+	ft_lexer_resolve_vars(tok);
 	ft_lexer_post_string_join(tok);
 }
