@@ -5,4 +5,5 @@ SOURCES += ft_preprocessing/ft_preprocessing.c \
 			ft_preprocessing/ft_pre_expression.c \
 			ft_preprocessing/ft_pre_print_proc.c \
 			ft_preprocessing/ft_pre_add_redir.c \
+			ft_preprocessing/ft_pre_piped.c \
 

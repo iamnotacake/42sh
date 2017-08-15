@@ -11,14 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
-#include "ft_parser.h"
-#include "ft_exec.h"
-#include "ft_lexer.h"
-#include "ft_free.h"
 
-#include <stdio.h>
-
-t_proc	*ft_create_proc(void)
+t_proc	*ft_pre_create_proc(void)
 {
 	t_proc	*proc;
 	int		i;
@@ -37,7 +31,7 @@ t_proc	*ft_create_proc(void)
 	return (proc);
 }
 
-void	ft_expression(t_syntax_tree *tree, t_proc **proc, int *level)
+void	ft_expression(t_syntax_tree *tree, t_proc **proc)
 {
 	int	i;
 
@@ -49,9 +43,7 @@ void	ft_expression(t_syntax_tree *tree, t_proc **proc, int *level)
 		i = 0;
 		while (tree->tree[i])
 		{
-			(*level)++;
-			ft_expression(tree->tree[i], proc, level);
-			(*level)--;
+			ft_expression(tree->tree[i], proc);
 			i++;
 		}
 	}
@@ -65,27 +57,29 @@ void	ft_expression(t_syntax_tree *tree, t_proc **proc, int *level)
 		write(1, "redir\n", 6);
 		ft_pre_add_redir(tree, proc);
 	}
-	// printf("%d\n", *level);
+	else if (!ft_strcmp(tree->type, "bquote"))
+	{
+		write(1, "bquote\n", 7);
+		// ft_pre_bquote(tree, proc);
+	}
 }
 
-void	ft_pre_expression(t_syntax_tree *tree)
+void	ft_pre_expression(t_syntax_tree *tree, t_proc **proc)
 {
 	int		i;
-	t_proc	*proc;
-	int		level;
 
-	level = 0;
 	if (tree == NULL)
 		return ;
 	write(1, "expr\n", 5);
-	if (!(proc = ft_create_proc()))
-		return ;
+	if (!(*proc))
+	{
+		if (!((*proc) = ft_pre_create_proc()))
+			return ;
+	}
 	i = 0;
 	while (tree->tree[i])
 	{
-		ft_expression(tree->tree[i], &proc, &level);
+		ft_expression(tree->tree[i], proc);
 		i++;
 	}
-	ft_pre_print_proc(proc);
-	ft_free_proc(proc);
 }

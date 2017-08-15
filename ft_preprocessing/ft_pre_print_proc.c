@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
-#include "ft_parser.h"
-#include "ft_exec.h"
-#include "ft_lexer.h"
-#include "ft_free.h"
-
-#include <stdio.h>
 
 void	ft_pre_print_proc(t_proc *proc)
 {
@@ -31,6 +25,8 @@ void	ft_pre_print_proc(t_proc *proc)
 	printf(""C034"<<LIST>>"C0"\n");
 	while (tmp)
 	{
+		if (tmp->prev || tmp->next)
+			printf(""C035"<<PIPE>>"C0"\n");
 		i = 0;
 		while (tmp->argv[i])
 		{

@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
-// #include "ft_parser.h"
-// #include "ft_exec.h"
-// #include "ft_lexer.h"
-// #include "ft_free.h"
 
 int		ft_count_mas(char **argv)
 {

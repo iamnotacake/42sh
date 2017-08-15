@@ -17,9 +17,14 @@
 # include "ft_lexer.h"
 # include "ft_free.h"
 
+#include <stdio.h>
+
 void	ft_pre_add_arg(t_syntax_tree *tree, t_proc **proc);
-void	ft_pre_expression(t_syntax_tree *tree);
+void	ft_pre_expression(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_print_proc(t_proc *proc);
 void	ft_pre_add_redir(t_syntax_tree *tree, t_proc **proc);
+t_proc	*ft_pre_create_proc(void);
+void	ft_expression(t_syntax_tree *tree, t_proc **proc);
+void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc);
 
 #endif
