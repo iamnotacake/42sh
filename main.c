@@ -29,16 +29,16 @@ void	go_42(void)
 	while (1)
 	{
 		cmd = ft_readline("wtf? > ");
-		tokens = token_scan_string(cmd);
+		tokens = token_scan_string(cmd ?: "");
 		parser_init_symbol(tokens);
 		tree = syntax_exprl();
 		parser_simplify(&tree);
 		parser_simplify(&tree);
+		write(1, "\n", 1);
 		ft_tree_print(tree, 0);
-		ft_preprocessing(tree, 0);
+		ft_preprocessing(tree);
 		ft_free_syntax_tree(tree);
 		token_free_all(tokens);
-		// ft_preprocessing(tree, 0);
 		free(cmd);
 	}
 }

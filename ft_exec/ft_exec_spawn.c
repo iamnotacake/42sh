@@ -1,4 +1,5 @@
 #include "ft_exec_private.h"
+#include "ft_env.h"
 
 void			ft_exec_dup(t_proc *proc)
 {
@@ -39,7 +40,7 @@ void			ft_exec_spawn(t_proc **all, t_proc *proc)
 	{
 		ft_exec_dup(proc);
 		ft_exec_close_except(all, proc);
-		execve(proc->path, proc->argv, proc->env);
+		execve(proc->path, proc->argv, g_env_g);
 	}
 	proc->pid = pid;
 }

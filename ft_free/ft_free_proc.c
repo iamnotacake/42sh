@@ -1,23 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_preprocessing.h                                 :+:      :+:    :+:   */
+/*   ft_free_proc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/05 09:33:59 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/08/05 09:34:02 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/08/12 18:50:19 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/08/12 18:50:21 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_free_private.h"
 
-#ifndef __FT_PREPROCESSING_H
-# define  __FT_PREPROCESSING_H
-# include "ft_preprocessing_private.h"
-// # include "ft_exec.h"
-// # include "ft_lexer.h"
-// # include "ft_parser.h"
+void	ft_free_proc(t_proc *proc)
+{
+	int		i;
+	t_proc	*tmp;
 
-void	ft_preprocessing(t_syntax_tree *tree);
-
-#endif
+	if (!proc)
+		return ;
+	while (proc->prev)
+		proc = proc->prev;
+	while (proc)
+	{
+		if (proc->path)
+			free(proc->path);
+		i = 0;
+		if (proc->argv)
+		{
+			// while (proc->argv[i])
+			// {
+			// 	free(proc->argv[i]);
+			// 	i++;
+			// }
+			free(proc->argv);
+		}
+		tmp = proc;
+		proc = proc->next;
+		free(tmp);
+	}
+}

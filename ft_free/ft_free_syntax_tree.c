@@ -27,6 +27,8 @@ void	ft_free_syntax_tree(t_syntax_tree *tree)
 {
 	int			i;
 
+	if (!tree)
+		return ;
 	i = 0;
 	while (tree->tree[i])
 	{
