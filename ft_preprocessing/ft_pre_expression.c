@@ -37,6 +37,11 @@ void	ft_expression(t_syntax_tree *tree, t_proc **proc)
 
 	if (tree == NULL)
 		return ;
+	if (!(*proc))	// без этого сегфолт в logic
+	{
+		if (!((*proc) = ft_pre_create_proc()))
+			return ;
+	}
 	if (!ft_strcmp(tree->type, "arguments"))
 	{
 		write(1, "args\n", 5);
@@ -82,4 +87,10 @@ void	ft_pre_expression(t_syntax_tree *tree, t_proc **proc)
 		ft_expression(tree->tree[i], proc);
 		i++;
 	}
+	// if ((*proc))
+	// {
+	// 	ft_pre_print_proc(*proc);
+	// 	ft_exec(proc);
+	// 	ft_free_proc(*proc);
+	// }
 }

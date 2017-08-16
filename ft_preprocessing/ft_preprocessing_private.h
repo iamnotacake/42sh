@@ -26,5 +26,8 @@ void	ft_pre_add_redir(t_syntax_tree *tree, t_proc **proc);
 t_proc	*ft_pre_create_proc(void);
 void	ft_expression(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc);
+void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc);
+void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc);
+void	ft_pre_check_next_tree(t_syntax_tree *tree, t_proc **proc);
 
 #endif
