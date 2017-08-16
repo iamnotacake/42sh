@@ -18,10 +18,14 @@ void	ft_preprocessing(t_syntax_tree *tree)
 	t_proc	*proc;
 
 	proc = NULL;
+	if (!tree)
+		return ;
 	if (!ft_strcmp(tree->type, "expression"))
 		ft_pre_expression(tree, &proc);
 	else if (!ft_strcmp(tree->type, "piped"))
 		ft_pre_piped(tree, &proc);
+	else if (!ft_strcmp(tree->type, "logic"))
+		ft_pre_logic(tree, &proc);
 	else if (!ft_strcmp(tree->type, "list"))
 	{
 		i = 0;
@@ -35,7 +39,8 @@ void	ft_preprocessing(t_syntax_tree *tree)
 	if (proc)
 	{
 		ft_pre_print_proc(proc);
-		ft_free_proc(proc);
+		ft_exec(&proc);				// это все под вопросом,
+		ft_free_proc(proc);			// наверное лучше это выполнять в своих логических функциях
 	}
 }
 

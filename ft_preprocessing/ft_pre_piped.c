@@ -12,7 +12,7 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_proc(t_proc **proc, t_proc **tmp)
+void	ft_pre_add_proc_to_end(t_proc **proc, t_proc **tmp)
 {
 	if (!(*proc))
 		(*proc) = (*tmp);
@@ -24,7 +24,7 @@ void	ft_pre_proc(t_proc **proc, t_proc **tmp)
 	}
 }
 
-void	ft_pre_check(t_syntax_tree *tree, t_proc **proc)
+void	ft_pre_check_next_tree(t_syntax_tree *tree, t_proc **proc)
 {
 	int	i;
 
@@ -37,8 +37,16 @@ void	ft_pre_check(t_syntax_tree *tree, t_proc **proc)
 			i++;
 		}
 	}
+	else if (!ft_strcmp(tree->type, "piped"))
+	{
+		ft_pre_piped(tree, proc);
+	}
+	
 	else
+	{
 		printf(""C031"WTF???"C0"\n");
+		printf("%s\n", tree->type);
+	}
 }
 
 void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
@@ -72,7 +80,7 @@ void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc)
 
 	if (tree == NULL)
 		return ;
-	write(1, "piped\n", 6);
+	write(1, "piped!\n", 7);
 	i = 0;
 	fd = 0;
 	while (tree->tree[i])
@@ -82,9 +90,15 @@ void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc)
 			ft_free_proc((*proc));
 			return ;
 		}
-		ft_pre_proc(proc, &tmp);
-		ft_pre_check(tree->tree[i], proc);
+		ft_pre_add_proc_to_end(proc, &tmp);
+		ft_pre_check_next_tree(tree->tree[i], proc);
 		ft_pre_pipe_fd(tree, proc, i, &fd);
 		i++;
 	}
+	// if ((*proc))
+	// {
+	// 	ft_pre_print_proc(*proc);
+	// 	ft_exec(proc);
+	// 	ft_free_proc(*proc);
+	// }
 }
