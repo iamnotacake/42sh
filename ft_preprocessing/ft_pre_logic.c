@@ -12,7 +12,7 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc)
+void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *flag)
 {
 	int		i;
 	char	**logic;
@@ -25,12 +25,7 @@ void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc)
 	logic = tree->args;
 	while (tree->tree[i])
 	{
-		// if (!(*proc))
-		// {
-		// 	if (!((*proc) = ft_pre_create_proc()))
-		// 		return ;
-		// }
-		ft_pre_check_next_tree(tree->tree[i], proc);
+		ft_pre_by_type(tree->tree[i], proc, flag);
 		ft_pre_print_proc(*proc);
 		if (logic[i])
 		{
@@ -38,19 +33,11 @@ void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc)
 			if ((!ft_strcmp(logic[i], "&&") && result) ||
 				(!ft_strcmp(logic[i], "||") && !result))
 			{
-				printf("come on!\n");
+				printf("NOT TRUE!\n");
 				ft_free_proc((*proc));
 				(*proc) = NULL;
 				return ;
 			}
-			// else if (!ft_strcmp(logic[i], "||") && !result)
-			// {
-			// 	printf("come on!\n");
-			// 	ft_free_proc((*proc));
-			// 	(*proc) = NULL;
-			// 	return ;
-			// }
-			// ft_free_proc((*proc));
 		}
 		ft_free_proc((*proc));
 		(*proc) = NULL;

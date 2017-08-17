@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pre_add_arg.c                                   :+:      :+:    :+:   */
+/*   ft_pre_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -32,13 +32,14 @@ void	ft_realloc_arg(t_syntax_tree *tree, t_proc **proc)
 		return ;
 	mas[n + 1] = NULL;
 	mas[n] = tree->args[0];
+	printf("arg[n]:%s\n", mas[n]);
 	while (--n >= 0)
 		mas[n] = (*proc)->argv[n];
 	free((*proc)->argv);
 	(*proc)->argv = mas;
 }
 
-void	ft_pre_add_arg(t_syntax_tree *tree, t_proc **proc)
+void	ft_pre_string(t_syntax_tree *tree, t_proc **proc)
 {
 	char	**mas;
 
@@ -51,6 +52,7 @@ void	ft_pre_add_arg(t_syntax_tree *tree, t_proc **proc)
 		mas[0] = tree->args[0];
 		mas[1] = NULL;
 		(*proc)->argv = mas;
+		printf("arg[0]:%s\n", (*proc)->argv[0]);
 	}
 	else
 		ft_realloc_arg(tree, proc);

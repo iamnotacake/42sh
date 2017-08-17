@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pre_bquote.c                                    :+:      :+:    :+:   */
+/*   ft_pre_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/15 18:31:43 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/08/15 18:31:45 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/08/15 12:09:22 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/08/15 12:09:24 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *flag)
+void	ft_pre_redirection(t_syntax_tree *tree, t_proc **proc)
 {
-	int	old1;
+	int	from;
+	int	to;
 
-	old1 = dup(1);
-	
+	if (tree->args[0][0] == 'w')
+	{
+		from = ft_atoi(tree->args[0] + 1);
+		printf("redir: %d\n", from);
+		if (!ft_strcmp(tree->args[1], "-"))
+			(*proc)->dup[from] = -1;
+		else if (tree->args[1][0] == '&')
+		{
+			to = ft_atoi(tree->args[1] + 1);
+			(*proc)->dup[from] = to;
+		}
+	}
 }

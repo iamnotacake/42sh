@@ -12,41 +12,27 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_add_proc_to_end(t_proc **proc, t_proc **tmp)
+void	ft_pre_add_proc_to_end(t_proc **proc)
 {
-	if (!(*proc))
-		(*proc) = (*tmp);
-	else
-	{
-		(*proc)->next = (*tmp);
-		(*tmp)->prev = (*proc);
-		(*proc) = (*proc)->next;
-	}
-}
+	t_proc	*tmp;
 
-void	ft_pre_check_next_tree(t_syntax_tree *tree, t_proc **proc)
-{
-	int	i;
-
-	if (!ft_strcmp(tree->type, "expression"))
-	{
-		i = 0;
-		while (tree->tree[i])
+	// if (!(*proc)->argv)
+	// {
+		if (!(tmp = ft_pre_create_proc()))
 		{
-			ft_expression(tree->tree[i], proc);
-			i++;
+			ft_free_proc((*proc));
+			return ;
 		}
-	}
-	else if (!ft_strcmp(tree->type, "piped"))
-	{
-		ft_pre_piped(tree, proc);
-	}
-	
-	else
-	{
-		printf(""C031"WTF???"C0"\n");
-		printf("%s\n", tree->type);
-	}
+	// 	(*proc)->next = tmp;
+	// 	tmp->prev = (*proc);
+	// 	(*proc) = (*proc)->next;
+	// }
+	// else
+	// {
+		(*proc)->next = tmp;
+		tmp->prev = (*proc);
+		(*proc) = (*proc)->next;
+	// }
 }
 
 void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
@@ -72,10 +58,10 @@ void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
 	}
 }
 
-void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc)
+void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc, int *flag)
 {
 	int		i;
-	t_proc	*tmp;
+	// t_proc	*tmp;
 	int		fd;
 
 	if (tree == NULL)
@@ -83,22 +69,22 @@ void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc)
 	write(1, "piped!\n", 7);
 	i = 0;
 	fd = 0;
+	*flag = 1;
 	while (tree->tree[i])
 	{
-		if (!(tmp = ft_pre_create_proc()))
-		{
-			ft_free_proc((*proc));
-			return ;
-		}
-		ft_pre_add_proc_to_end(proc, &tmp);
-		ft_pre_check_next_tree(tree->tree[i], proc);
+		// if (!(tmp = ft_pre_create_proc()))
+		// {
+		// 	ft_free_proc((*proc));
+		// 	return ;
+		// }
+		// ft_pre_add_proc_to_end(proc);
+		ft_pre_by_type(tree->tree[i], proc, flag);
 		ft_pre_pipe_fd(tree, proc, i, &fd);
+		if (tree->tree[i + 1])
+		{
+			ft_pre_add_proc_to_end(proc);
+		}
 		i++;
 	}
-	// if ((*proc))
-	// {
-	// 	ft_pre_print_proc(*proc);
-	// 	ft_exec(proc);
-	// 	ft_free_proc(*proc);
-	// }
+	*flag = 0;
 }

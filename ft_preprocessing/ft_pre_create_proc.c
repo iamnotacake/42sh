@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pre_add_redir.c                                 :+:      :+:    :+:   */
+/*   ft_pre_create_proc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/15 12:09:22 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/08/15 12:09:24 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/08/15 10:40:14 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/08/15 10:40:17 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_add_redir(t_syntax_tree *tree, t_proc **proc)
+t_proc	*ft_pre_create_proc(void)
 {
-	int	from;
-	int	to;
+	t_proc	*proc;
+	int		i;
 
-	if (tree->args[0][0] == 'w')
-	{
-		from = ft_atoi(tree->args[0] + 1);
-		printf("redir: %d\n", from);
-		if (!ft_strcmp(tree->args[1], "-"))
-			(*proc)->dup[from] = -1;
-		else
-		{
-			to = ft_atoi(tree->args[1]);
-			(*proc)->dup[from] = to;
-		}
-	}
+	i = -1;
+	if (!(proc = (t_proc *)malloc(sizeof(t_proc))))
+		return (NULL);
+	proc->path = NULL;
+	proc->argv = NULL;
+	while(i++ < 10)
+		proc->dup[i] = i;
+	proc->pid = 0;
+	proc->status = 0;
+	proc->prev = NULL;
+	proc->next = NULL;
+	return (proc);
 }
+
