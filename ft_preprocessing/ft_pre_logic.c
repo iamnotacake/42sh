@@ -12,35 +12,52 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *flag)
+void	ft_pre_logic_while(t_syntax_tree *tree, t_proc **proc, int *lock)
 {
-	int		i;
-	char	**logic;
-	int		result;
+	static int	stat = 0;
+	static char	*logic;
+	int			i;
 
-	if (tree == NULL)
-		return ;
-	write(1, "logic\n", 6);
+	logic = NULL;
 	i = 0;
-	logic = tree->args;
 	while (tree->tree[i])
 	{
-		ft_pre_by_type(tree->tree[i], proc, flag);
-		ft_pre_print_proc(*proc);
-		if (logic[i])
+		printf("Logic: %s, stat: %d\n", 
+			logic, stat);
+		if ((ft_strequ(logic, "&&")  && !stat) ||
+			(ft_strequ(logic, "||")  && stat) || !i)
 		{
-			result = ft_exec(proc);
-			if ((!ft_strcmp(logic[i], "&&") && result) ||
-				(!ft_strcmp(logic[i], "||") && !result))
+			printf("TRUE!\n");
+			ft_pre_by_type(tree->tree[i], proc, lock);
+			ft_pre_print_proc(*proc);
+			if (*proc)
 			{
-				printf("NOT TRUE!\n");
-				ft_free_proc((*proc));
-				(*proc) = NULL;
-				return ;
+				printf("fuck\n");
+				stat = ft_exec(proc);
 			}
+			printf("stat %d\n", stat);
 		}
+		if (tree->args[i])
+			logic = tree->args[i];
 		ft_free_proc((*proc));
 		(*proc) = NULL;
 		i++;
 	}
+}
+
+void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *lock)
+{
+	int			d;
+
+	d = 0;
+	if (tree == NULL)
+		return ;
+	if (!(*lock))
+	{
+		*lock = 1;
+		d = 1;
+	}
+	ft_pre_logic_while(tree, proc, lock);
+	if (d)
+		*lock = 0;
 }

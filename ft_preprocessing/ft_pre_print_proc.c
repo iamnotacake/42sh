@@ -21,7 +21,10 @@ void	ft_pre_print_proc(t_proc *proc)
 	if (!tmp)
 		return ;
 	while (tmp->prev)
+	{
+		printf("prev--\n");
 		tmp = tmp->prev;
+	}
 	printf(""C034"<<LIST>>"C0"\n");
 	while (tmp)
 	{

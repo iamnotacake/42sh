@@ -12,7 +12,7 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *flag)
+void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *lock)
 {
 	int	old1;
 
