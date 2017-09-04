@@ -102,7 +102,6 @@ void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock)
 		ft_pre_redirection(tree, proc);
 	else if (!ft_strcmp(tree->type, "bquote"))
 		ft_pre_bquote(tree, proc, lock);
-	// printf("lock %d\n", *lock);
 	if (*proc && !(*lock))
 		ft_pre_execve(proc);
 }
