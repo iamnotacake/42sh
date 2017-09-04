@@ -22,17 +22,19 @@ void	ft_pre_logic_while(t_syntax_tree *tree, t_proc **proc, int *lock)
 	i = 0;
 	while (tree->tree[i])
 	{
-		printf("Logic: %s, stat: %d\n", 
-			logic, stat);
+		// printf("Logic: %s, stat: %d\n", 
+		// 	logic, stat);
 		if ((ft_strequ(logic, "&&")  && !stat) ||
 			(ft_strequ(logic, "||")  && stat) || !i)
 		{
 			printf("TRUE!\n");
+			// printf("LOCK %d\n", *lock);
 			ft_pre_by_type(tree->tree[i], proc, lock);
-			ft_pre_print_proc(*proc);
+			// ft_pre_print_proc(*proc);
 			if (*proc)
 			{
-				printf("fuck\n");
+				printf("go exec, fuck\n");
+				ft_pre_print_proc(*proc);
 				stat = ft_exec(proc);
 			}
 			printf("stat %d\n", stat);

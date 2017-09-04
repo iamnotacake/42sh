@@ -59,6 +59,7 @@ void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc, int *lock)
 		return ;
 	i = 0;
 	fd = 0;
+	d = 0;
 	if (!(*lock))
 	{
 		*lock = 1;

@@ -14,7 +14,7 @@ typedef struct		s_proc
 	struct s_proc	*next;
 }					t_proc;
 
-int					ft_exec(t_proc **all);
+int					ft_exec(t_proc **proc);
 
 // t_proc **p = malloc(sizeof(t_proc *) * 3);
 // p[0] = ...;
