@@ -12,10 +12,30 @@
 
 #include "ft_preprocessing_private.h"
 
+void	ft_pre_print_args(t_proc *tmp)
+{
+	int	i;
+
+	if (tmp->prev || tmp->next)
+		printf(""C035"<<PIPE>>"C0"\n");
+	i = 0;
+	while (tmp->argv[i])
+	{
+		printf("arg[%d]: "C033"%s"C0"\n", i, tmp->argv[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 10)
+	{
+		if (tmp->dup[i] != i)
+			printf("dup2("C031"%d, "C032"%d"C0")\n", tmp->dup[i], i);
+		i++;
+	}
+}
+
 void	ft_pre_print_proc(t_proc *proc)
 {
 	t_proc	*tmp;
-	int		i;
 
 	tmp = proc;
 	if (!tmp)
@@ -28,21 +48,7 @@ void	ft_pre_print_proc(t_proc *proc)
 	printf(""C034"<<LIST>>"C0"\n");
 	while (tmp)
 	{
-		if (tmp->prev || tmp->next)
-			printf(""C035"<<PIPE>>"C0"\n");
-		i = 0;
-		while (tmp->argv[i])
-		{
-			printf("arg[%d]: "C033"%s"C0"\n", i, tmp->argv[i]);
-			i++;
-		}
-		i = 0;
-		while (i < 10)
-		{
-			if (tmp->dup[i] != i)
-				printf("dup2("C031"%d, "C032"%d"C0")\n", tmp->dup[i], i);
-			i++;
-		}
+		ft_pre_print_args(tmp);
 		tmp = tmp->next;
 	}
 }

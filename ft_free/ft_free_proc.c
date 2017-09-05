@@ -12,9 +12,21 @@
 
 #include "ft_free_private.h"
 
+void	ft_free_close_fd(int *fd)
+{
+	int	i;
+
+	i = 0;
+	while (i < 10)
+	{
+		if (fd[i] != i)
+			close(fd[i]);
+		i++;
+	}
+}
+
 void	ft_free_proc(t_proc *proc)
 {
-	int		i;
 	t_proc	*tmp;
 
 	if (!proc)
@@ -25,16 +37,9 @@ void	ft_free_proc(t_proc *proc)
 	{
 		if (proc->path)
 			free(proc->path);
-		i = 0;
 		if (proc->argv)
-		{
-			// while (proc->argv[i])
-			// {
-			// 	free(proc->argv[i]);
-			// 	i++;
-			// }
 			free(proc->argv);
-		}
+		ft_free_close_fd(proc->dup);
 		tmp = proc;
 		proc = proc->next;
 		free(tmp);

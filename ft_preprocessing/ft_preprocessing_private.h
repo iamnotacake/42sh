@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #ifndef __FT_PREPROCESSING_PRIVATE_H
-# define  __FT_PREPROCESSING_PRIVATE_H
+# define __FT_PREPROCESSING_PRIVATE_H
 # include "ft_parser.h"
 # include "ft_exec.h"
 # include "ft_lexer.h"
 # include "ft_free.h"
 
-#include <stdio.h>
+# include <stdio.h>
 
 t_proc	*ft_pre_create_proc(void);
 void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock);
@@ -27,5 +27,7 @@ void	ft_pre_redirection(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc, int *lock);
 void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *lock);
 void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *lock);
+void	ft_pre_heredoc_fd(t_syntax_tree *tree, t_proc **proc);
+void	ft_pre_exec(t_proc **proc);
 
 #endif
