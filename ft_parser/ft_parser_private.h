@@ -12,11 +12,6 @@ t_token			*g_prev_tok;
 t_token			*g_curr_sym;
 t_token			*g_next_sym;
 
-t_syntax_tree 	*syntax_tree_new(const char *type);
-void 			syntax_tree_append(t_syntax_tree *tree,
-									t_syntax_tree *tr,
-									char *arg);
-
 void 			parser_next_symbol(void);
 void 			parser_prev_symbol(void);
 int				parser_accept(t_token_type type,

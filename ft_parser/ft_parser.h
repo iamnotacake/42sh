@@ -24,6 +24,7 @@ typedef struct	s_syntax_tree
 	const char				*type;
 	struct s_syntax_tree	**tree;
 	char					**args;
+	int						need_globbing;
 }				t_syntax_tree;
 
 void 			syntax_tree_free(t_syntax_tree *tree);
@@ -38,6 +39,11 @@ t_syntax_tree 	*syntax_pexpr(void);
 t_syntax_tree	*syntax_lexpr(void);
 t_syntax_tree 	*syntax_exprl(void);
 t_syntax_tree 	*syntax_bquote(void);
+
+t_syntax_tree 	*syntax_tree_new(const char *type);
+void 			syntax_tree_append(t_syntax_tree *tree,
+									t_syntax_tree *tr,
+									char *arg);
 
 void 			parser_simplify(t_syntax_tree **tree);
 
