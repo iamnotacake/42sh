@@ -2,7 +2,7 @@
 
 int				ft_globbing_init(const char *pattern)
 {
-	// If `pattern` is something that has *, , etc:
+	// If `pattern` is something that has *, ?, etc:
 	// 	 init some global structure with *copy* of that pattern
 	// 	 return 1
 	// else

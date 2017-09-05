@@ -22,7 +22,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 	i = 0;
 	while (arguments->tree[i])
 	{
-		if (strcmp(arguments->tree[i]->type, "string") == 0 &&
+		if (arguments->tree[i]->need_globbing &&
 			ft_globbing_init(arguments->tree[i]->args[0]))
 		{
 			syntax_tree_free(arguments->tree[i]);
