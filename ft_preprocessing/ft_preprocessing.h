@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef __FT_PREPROCESSING_H
-# define  __FT_PREPROCESSING_H
+# define __FT_PREPROCESSING_H
 # include "ft_preprocessing_private.h"
 
 void	ft_preprocessing(t_syntax_tree *tree);

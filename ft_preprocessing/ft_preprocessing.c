@@ -68,15 +68,6 @@ void	ft_pre_arguments(t_syntax_tree *tree, t_proc **proc, int *lock)
 	}
 }
 
-void	ft_pre_execve(t_proc **proc)
-{
-	printf("EXECVE\n");
-	ft_pre_print_proc(*proc);
-	ft_exec(proc);
-	ft_free_proc(*proc);
-	*proc = NULL;
-}
-
 void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock)
 {
 	if (!tree)
@@ -103,16 +94,15 @@ void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock)
 	else if (!ft_strcmp(tree->type, "bquote"))
 		ft_pre_bquote(tree, proc, lock);
 	if (*proc && !(*lock))
-		ft_pre_execve(proc);
+		ft_pre_exec(proc);
 }
 
 void	ft_preprocessing(t_syntax_tree *tree)
 {
-		t_proc	*proc;
-		int		lock;
+	t_proc	*proc;
+	int		lock;
 
-		proc = NULL;
-		lock = 0;
-		ft_pre_by_type(tree, &proc, &lock);
+	proc = NULL;
+	lock = 0;
+	ft_pre_by_type(tree, &proc, &lock);
 }
-

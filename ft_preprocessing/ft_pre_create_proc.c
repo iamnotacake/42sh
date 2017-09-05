@@ -22,7 +22,7 @@ t_proc	*ft_pre_create_proc(void)
 		return (NULL);
 	proc->path = NULL;
 	proc->argv = NULL;
-	while(i++ < 10)
+	while (i++ < 10)
 		proc->dup[i] = i;
 	proc->pid = 0;
 	proc->status = 0;
@@ -30,4 +30,3 @@ t_proc	*ft_pre_create_proc(void)
 	proc->next = NULL;
 	return (proc);
 }
-

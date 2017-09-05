@@ -28,7 +28,7 @@ void	go_42(void)
 
 	while (1)
 	{
-		if ((cmd = ft_readline("wtf? > ")))
+		if ((cmd = ft_readline("wtf $> ")))
 		{
 			tokens = token_scan_string(cmd ?: "");
 			parser_init_symbol(tokens);
