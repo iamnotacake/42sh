@@ -19,7 +19,7 @@ void	ft_free_close_fd(int *fd)
 	i = 0;
 	while (i < 10)
 	{
-		if (fd[i] != i)
+		if (fd[i] != i && fd[i] > 2)
 			close(fd[i]);
 		i++;
 	}

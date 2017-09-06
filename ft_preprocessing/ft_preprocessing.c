@@ -26,6 +26,8 @@ void	ft_pre_expression(t_syntax_tree *tree, t_proc **proc, int *lock)
 	}
 	while (tree->tree[i])
 	{
+		if (i > 0 && !(*proc))
+			return ;
 		ft_pre_by_type(tree->tree[i], proc, lock);
 		i++;
 	}

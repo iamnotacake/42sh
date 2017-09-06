@@ -20,17 +20,48 @@ void	ft_pre_permission_error(t_syntax_tree *tree, t_proc **proc)
 	ft_putendl(tree->args[1]);
 }
 
+void	ft_pre_redir_fd(t_syntax_tree *tree, t_proc **proc)
+{
+	int	num1;
+	int	num2;
+
+	num1 = 0;
+	if (!ft_strcmp(tree->args[1], "-"))
+	{
+		if ((num1 = open("/dev/null", O_WRONLY |
+			O_CREAT | O_TRUNC, 0640)) < 2)
+		{
+			ft_pre_permission_error(tree, proc);
+			return ;
+		}
+	}
+	else if (tree->args[1][0] == '&')
+	{
+		num1 = ft_atoi(tree->args[1] + 1);
+	}
+	num2 = ft_atoi(tree->args[0] + 1);
+	if ((*proc)->dup[num2] != num2 && (*proc)->dup[num2] > 2)
+		close((*proc)->dup[num2]);
+	(*proc)->dup[num2] = num1;
+}
+
 void	ft_pre_write_fd(t_syntax_tree *tree, t_proc **proc)
 {
 	int	fd;
 
-	if (tree->args[0][1] == '1')
+	if (!ft_strcmp(tree->args[1], "-") || tree->args[1][0] == '&')
+		ft_pre_redir_fd(tree, proc);
+	else if (tree->args[0][1] == '1')
 	{
 		if ((fd = open(tree->args[1], O_WRONLY |
 			O_CREAT | O_TRUNC, 0640)) < 2)
 			ft_pre_permission_error(tree, proc);
 		else
+		{
+			if ((*proc)->dup[1] != 1 && (*proc)->dup[1] > 2)
+				close((*proc)->dup[1]);
 			(*proc)->dup[1] = fd;
+		}
 	}
 }
 
@@ -44,7 +75,11 @@ void	ft_pre_append_fd(t_syntax_tree *tree, t_proc **proc)
 			O_CREAT | O_APPEND, 0640)) < 2)
 			ft_pre_permission_error(tree, proc);
 		else
+		{
+			if ((*proc)->dup[1] != 1 && (*proc)->dup[1] > 2)
+				close((*proc)->dup[1]);
 			(*proc)->dup[1] = fd;
+		}
 	}
 }
 
@@ -54,11 +89,14 @@ void	ft_pre_read_fd(t_syntax_tree *tree, t_proc **proc)
 
 	if (tree->args[0][1] == '0')
 	{
-		if ((fd = open(tree->args[1], O_WRONLY |
-			O_CREAT | O_APPEND, 0640)) < 2)
+		if ((fd = open(tree->args[1], O_RDONLY)) < 2)
 			ft_pre_permission_error(tree, proc);
 		else
+		{
+			if ((*proc)->dup[0] != 0 && (*proc)->dup[0] > 2)
+				close((*proc)->dup[0]);
 			(*proc)->dup[0] = fd;
+		}
 	}
 }
 

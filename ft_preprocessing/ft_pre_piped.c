@@ -35,18 +35,26 @@ void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
 	if (i == 0)
 	{
 		pipe(p);
+		if ((*proc)->dup[1] != 1 && (*proc)->dup[1] > 2)
+			close((*proc)->dup[1]);
 		(*proc)->dup[1] = p[1];
 		(*fd) = p[0];
 	}
 	else if (tree->tree[i + 1])
 	{
 		pipe(p);
+		if ((*proc)->dup[0] != 0 && (*proc)->dup[0] > 2)
+			close((*proc)->dup[0]);
+		if ((*proc)->dup[1] != 1 && (*proc)->dup[1] > 2)
+			close((*proc)->dup[1]);
 		(*proc)->dup[0] = (*fd);
 		(*proc)->dup[1] = p[1];
 		(*fd) = p[0];
 	}
 	else if (!tree->tree[i + 1])
 	{
+		if ((*proc)->dup[0] != 0 && (*proc)->dup[0] > 2)
+			close((*proc)->dup[0]);
 		(*proc)->dup[0] = (*fd);
 	}
 }

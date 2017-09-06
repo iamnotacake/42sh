@@ -43,8 +43,11 @@ void	ft_exec_close_parent_fd(t_proc *proc)
 		i = 0;
 		while (i < 10)
 		{
-			if (tmp->dup[i] != i)
+			if (tmp->dup[i] != i && tmp->dup[i] > 2)
+			{
+				// printf("close: %d\n", tmp->dup[i]);
 				close(tmp->dup[i]);
+			}
 			i++;
 		}
 		tmp = tmp->next;
