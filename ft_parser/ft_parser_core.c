@@ -35,10 +35,12 @@ int				parser_accept(t_token_type type,
 		(subtype == ST_ANY || g_curr_sym->subtype == subtype))
 	{
 		if (tree)
+		{
 			syntax_tree_append(tree, NULL,
-								strdup(g_curr_sym->data ?: g_curr_sym->match));
-		tree->need_globbing = g_curr_sym->type == T_STRING &&
-								g_curr_sym->subtype == ST_NONE;
+					strdup(g_curr_sym->data ?: g_curr_sym->match));
+			tree->need_globbing = g_curr_sym->type == T_STRING &&
+				g_curr_sym->subtype == ST_NONE;
+		}
 		parser_next_symbol();
 		return (1);
 	}
