@@ -28,6 +28,13 @@ void	ft_pre_add_proc_to_end(t_proc **proc)
 	(*proc) = (*proc)->next;
 }
 
+void	ft_pre_short(t_proc **proc, int fd)
+{
+	if ((*proc)->dup[0] != 0 && (*proc)->dup[0] > 2)
+		close((*proc)->dup[0]);
+	(*proc)->dup[0] = fd;
+}
+
 void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
 {
 	int	p[2];
@@ -52,11 +59,7 @@ void	ft_pre_pipe_fd(t_syntax_tree *tree, t_proc **proc, int i, int *fd)
 		(*fd) = p[0];
 	}
 	else if (!tree->tree[i + 1])
-	{
-		if ((*proc)->dup[0] != 0 && (*proc)->dup[0] > 2)
-			close((*proc)->dup[0]);
-		(*proc)->dup[0] = (*fd);
-	}
+		ft_pre_short(proc, *fd);
 }
 
 void	ft_pre_fill_list(t_syntax_tree *tree, t_proc **proc, int *lock)

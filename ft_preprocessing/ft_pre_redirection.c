@@ -12,14 +12,6 @@
 
 #include "ft_preprocessing_private.h"
 
-void	ft_pre_permission_error(t_syntax_tree *tree, t_proc **proc)
-{
-	ft_free_proc(*proc);
-	*proc = NULL;
-	write(2, "wtf: permission denied: ", 24);
-	ft_putendl(tree->args[1]);
-}
-
 void	ft_pre_redir_fd(t_syntax_tree *tree, t_proc **proc)
 {
 	int	num1;

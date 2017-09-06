@@ -29,5 +29,6 @@ void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *lock);
 void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *lock);
 void	ft_pre_heredoc_fd(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_exec(t_proc **proc);
+void	ft_pre_permission_error(t_syntax_tree *tree, t_proc **proc);
 
 #endif

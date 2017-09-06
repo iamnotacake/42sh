@@ -10,4 +10,5 @@ SOURCES += ft_preprocessing/ft_preprocessing.c \
 			ft_preprocessing/ft_pre_logic.c \
 			ft_preprocessing/ft_pre_heredoc_fd.c \
 			ft_preprocessing/ft_pre_exec.c \
+			ft_preprocessing/ft_pre_permission_error.c \
 
