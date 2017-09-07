@@ -50,6 +50,7 @@ void				ft_add_to_history(t_his **his, char *line);
 void				ft_terminal_set(void);
 void				ft_signals(void);
 void				ft_start(char **env);
+int					ft_count_env(char **en);
 void				ft_parse_args(char **str, char ***env, t_his **his);
 void				ft_get_line_save(char **lft, char **rgt, char **line,
 					t_his **his);

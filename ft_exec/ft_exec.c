@@ -1,29 +1,5 @@
 #include "ft_exec_private.h"
 
-// int				ft_exec(t_proc **all)
-// {
-// 	int			i;
-// 	int			pipe_pair[2];
-
-// 	i = 0;
-// 	while (all[i])
-// 	{
-// 		if (all[i + 1])
-// 		{
-// 			pipe(pipe_pair);
-// 			all[i]->dup[1] = pipe_pair[1];
-// 			all[i + 1]->dup[0] = pipe_pair[0];
-// 		}
-// 		ft_exec_spawn(all, all[i]);
-// 		i += 1;
-// 	}
-// 	ft_exec_wait_all(all);
-// 	i = 0;
-// 	while (all[i + 1])
-// 		i += 1;
-// 	return (all[i]->status);
-// }
-
 void	ft_exex_proc_up(t_proc **proc)
 {
 	if (!(*proc))
@@ -54,23 +30,69 @@ void	ft_exec_close_parent_fd(t_proc *proc)
 	}
 }
 
+void	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_putstr(env[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+}
+
+int		ft_exec_builtins(t_proc **proc)
+{
+	int	status;
+
+	status = 1;
+	if (!ft_strcmp("exit", (*proc)->argv[0]))
+		exit(0);
+	else if (!ft_strcmp("setenv", (*proc)->argv[0]))
+		status = ft_built_setenv(&g_env_g, (*proc)->argv);
+	else if (!ft_strcmp("unsetenv", (*proc)->argv[0]))
+		status = ft_built_unsetenv(&g_env_g, (*proc)->argv);
+	else if (!ft_strcmp("cd", (*proc)->argv[0]))
+		status = ft_built_cd(&g_env_g, (*proc)->argv);
+	else if (!ft_strcmp("env", (*proc)->argv[0]))
+		ft_env(g_env_g);
+	return (status);
+}
+
+int		ft_exec_check(t_proc **proc)
+{
+	t_proc	*tmp;
+	int		status;
+
+	status = -1;
+	if ((status = ft_exec_builtins(proc)) == 1)
+		status = ft_exec_standart(proc);
+	return (status);
+}
+
 int		ft_exec(t_proc **proc)
 {
-	if (!(*proc))
-	{
-		printf("zalupa\n");
-		return (-1);
-	}
+	int		status;
+	int		result;
+	t_proc	*tmp;
 
-	ft_exex_proc_up(proc);
-	ft_exec_close_parent_fd(*proc);
-	printf("exec: %s\n", (*proc)->argv[0]);
-	
-	if (ft_strequ((*proc)->argv[0], "b"))
-	{
-		printf("RETURN (-1)\n");
+	if (!(*proc))
 		return (-1);
+	ft_exex_proc_up(proc);
+	tmp = (*proc);
+	while ((*proc))
+	{
+		result = ft_exec_check(proc);
+		if (result == -1)
+			return (-1);
+		tmp = (*proc);
+		(*proc) = (*proc)->next;
 	}
-	printf("RETURN (0)\n");
-	return (0);
+	ft_exec_close_parent_fd(*proc);
+	while (wait(&status) > 0)
+		;
+	(*proc) = tmp;
+	return (result);
 }

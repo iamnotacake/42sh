@@ -12,16 +12,6 @@
 
 #include "ft_readline_private.h"
 
-int		ft_count_env(char **en)
-{
-	int	w;
-
-	w = 0;
-	while (en[w])
-		w++;
-	return (w);
-}
-
 char	**ft_new_env(char **en)
 {
 	char	**env;
