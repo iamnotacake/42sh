@@ -20,7 +20,6 @@ char	*ft_hash_find_command(char *com)
 	if (g_table == NULL || com == NULL)
 		return (NULL);
 	hash = ft_hash_function(com);
-	// ft_putnbr(hash);
 	if (g_table[hash].lst)
 	{
 		tmp = g_table[hash].lst;
@@ -32,4 +31,32 @@ char	*ft_hash_find_command(char *com)
 		}
 	}
 	return (NULL);
+}
+
+void	ft_hash_remove_element(char *com)
+{
+	t_lst	*tmp;
+	t_lst	*prev;
+	t_lst	*next;
+
+	if (g_table == NULL || com == NULL)
+		return ;
+	if (g_table[ft_hash_function(com)].lst)
+	{
+		tmp = g_table[ft_hash_function(com)].lst;
+		while (tmp)
+		{
+			if (!ft_strcmp(com, tmp->com))
+			{
+				next = tmp->next;
+				free(tmp->com);
+				free(tmp->pth);
+				free(tmp);
+				prev->next = next;
+				return ;
+			}
+			prev = tmp;
+			tmp = tmp->next;
+		}
+	}
 }

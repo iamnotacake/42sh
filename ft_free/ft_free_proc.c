@@ -28,7 +28,9 @@ void	ft_free_close_fd(int *fd)
 void	ft_free_proc(t_proc *proc)
 {
 	t_proc	*tmp;
+	int		i;
 
+	i = 0;
 	if (!proc)
 		return ;
 	while (proc->prev)
@@ -36,9 +38,20 @@ void	ft_free_proc(t_proc *proc)
 	while (proc)
 	{
 		if (proc->path)
+		{
 			free(proc->path);
+			proc->path = NULL;
+		}
 		if (proc->argv)
+		{
+			while (proc->argv[i])
+			{
+				free(proc->argv[i]);
+				proc->argv[i] = NULL;
+				i++;
+			}
 			free(proc->argv);
+		}
 		ft_free_close_fd(proc->dup);
 		tmp = proc;
 		proc = proc->next;

@@ -37,5 +37,6 @@ int					ft_hash_function(char *name);
 // void				ft_hash_free_table(void);
 char				*ft_hash_find_command(char *com);
 void				ft_print_table(void);
+void				ft_add_to_table(char *d_name, char *full_pth);
 
 #endif

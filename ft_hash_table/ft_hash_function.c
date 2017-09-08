@@ -27,7 +27,6 @@ int	ft_hash_function(char *com)
 	return (hash % HASH_SIZE);
 }
 
-
 // unsigned    ft_hashs(const char *str, unsigned table_size)
 // {
 //     unsigned    res;

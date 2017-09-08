@@ -31,7 +31,7 @@ void	ft_realloc_arg(t_syntax_tree *tree, t_proc **proc)
 	if (!(mas = (char **)malloc(sizeof(char *) * (n + 2))))
 		return ;
 	mas[n + 1] = NULL;
-	mas[n] = tree->args[0];
+	mas[n] = ft_strdup(tree->args[0]);
 	while (--n >= 0)
 		mas[n] = (*proc)->argv[n];
 	free((*proc)->argv);
@@ -48,7 +48,7 @@ void	ft_pre_string(t_syntax_tree *tree, t_proc **proc)
 	{
 		if (!(mas = (char **)malloc(sizeof(char *) * 2)))
 			return ;
-		mas[0] = tree->args[0];
+		mas[0] = ft_strdup(tree->args[0]);
 		mas[1] = NULL;
 		(*proc)->argv = mas;
 	}

@@ -15,10 +15,10 @@
 int	ft_exec_standart(t_proc **proc)
 {
 	int		status;
-	t_proc	*tmp;
 
 	printf("<<STANDART>>\n");
 	status = 0;
-	tmp = (*proc);
+	if ((status = ft_exec_command_access(proc)) != 0)
+		return (-1);
 	return (status);
 }
