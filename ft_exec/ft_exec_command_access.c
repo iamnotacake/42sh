@@ -41,7 +41,7 @@ int		ft_exec_user_path(t_proc **proc)
 		tmp = ft_strdup((*proc)->argv[0] + sl + 1);
 		free((*proc)->argv[0]);
 		(*proc)->argv[0] = ft_strdup(tmp);
-		printf("HZ: %s\n", (*proc)->argv[0]);
+		// printf("HZ: %s\n", (*proc)->argv[0]);
 		free(tmp);
 		return (0);
 	}

@@ -14,8 +14,16 @@
 # include <signal.h>
 # include "../libft/libft.h"
 # include "ft_readline.h"
-# define CTRU "\033[1;5A"
-# define CTRD "\033[1;5B"
+# define ARRL "\033[D"
+# define ARRR "\033[C"
+# define ARRU "\033[A"
+# define ARRD "\033[B"
+# define ALTU "\033\033[A"
+# define ALTD "\033\033[B"
+# define ALTR "\033\033[C"
+# define ALTL "\033\033[D"
+# define SHTL "\033[1;2D"
+# define SHTR "\033[1;2C"
 # define PIPE 1
 # define RDOR 2
 # define RDTR 3
@@ -44,12 +52,13 @@ typedef struct		s_his
 	struct s_his	*next;
 }					t_his;
 
+char				*g_promt;
 t_his				*g_history;
 void				ft_get_line(char **line, t_his **his);
 void				ft_add_to_history(t_his **his, char *line);
 void				ft_terminal_set(void);
 void				ft_signals(void);
-void				ft_start(char **env);
+// void				ft_start(char **env);
 int					ft_count_env(char **en);
 void				ft_parse_args(char **str, char ***env, t_his **his);
 void				ft_get_line_save(char **lft, char **rgt, char **line,

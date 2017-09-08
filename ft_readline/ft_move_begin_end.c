@@ -49,9 +49,11 @@ void	ft_move_row(int r, int l, int len)
 {
 	int		pos;
 	int		row;
+	int		promt;
 
-	pos = ((l + 3 + r) % len);
-	row = ((l + 3 + r) / len) - ((l + 3) / len);
+	promt = ft_strlen(g_promt);
+	pos = ((l + promt + r) % len);
+	row = ((l + promt + r) / len) - ((l + promt) / len);
 	if (!row)
 	{
 		while (r != 0)
@@ -91,9 +93,9 @@ void	ft_move_begin_end(char **lft, char **rgt, char *buf)
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, "\033[1;2D"))
+	if (!ft_strcmp(buf, SHTL))
 		ft_move_begin(lft, rgt);
-	if (!ft_strcmp(buf, "\033[1;2C"))
+	if (!ft_strcmp(buf, SHTR))
 	{
 		ft_move_end(lft, rgt, len);
 	}

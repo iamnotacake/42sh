@@ -42,6 +42,11 @@ void	ft_add_env(char ***env, char **mas)
 	new[i] = ft_strdup(mas[1]);
 	new[i + 1] = NULL;
 	*env = new;
+	if (!ft_strncmp((*env)[i], "PATH=", 5))
+	{
+		ft_hash_free_table();
+		ft_hash_table((const char *const*)*env);
+	}
 }
 
 int		ft_ch_env(char **mas)
@@ -64,27 +69,40 @@ int		ft_ch_env(char **mas)
 	return (0);
 }
 
+int	ft_built_setenv_find_match(char ***env, char **mas, int w)
+{
+	int	i;
+
+	i = 0;
+	while ((*env)[w][i] == mas[1][i])
+	{
+		if ((*env)[w][i] == '=')
+		{
+			free((*env)[w]);
+			(*env)[w] = ft_strdup(mas[1]);
+			if (!ft_strncmp((*env)[w], "PATH=", i - 1))
+			{
+				ft_hash_free_table();
+				ft_hash_table((const char *const*)*env);
+			}
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	ft_built_setenv(char ***env, char **mas)
 {
 	int		w;
-	int		i;
 
 	if (!(ft_ch_env(mas)))
 		return (0);
 	w = 0;
 	while ((*env)[w])
 	{
-		i = 0;
-		while ((*env)[w][i] == mas[1][i])
-		{
-			if ((*env)[w][i] == '=')
-			{
-				free((*env)[w]);
-				(*env)[w] = ft_strdup(mas[1]);
-				return (0);
-			}
-			i++;
-		}
+		if (!ft_built_setenv_find_match(env, mas, w))
+			return (0);
 		w++;
 	}
 	ft_add_env(env, mas);

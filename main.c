@@ -26,9 +26,10 @@ void	go_42(void)
 	t_syntax_tree	*tree;
 	t_token			*tokens;
 
+	g_promt = ft_strdup("wtf $> ");
 	while (1)
 	{
-		if ((cmd = ft_readline("wtf $> ")))
+		if ((cmd = ft_readline()))
 		{
 			tokens = token_scan_string(cmd ?: "");
 			parser_init_symbol(tokens);

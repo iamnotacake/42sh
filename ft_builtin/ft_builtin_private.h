@@ -16,6 +16,8 @@
 # include "ft_env.h"
 # include "../libft/libft.h"
 # include "ft_readline.h"
+# include "ft_hash_table.h"
+# include "ft_free.h"
 
 int		ft_built_setenv(char ***env, char **mas);
 int		ft_built_unsetenv(char ***env, char **mas);

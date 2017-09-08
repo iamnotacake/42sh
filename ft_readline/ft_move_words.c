@@ -69,8 +69,8 @@ void	ft_move_words(char **lft, char **rgt, char *buf)
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, "\033[1;5D"))
+	if (!ft_strcmp(buf, ALTL))
 		ft_move_left(lft, rgt);
-	if (!ft_strcmp(buf, "\033[1;5C"))
+	if (!ft_strcmp(buf, ALTR))
 		ft_move_word_right(lft, rgt, len);
 }

@@ -72,7 +72,7 @@ int		ft_exec_old_method(t_proc **proc)
 
 	i = 0;
 	if (!(pth = wt_pth(g_env_g, "PATH")))
-		return (0);
+		return (-1);
 	while (pth[i])
 	{
 		f_pth = wt_pth_com(pth[i], (*proc)->argv[0]);
@@ -99,7 +99,7 @@ int		ft_exec_standart_path(t_proc **proc)
 		(*proc)->path = com;
 		if (!access((*proc)->path, X_OK))
 		{
-			printf("hash: %s\n", (*proc)->path);
+		// 	printf("hash: %s\n", (*proc)->path);
 			return (0);
 		}
 		ft_hash_remove_element((*proc)->argv[0]);
@@ -107,14 +107,14 @@ int		ft_exec_standart_path(t_proc **proc)
 		{
 			if (!access((*proc)->path, X_OK))
 			{
-				printf("re_old: %s\n", (*proc)->path);
+				// printf("re_old: %s\n", (*proc)->path);
 				return (0);
 			}
 		}
 	}
 	else if (ft_exec_old_method(proc) == 0)
 	{
-		printf("old: %s\n", (*proc)->path);
+		// printf("old: %s\n", (*proc)->path);
 		return (0);
 	}
 	return (-1);

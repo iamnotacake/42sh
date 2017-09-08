@@ -86,8 +86,8 @@ void	ft_arrow_down(char **lft, char **rgt, t_his **his)
 
 void	ft_move_history(char *buf, char **lft, char **rgt, t_his **his)
 {
-	if (!ft_strcmp(buf, "\033[A") && (*his))
+	if (!ft_strcmp(buf, ARRU) && (*his))
 		ft_arrow_up(lft, rgt, his);
-	if (!ft_strcmp(buf, "\033[B") && (*his))
+	if (!ft_strcmp(buf, ARRD) && (*his))
 		ft_arrow_down(lft, rgt, his);
 }

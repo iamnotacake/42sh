@@ -74,9 +74,11 @@ void	ft_move_word_cursor(int l, int len, int find)
 {
 	int		pos;
 	int		row;
+	int		promt;
 
-	pos = ((l + 3 + find) % len);
-	row = ((l + 3 + find) / len) - ((l + 3) / len);
+	promt = ft_strlen(g_promt);
+	pos = ((l + promt + find) % len);
+	row = ((l + promt + find) / len) - ((l + promt) / len);
 	if (!row)
 	{
 		while (find != 0)

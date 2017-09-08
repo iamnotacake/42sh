@@ -43,7 +43,7 @@ void	ft_move_rgt(int l, int len)
 {
 	int		pos;
 
-	pos = ((l + 3 + 1) % len);
+	pos = ((l + ft_strlen(g_promt) + 1) % len);
 	if (pos == 0)
 		write(1, "\r\n", 2);
 	else

@@ -72,8 +72,8 @@ void	ft_move_line(char **lft, char **rgt, char *buf)
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, "\033[1;5A"))
+	if (!ft_strcmp(buf, ALTU))
 		ft_move_line_up(lft, rgt, len);
-	if (!ft_strcmp(buf, "\033[1;5B"))
+	if (!ft_strcmp(buf, ALTD))
 		ft_move_line_down(lft, rgt, len);
 }

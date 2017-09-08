@@ -2,6 +2,6 @@
 # define __FT_READLINE_H
 # include "ft_readline_private.h"
 
-char				*ft_readline(const char *prompt);
+char				*ft_readline();
 
 #endif

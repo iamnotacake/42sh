@@ -19,8 +19,8 @@ void	ft_move_cursor(char **lft, char **rgt, char *buf)
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, "\033[D"))
+	if (!ft_strcmp(buf, ARRL))
 		ft_move_cursor_left(lft, rgt);
-	else if (!ft_strcmp(buf, "\033[C"))
+	else if (!ft_strcmp(buf, ARRR))
 		ft_move_cursor_right(lft, rgt, len);
 }

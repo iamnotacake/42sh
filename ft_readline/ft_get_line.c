@@ -59,17 +59,17 @@ int		ft_char_analysis(char *buf, char **lft, char **rgt, t_his **his)
 {
 	if (!ft_strcmp(buf, "\n"))
 		return (0);
-	else if (!ft_strcmp(buf, "\033[D") || !ft_strcmp(buf, "\033[C"))
+	else if (!ft_strcmp(buf, ARRL) || !ft_strcmp(buf, ARRR))
 		ft_move_cursor(lft, rgt, buf);
-	else if (!ft_strcmp(buf, "\033[A") || !ft_strcmp(buf, "\033[B"))
+	else if (!ft_strcmp(buf, ARRU) || !ft_strcmp(buf, ARRD))
 		ft_move_history(buf, lft, rgt, his);
 	else if (!ft_strcmp(buf, "\x7f"))
 		ft_move_backslash(lft, rgt);
-	else if (!ft_strcmp(buf, "\033[1;2C") || !ft_strcmp(buf, "\033[1;2D"))
+	else if (!ft_strcmp(buf, SHTR) || !ft_strcmp(buf, SHTL))
 		ft_move_begin_end(lft, rgt, buf);
-	else if (!ft_strcmp(buf, "\033[1;5C") || !ft_strcmp(buf, "\033[1;5D"))
+	else if (!ft_strcmp(buf, ALTR) || !ft_strcmp(buf, ALTL))
 		ft_move_words(lft, rgt, buf);
-	else if (!ft_strcmp(buf, "\033[1;5A") || !ft_strcmp(buf, "\033[1;5B"))
+	else if (!ft_strcmp(buf, ALTU) || !ft_strcmp(buf, ALTD))
 		ft_move_line(lft, rgt, buf);
 	else if (!ft_strcmp(buf, "\t"))
 		ft_move_tab(lft, rgt);

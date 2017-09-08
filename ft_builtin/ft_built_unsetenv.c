@@ -89,6 +89,19 @@ int		ft_ch_mas(char **env, char **mas)
 	return (c);
 }
 
+void	ft_envp(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_putstr(env[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+}
+
 int		ft_built_unsetenv(char ***env, char **mas)
 {
 	int		m;
@@ -101,6 +114,8 @@ int		ft_built_unsetenv(char ***env, char **mas)
 		if (!(new = (char **)malloc(sizeof(char *) * (word + 1))))
 			return (-1);
 		ft_del_env(env, mas, new);
+		ft_hash_free_table();
+		ft_hash_table((const char *const*)*env);
 	}
 	return (0);
 }
