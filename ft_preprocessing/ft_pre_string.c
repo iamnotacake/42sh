@@ -33,8 +33,13 @@ void	ft_realloc_arg(t_syntax_tree *tree, t_proc **proc)
 	mas[n + 1] = NULL;
 	mas[n] = ft_strdup(tree->args[0]);
 	while (--n >= 0)
-		mas[n] = (*proc)->argv[n];
+	{
+		mas[n] = ft_strdup((*proc)->argv[n]);
+		free((*proc)->argv[n]);
+		(*proc)->argv[n] = NULL;
+	}
 	free((*proc)->argv);
+	(*proc)->argv = NULL;
 	(*proc)->argv = mas;
 }
 

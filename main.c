@@ -26,7 +26,7 @@ void	go_42(void)
 	t_syntax_tree	*tree;
 	t_token			*tokens;
 
-	g_promt = ft_strdup("wtf $> ");
+	g_promt = ft_strdup("wtf ?> ");
 	while (1)
 	{
 		if ((cmd = ft_readline()))

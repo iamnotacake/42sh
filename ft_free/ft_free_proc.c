@@ -30,7 +30,6 @@ void	ft_free_proc(t_proc *proc)
 	t_proc	*tmp;
 	int		i;
 
-	i = 0;
 	if (!proc)
 		return ;
 	while (proc->prev)
@@ -44,6 +43,7 @@ void	ft_free_proc(t_proc *proc)
 		}
 		if (proc->argv)
 		{
+			i = 0;
 			while (proc->argv[i])
 			{
 				free(proc->argv[i]);

@@ -58,6 +58,7 @@ int		ft_exec_command_access(t_proc **proc)
 	else if (ft_exec_standart_path(proc) == 0)
 	{
 		printf("STANDART\n");
+		ft_exec_spawn(proc);
 		return (0);
 	}
 	write(2, "wtf?: command not found: ", 25);

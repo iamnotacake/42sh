@@ -1,46 +1,65 @@
 #include "ft_exec_private.h"
 #include "ft_env.h"
 
-void			ft_exec_dup(t_proc *proc)
+void	ft_exec_dup(t_proc *proc)
 {
-	if (proc->dup[0] != 0)
-		dup2(proc->dup[0], 0);
-	if (proc->dup[1] != 1)
-		dup2(proc->dup[1], 1);
-	if (proc->dup[2] != 2)
-		dup2(proc->dup[2], 2);
-}
-
-void			ft_exec_close_except(t_proc **all, t_proc *proc)
-{
-	int			i;
+	int	i;
 
 	i = 0;
-	while (all[i])
+	while (i < 10)
 	{
-		if (all[i] != proc)
-		{
-			if (all[i]->dup[0] > 2)
-				close(all[i]->dup[0]);
-			if (all[i]->dup[1] > 2)
-				close(all[i]->dup[1]);
-			if (all[i]->dup[2] > 2)
-				close(all[i]->dup[2]);
-		}
-		i += 1;
+		if (proc->dup[i] != i)
+			dup2(proc->dup[i], i);
+		i++;
 	}
 }
 
-void			ft_exec_spawn(t_proc **all, t_proc *proc)
+void	ft_exec_close_fd(t_proc *proc, int fl)
+{
+	int	i;
+
+	i = 0;
+	while (proc)
+	{
+		i = 0;
+		while (i < 10)
+		{
+			if (proc->dup[i] != i && proc->dup[i] > 2)
+			{
+				// printf("close child: %d\n", proc->dup[i]);
+				close(proc->dup[i]);
+			}
+			i++;
+		}
+		if (fl == -1)
+			proc = proc->prev;
+		else if (fl == 1)
+			proc = proc->next;
+	}
+}
+
+void	ft_exec_close_except(t_proc *proc)
+{
+	t_proc	*prev;
+	t_proc	*next;
+
+	prev = proc->prev;
+	next = proc->next;
+	ft_exec_close_fd(prev, -1);
+	ft_exec_close_fd(next, 1);
+}
+
+void	ft_exec_spawn(t_proc **proc)
 {
 	pid_t		pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_exec_dup(proc);
-		ft_exec_close_except(all, proc);
-		execve(proc->path, proc->argv, g_env_g);
+		// ft_exec_dup(*proc);
+		ft_exec_close_except(*proc);
+		ft_exec_dup(*proc);
+		execve((*proc)->path, (*proc)->argv, g_env_g);
 	}
-	proc->pid = pid;
+	(*proc)->pid = pid;
 }
