@@ -12,10 +12,10 @@
 void			ft_exec_dup(t_proc *proc);
 void			ft_exec_close_except(t_proc *proc);
 void			ft_exec_spawn(t_proc **proc);
-void			ft_exec_wait_all(t_proc **all);
+void			ft_exec_wait(t_proc **proc);
 int		ft_exec_standart(t_proc **proc);
 int		ft_exec_command_access(t_proc **proc);
 int		ft_exec_standart_path(t_proc **proc);
-void	ft_exex_proc_up(t_proc **proc);
+void	ft_exec_proc_up(t_proc **proc);
 
 #endif

@@ -49,6 +49,48 @@ void	ft_exec_close_except(t_proc *proc)
 	ft_exec_close_fd(next, 1);
 }
 
+void	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_putstr(env[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+}
+
+void	ft_echo(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[++i])
+	{
+		ft_putstr(argv[i]);
+		if (argv[i + 1])
+			ft_putstr(" ");
+	}
+	ft_putstr("\n");
+}
+
+int		ft_exec_is_builtin(t_proc **proc)
+{
+	if (!ft_strcmp("env", (*proc)->argv[0]))
+	{
+		ft_env(g_env_g);
+		return (1);
+	}
+	else if (!ft_strcmp("echo", (*proc)->argv[0]))
+	{
+		ft_echo((*proc)->argv);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_exec_spawn(t_proc **proc)
 {
 	pid_t		pid;
@@ -59,7 +101,10 @@ void	ft_exec_spawn(t_proc **proc)
 		// ft_exec_dup(*proc);
 		ft_exec_close_except(*proc);
 		ft_exec_dup(*proc);
-		execve((*proc)->path, (*proc)->argv, g_env_g);
+		if (!ft_exec_is_builtin(proc))
+			execve((*proc)->path, (*proc)->argv, g_env_g);
 	}
+	// printf("pid: %d\n", pid);
 	(*proc)->pid = pid;
+	// printf("sdsds: %d\n", (*proc)->pid);
 }

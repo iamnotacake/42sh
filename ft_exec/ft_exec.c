@@ -1,6 +1,6 @@
 #include "ft_exec_private.h"
 
-void	ft_exex_proc_up(t_proc **proc)
+void	ft_exec_proc_up(t_proc **proc)
 {
 	if (!(*proc))
 		return ;
@@ -30,19 +30,6 @@ void	ft_exec_close_parent_fd(t_proc *proc)
 	}
 }
 
-void	ft_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		ft_putstr(env[i]);
-		write(1, "\n", 1);
-		i++;
-	}
-}
-
 int		ft_exec_builtins(t_proc **proc)
 {
 	int	status;
@@ -56,14 +43,17 @@ int		ft_exec_builtins(t_proc **proc)
 		status = ft_built_unsetenv(&g_env_g, (*proc)->argv);
 	else if (!ft_strcmp("cd", (*proc)->argv[0]))
 		status = ft_built_cd(&g_env_g, (*proc)->argv);
-	else if (!ft_strcmp("env", (*proc)->argv[0]))
-		ft_env(g_env_g);
+	else if (!ft_strcmp("env", (*proc)->argv[0]) || 
+			!ft_strcmp("echo", (*proc)->argv[0]))
+	{
+		ft_exec_spawn(proc);
+		status = 0;
+	}
 	return (status);
 }
 
 int		ft_exec_check(t_proc **proc)
 {
-	t_proc	*tmp;
 	int		status;
 
 	status = -1;
@@ -74,14 +64,14 @@ int		ft_exec_check(t_proc **proc)
 
 int		ft_exec(t_proc **proc)
 {
-	int		status;
+	// int		status;
 	int		result;
 	t_proc	*tmp;
 	t_proc	*head;
 
 	if (!(*proc))
 		return (-1);
-	ft_exex_proc_up(proc);
+	ft_exec_proc_up(proc);
 	head = (*proc);
 	tmp = (*proc);
 	while ((*proc))
@@ -93,9 +83,9 @@ int		ft_exec(t_proc **proc)
 		(*proc) = (*proc)->next;
 	}
 	ft_exec_close_parent_fd(head);
-	while (wait(&status) > 0)
-		;
+	ft_exec_wait(&head);
+	// while (wait(&status) > 0)
+	// 	;
 	(*proc) = tmp;
-	ft_exex_proc_up(proc);
 	return (result);
 }
