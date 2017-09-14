@@ -25,7 +25,7 @@ void	ft_pre_string(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_print_proc(t_proc *proc);
 void	ft_pre_redirection(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_piped(t_syntax_tree *tree, t_proc **proc, int *lock);
-void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc, int *lock);
+void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_logic(t_syntax_tree *tree, t_proc **proc, int *lock);
 void	ft_pre_heredoc_fd(t_syntax_tree *tree, t_proc **proc);
 void	ft_pre_exec(t_proc **proc);

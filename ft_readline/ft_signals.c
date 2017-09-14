@@ -12,14 +12,15 @@
 
 #include "ft_readline_private.h"
 
-static void	sigint_handler(int signo)
+void	sigint_handler(int signo)
 {
 	(void)signo;
 	if (signo == SIGQUIT)
 		exit(signo);
 	if (signo == SIGINT)
 	{
-		ft_putstr("\n$> ");
+		ft_putstr("\n");
+		ft_putstr(g_promt);
 	}
 	return ;
 }

@@ -20,20 +20,64 @@ void	init_42(const char *const envp[])
 	// parser_init();
 }
 
+int 	unclosed_quote(t_token *t)
+{
+	while (t->next)
+		t = t->next;
+	if (t->subtype == ST_QUOTE_EOF)
+	{
+		g_promt = ("quote> ");
+		return (1);
+	}
+	if (t->subtype == ST_QUOTE_EOF)
+	{
+		g_promt = ("dquote> ");
+		return (1);
+	}
+	return (0);
+}
+
+char	*ft_join_quote(char *a, char *b)
+{
+	char *res;
+
+	res = malloc(strlen(a) + 1 + strlen(b ?: "") + 1);
+	strcpy(res, a);
+	strcat(res, "\n");
+	strcat(res, b ?: "");
+	free(a);
+	free(b);
+	return (res);
+}
+
+void	ft_find_quotes(t_token **tokens, char **cmd)
+{
+	char	*oldpromt;
+
+	oldpromt = g_promt;
+	while (unclosed_quote((*tokens)))
+	{
+		write(1, "\n", 1);
+		token_free_all((*tokens));
+		(*cmd) = ft_join_quote((*cmd), ft_readline());
+		(*tokens) = token_scan_string((*cmd) ?: "");
+	}
+	g_promt = oldpromt;
+}
+
 void	go_42(void)
 {
 	char			*cmd;
 	t_syntax_tree	*tree;
 	t_token			*tokens;
 
-	g_promt = ft_strdup("wtf ?> ");
 	while (1)
 	{
 		if ((cmd = ft_readline()))
 		{
 			tokens = token_scan_string(cmd ?: "");
+			ft_find_quotes(&tokens, &cmd);
 			parser_init_symbol(tokens);
-			// glob
 			tree = syntax_exprl();
 			parser_simplify(&tree);
 			parser_simplify(&tree);
@@ -51,27 +95,13 @@ void	go_42(void)
 
 int		main(int argc, const char *const argv[], const char *const envp[])
 {
-	// char	*pth;
-
 	(void)argc;
 	(void)argv;
+	g_promt = ft_strdup("wtf ?> ");
 	g_history = NULL;
+	// ft_signals();
 	init_42(envp);
 	go_42();
-	// char *cmd = ft_readline("Hello! > "); 
-	// write(1, "\n", 1);
-	// ft_putendl(cmd);
-	// const char *cmd = argv[1];
-	// t_token *tokens = token_scan_string(cmd);
-	// // for (t_token *t = tokens; t; t = t->next)
-	// // 	printf(">%s<\n", t->data ?: t->match);
-	// // pth = ft_hash_find_command(cmd);
-	// parser_init_symbol(tokens);
-	// t_syntax_tree *tree = syntax_exprl();
-	// parser_simplify(&tree);
-	// parser_simplify(&tree);
-	// ft_tree_print(tree, 0);
-	// ft_preprocessing(tree);
 	ft_free();
 	return (0);
 }

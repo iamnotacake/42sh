@@ -25,6 +25,6 @@ SOURCES += 	ft_readline/ft_add_to_history.c \
 			ft_readline/ft_tab_match_get.c \
 			ft_readline/ft_tab_print_match.c \
 			ft_readline/ft_tab_try_to_paste.c \
-			ft_readline/ft_readline.c 
-			# ft_readline/ft_start.c 
+			ft_readline/ft_readline.c \
+			ft_readline/ft_signals.c \
 

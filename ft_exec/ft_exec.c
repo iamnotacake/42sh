@@ -83,9 +83,7 @@ int		ft_exec(t_proc **proc)
 		(*proc) = (*proc)->next;
 	}
 	ft_exec_close_parent_fd(head);
-	ft_exec_wait(&head);
-	// while (wait(&status) > 0)
-	// 	;
+	result = ft_exec_wait(&head);
 	(*proc) = tmp;
 	return (result);
 }

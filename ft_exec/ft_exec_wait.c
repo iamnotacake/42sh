@@ -1,26 +1,29 @@
 #include "ft_exec_private.h"
 
-void			ft_exec_wait(t_proc **proc)
+int			ft_exec_wait(t_proc **proc)
 {
-	// pid_t		pid;
 	int			status;
 	t_proc		*tmp;
+	int			result;
 
+	result = 0;
 	tmp = (*proc);
-	// printf("%d\n", (*proc)->pid);
 	ft_exec_proc_up(proc);
-	// printf("DDDDDD\n");
-	// printf("%d\n", (*proc)->pid);
+	// signal(SIGINT, SIG_IGN);
 	while ((*proc))
 	{
 		// printf("if: %d\n", (*proc)->pid);
 		if ((*proc)->pid)
 		{
 			waitpid((*proc)->pid, &status, WUNTRACED);
-			printf("pid wait: %d, status: %d\n", (*proc)->pid, status);
+			// printf("pid wait: %d, status: %d\n", (*proc)->pid, status);
 			(*proc)->status = status;
+			if (status != 0)
+				result = status;
 		}
 		(*proc) = (*proc)->next;
 	}
+	// ft_signals();
 	(*proc) = tmp;
+	return (result);
 }

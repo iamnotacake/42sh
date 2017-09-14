@@ -62,7 +62,6 @@ void	ft_pre_arguments(t_syntax_tree *tree, t_proc **proc, int *lock)
 	int	i;
 
 	i = 0;
-	i = 0;
 	while (tree->tree[i])
 	{
 		ft_pre_by_type(tree->tree[i], proc, lock);

@@ -58,7 +58,6 @@ void				ft_get_line(char **line, t_his **his);
 void				ft_add_to_history(t_his **his, char *line);
 void				ft_terminal_set(void);
 void				ft_signals(void);
-// void				ft_start(char **env);
 int					ft_count_env(char **en);
 void				ft_parse_args(char **str, char ***env, t_his **his);
 void				ft_get_line_save(char **lft, char **rgt, char **line,
@@ -90,5 +89,7 @@ void				ft_free_tmp(t_his **his);
 int					ft_add_match(t_match **head, char *file);
 void				ft_history_get_tory(char **lft, t_his *his);
 int					ft_add_to_tmp(char **lft, char **rgt, t_his **his);
+void			ft_signals(void);
+void			sigint_handler(int signo);
 
 #endif

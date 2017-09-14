@@ -52,13 +52,13 @@ int		ft_exec_command_access(t_proc **proc)
 {
 	if (ft_exec_user_path(proc) == 0)
 	{
-		printf("USER\n");
+		// printf("USER\n");
 		ft_exec_spawn(proc);
 		return (0);
 	}
 	else if (ft_exec_standart_path(proc) == 0)
 	{
-		printf("STANDART\n");
+		// printf("STANDART\n");
 		ft_exec_spawn(proc);
 		return (0);
 	}

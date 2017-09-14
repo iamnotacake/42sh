@@ -60,6 +60,7 @@ void	ft_env(char **env)
 		write(1, "\n", 1);
 		i++;
 	}
+	exit(0);
 }
 
 void	ft_echo(char **argv)
@@ -74,6 +75,7 @@ void	ft_echo(char **argv)
 			ft_putstr(" ");
 	}
 	ft_putstr("\n");
+	exit(0);
 }
 
 int		ft_exec_is_builtin(t_proc **proc)
@@ -98,7 +100,6 @@ void	ft_exec_spawn(t_proc **proc)
 	pid = fork();
 	if (pid == 0)
 	{
-		// ft_exec_dup(*proc);
 		ft_exec_close_except(*proc);
 		ft_exec_dup(*proc);
 		if (!ft_exec_is_builtin(proc))
@@ -106,5 +107,4 @@ void	ft_exec_spawn(t_proc **proc)
 	}
 	// printf("pid: %d\n", pid);
 	(*proc)->pid = pid;
-	// printf("sdsds: %d\n", (*proc)->pid);
 }
