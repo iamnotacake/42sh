@@ -6,11 +6,12 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/05 09:41:43 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/08/05 09:41:45 by olyuboch         ###   ########.fr       */
+/*   Updated: 2017/09/14 19:13:09 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_preprocessing_private.h"
+#include "ft_globbing.h"
 
 void	ft_pre_expression(t_syntax_tree *tree, t_proc **proc, int *lock)
 {
@@ -62,6 +63,7 @@ void	ft_pre_arguments(t_syntax_tree *tree, t_proc **proc, int *lock)
 	int	i;
 
 	i = 0;
+	ft_globbing_call(tree);
 	while (tree->tree[i])
 	{
 		ft_pre_by_type(tree->tree[i], proc, lock);
@@ -93,7 +95,7 @@ void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock)
 	else if (!ft_strcmp(tree->type, "redirection"))
 		ft_pre_redirection(tree, proc);
 	else if (!ft_strcmp(tree->type, "bquote"))
-		ft_pre_bquote(tree, proc, lock);
+		ft_pre_bquote(tree, proc);
 	if (*proc && !(*lock))
 		ft_pre_exec(proc);
 }

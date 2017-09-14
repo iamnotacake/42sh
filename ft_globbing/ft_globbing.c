@@ -1,19 +1,16 @@
+#include <stdio.h>
+#include <string.h>
 #include "ft_globbing.h"
 
-int				ft_globbing_init(const char *pattern)
+int				ft_globbing_is_pattern(const char *pattern)
 {
-	// If `pattern` is something that has *, ?, etc:
-	// 	 init some global structure with *copy* of that pattern
-	// 	 return 1
-	// else
-	//   return 0
-	return (0);
+	// TODO
+	return (pattern[0] == '+');
 }
 
-char			*ft_globbing_next(void)
+void			ft_globbing_do(const char *pattern)
 {
-	// Using that global structure, find files.
-	// Every time this function called, it must return one mathing filename.
-	// If there are no more files, do some cleanup and return NULL
-	return (NULL);
+	ft_globbing_callback(strdup("SHIT1"));
+	ft_globbing_callback(strdup("SHIT2"));
+ 	// TODO
 }
