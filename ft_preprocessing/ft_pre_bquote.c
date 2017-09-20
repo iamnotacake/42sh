@@ -16,87 +16,9 @@
 void	ft_pre_find_args(t_syntax_tree *tree, t_proc **bq)
 {
 	int		loc;
-	// int		i;
 
-	// i = 0;
 	loc = 0;
-	// while (tree->tree[i])
-	// {
-		ft_pre_by_type(tree, bq, &loc);
-		// i++;
-	// }
-}
-
-int		ft_pre_count_args(char **sp, char **argv)
-{
-	int	s;
-	int	a;
-
-	s = 0;
-	a = 0;
-	while (sp[s])
-		s++;
-	if (argv)
-	{
-		while (argv[a])
-			a++;
-	}
-	// if (a == 0)
-	// 	return (0);
-	return (a + s);
-}
-
-void	ft_pre_realloc_args(char **sp, t_proc **proc)
-{
-	int		c;
-	char	**mas;
-	int		i;
-
-	if (!(c = ft_pre_count_args(sp, (*proc)->argv)))
-		return ;
-	if (!(mas = (char **)malloc(sizeof(char *) * (c + 1))))
-		return ;
-	mas[c] = NULL;
-	c = 0;
-	i = 0;
-	if ((*proc)->argv)
-	{
-		while ((*proc)->argv[i])
-		{
-			mas[c] = ft_strdup((*proc)->argv[i]);
-			i++;
-			c++;
-		}
-	}
-	i = 0;
-	while (sp[i])
-	{
-		mas[c] = ft_strdup(sp[i]);
-		i++;
-		c++;
-	}
-	if ((*proc)->argv)
-		ft_free_mas((*proc)->argv);
-	(*proc)->argv = mas;
-}
-
-void	ft_pre_split_args(char *str, t_proc **proc)
-{
-	int		i;
-	char	**sp;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			str[i] = ' ';
-		i++;
-	}
-	// printf("%s\n", str);
-	if (!(sp = ft_strsplit(str, ' ')))
-		return ;
-	ft_pre_realloc_args(sp, proc);
-	ft_free_mas(sp);
+	ft_pre_by_type(tree, bq, &loc);
 }
 
 void	ft_pre_read_from_dup(int *fd, t_proc **proc)
@@ -120,11 +42,8 @@ void	ft_pre_read_from_dup(int *fd, t_proc **proc)
 	}
 	free(buf);
 	if (!str)
-	{
-		free(str);
 		return ;
-	}
-	printf("str: %s\n", str);
+	// printf("str: %s\n", str);
 	ft_pre_split_args(str, proc);
 	free(str);
 }
@@ -136,21 +55,11 @@ void	ft_pre_run_bquote(t_syntax_tree *tree, t_proc **proc)
 	t_proc	*bq;
 
 	bq = NULL;
-	printf("BQUOTE1\n");
-	// ft_pre_find_args(tree, &bq);
-	// if (!bq)
-	// 	return ;
 	old1 = dup(1);
 	if (pipe(fd) != 0)
 		return ;
-	// printf("BQUOTE2\n");
-	
-	// ft_pre_print_proc(bq);
 	dup2(fd[1], 1);
 	ft_pre_find_args(tree, &bq);
-	// if (bq)
-	// 	ft_exec(&bq);
-	// ft_pre_print_proc(bq);
 	if (bq)
 		ft_exec(&bq);
 	close(fd[1]);
@@ -168,7 +77,6 @@ void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc)
 	i = 0;
 	while (tree->tree[i])
 	{
-		printf("tree\n");
 		ft_pre_run_bquote(tree->tree[i], proc);
 		i++;
 	}

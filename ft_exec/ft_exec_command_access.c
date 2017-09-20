@@ -48,6 +48,25 @@ int		ft_exec_user_path(t_proc **proc)
 	return (-1);
 }
 
+void	ft_exec_error(t_proc **proc)
+{
+	int	old2;
+
+	old2 = 0;
+	if ((*proc)->dup[2] != 2)
+	{
+		old2 = dup(2);
+		dup2((*proc)->dup[2], 2);
+	}
+	ft_putstr_fd("wtf?: command not found: ", 2);
+	ft_putendl_fd((*proc)->argv[0], 2);
+	if (old2)
+	{
+		dup2(old2, 2);
+		// close((*proc)->dup[2]);
+	}
+}
+
 int		ft_exec_command_access(t_proc **proc)
 {
 	if (ft_exec_user_path(proc) == 0)
@@ -62,7 +81,8 @@ int		ft_exec_command_access(t_proc **proc)
 		ft_exec_spawn(proc);
 		return (0);
 	}
-	write(2, "wtf?: command not found: ", 25);
-	ft_putendl_fd((*proc)->argv[0], 2);
+	ft_exec_error(proc);
+	// write(2, "wtf?: command not found: ", 25);
+	// ft_putendl_fd((*proc)->argv[0], 2);
 	return (-1);
 }
