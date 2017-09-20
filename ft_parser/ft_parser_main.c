@@ -122,9 +122,8 @@ t_syntax_tree	*syntax_exprl(void)
 	{
 		while (parser_accept(T_OP_SEMICOLON, ST_ANY, NULL))
 			;
-		if (!(elem = syntax_lexpr()))
-			RETURN_FAIL();
-		syntax_tree_append(tree, elem, NULL);
+		if ((elem = syntax_lexpr()))
+			syntax_tree_append(tree, elem, NULL);
 	}
 	RETURN_SUCCESS();
 }
