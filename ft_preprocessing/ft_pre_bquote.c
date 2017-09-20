@@ -36,10 +36,13 @@ int		ft_pre_count_args(char **sp, char **argv)
 	a = 0;
 	while (sp[s])
 		s++;
-	while (argv[a])
-		a++;
-	if (a == 0)
-		return (0);
+	if (argv)
+	{
+		while (argv[a])
+			a++;
+	}
+	// if (a == 0)
+	// 	return (0);
 	return (a + s);
 }
 
@@ -56,11 +59,14 @@ void	ft_pre_realloc_args(char **sp, t_proc **proc)
 	mas[c] = NULL;
 	c = 0;
 	i = 0;
-	while ((*proc)->argv[i])
+	if ((*proc)->argv)
 	{
-		mas[c] = ft_strdup((*proc)->argv[i]);
-		i++;
-		c++;
+		while ((*proc)->argv[i])
+		{
+			mas[c] = ft_strdup((*proc)->argv[i]);
+			i++;
+			c++;
+		}
 	}
 	i = 0;
 	while (sp[i])
@@ -69,7 +75,8 @@ void	ft_pre_realloc_args(char **sp, t_proc **proc)
 		i++;
 		c++;
 	}
-	ft_free_mas((*proc)->argv);
+	if ((*proc)->argv)
+		ft_free_mas((*proc)->argv);
 	(*proc)->argv = mas;
 }
 
@@ -117,7 +124,7 @@ void	ft_pre_read_from_dup(int *fd, t_proc **proc)
 		free(str);
 		return ;
 	}
-	// printf("str: %s\n", str);
+	printf("str: %s\n", str);
 	ft_pre_split_args(str, proc);
 	free(str);
 }
@@ -136,12 +143,16 @@ void	ft_pre_run_bquote(t_syntax_tree *tree, t_proc **proc)
 	old1 = dup(1);
 	if (pipe(fd) != 0)
 		return ;
-	printf("BQUOTE2\n");
+	// printf("BQUOTE2\n");
+	
 	// ft_pre_print_proc(bq);
 	dup2(fd[1], 1);
 	ft_pre_find_args(tree, &bq);
 	// if (bq)
 	// 	ft_exec(&bq);
+	// ft_pre_print_proc(bq);
+	if (bq)
+		ft_exec(&bq);
 	close(fd[1]);
 	dup2(old1, 1);
 	close(old1);
@@ -155,12 +166,6 @@ void	ft_pre_bquote(t_syntax_tree *tree, t_proc **proc)
 	int	i;
 
 	i = 0;
-	if (!(*proc)->argv)
-	{
-		ft_putstr_fd("wtf?: command not found: ", 2);
-		write(1, "\n", 1);
-		return ;
-	}
 	while (tree->tree[i])
 	{
 		printf("tree\n");

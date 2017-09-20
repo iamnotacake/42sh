@@ -58,6 +58,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 	while (arguments->tree[g_index])
 	{
 		if (arguments->tree[g_index]->need_globbing &&
+			arguments->tree[g_index]->args[0] &&
 			ft_globbing_is_pattern(arguments->tree[g_index]->args[0]))
 		{
 			tmp = strdup(arguments->tree[g_index]->args[0]);

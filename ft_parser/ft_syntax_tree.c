@@ -17,21 +17,29 @@ void			syntax_tree_free(t_syntax_tree *tree)
 {
 	int			i;
 
+	if (tree == NULL)
+		return ;
 	i = 0;
-	while (tree->tree[i])
+	if (tree->tree)
 	{
-		syntax_tree_free(tree->tree[i]);
-		i += 1;
+		while (tree->tree[i])
+		{
+			syntax_tree_free(tree->tree[i]);
+			i += 1;
+		}
+		free(tree->tree);
 	}
-	free(tree->tree);
 	i = 0;
-	while (tree->args[i])
+	if (tree->args)
 	{
-		free(tree->args[i]);
-		parser_prev_symbol();
-		i += 1;
+		while (tree->args[i])
+		{
+			free(tree->args[i]);
+			parser_prev_symbol();
+			i += 1;
+		}
+		free(tree->args);
 	}
-	free(tree->args);
 	free(tree);
 }
 
