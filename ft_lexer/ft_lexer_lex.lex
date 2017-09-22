@@ -41,7 +41,7 @@ int			g_bquote_count;
 %}
 
 WHITESPACE		[ \t]+
-STRING			(([^|&;<>()`\\"' \t\n*?#]|\\.)+)|(&[1-9])
+STRING			(([^|&;<>()`\\"' \t\n#]|\\.)+)|(&[1-9])
 QUOTE			'[^']*'
 QUOTE_EOF		'[^']*
 DQUOTE			\"([^\"\\]|\\.)*\"

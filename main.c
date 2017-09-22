@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "ft_readline.h"
 #include "ft_hash_table.h"
 #include "ft_lexer.h"
@@ -24,14 +25,14 @@ int 	unclosed_quote(t_token *t)
 {
 	while (t->next)
 		t = t->next;
-	if (t->subtype == ST_QUOTE_EOF)
+	if (t->subtype == ST_DQUOTE_EOF)
 	{
-		g_promt = ("quote> ");
+		g_promt = ("dquote> ");
 		return (1);
 	}
 	if (t->subtype == ST_QUOTE_EOF)
 	{
-		g_promt = ("dquote> ");
+		g_promt = ("quote> ");
 		return (1);
 	}
 	return (0);
@@ -55,11 +56,11 @@ void	ft_find_quotes(t_token **tokens, char **cmd)
 	char	*oldpromt;
 
 	oldpromt = g_promt;
-	while (unclosed_quote((*tokens)))
+	while (unclosed_quote(*tokens))
 	{
 		write(1, "\n", 1);
-		token_free_all((*tokens));
-		(*cmd) = ft_join_quote((*cmd), ft_readline());
+		token_free_all(*tokens);
+		(*cmd) = ft_join_quote(*cmd, ft_readline());
 		(*tokens) = token_scan_string((*cmd) ?: "");
 	}
 	g_promt = oldpromt;
