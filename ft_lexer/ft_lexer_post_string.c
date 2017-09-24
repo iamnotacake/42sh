@@ -41,8 +41,11 @@ static void		ft_lexer_post_string_join(t_token *tok)
 {
 	while (tok)
 	{
-		while (tok->type == T_STRING && tok->next &&
-				tok->next->type == T_STRING)
+		while (tok->type == T_STRING &&
+				tok->next &&
+				tok->next->type == T_STRING &&
+				tok->next->subtype != ST_DQUOTE_EOF &&
+				tok->next->subtype != ST_QUOTE_EOF)
 			ft_lexer_join(&tok);
 		tok = tok->next;
 	}
