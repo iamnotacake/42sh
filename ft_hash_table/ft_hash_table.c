@@ -12,7 +12,7 @@
 
 #include "ft_hash_table_private.h"
 
-t_hash	*g_table;
+extern t_hash	*g_table;
 
 void	ft_free_pth(char **pth)
 {

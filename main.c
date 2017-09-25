@@ -8,6 +8,15 @@
 #include "ft_free.h"
 #include "ft_preprocessing.h"
 
+char	*g_promt;
+t_his	*g_history;
+t_hash	*g_table;
+t_token	*g_prev_tok;
+t_token	*g_curr_sym;
+t_token	*g_next_sym;
+char	**g_env_g;
+char	**g_env_l;
+
 // void	ft_tree_print(t_syntax_tree *tree, int level);
 
 void	init_42(const char *const envp[])

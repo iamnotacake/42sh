@@ -1,6 +1,6 @@
 #include "ft_free_private.h"
 
-t_his			*g_history;
+extern t_his	*g_history;
 
 void	ft_free_history(void)
 {

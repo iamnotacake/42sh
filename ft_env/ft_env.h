@@ -4,8 +4,8 @@
 # include <stdlib.h>
 # include <string.h>
 
-char			**g_env_g;
-char			**g_env_l;
+extern char		**g_env_g;
+extern char		**g_env_l;
 
 void			ft_env_init(char ***env, const char *const envp[]);
 int				ft_env_set(char ***env, const char *var, const char *val);
