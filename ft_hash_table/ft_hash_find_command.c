@@ -10,53 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash_table_private.h"
+#include "ft_hash_table.h"
 
-char	*ft_hash_find_command(char *com)
+char	*ft_hash_find_command(char *command)
 {
 	int		hash;
-	t_lst	*tmp;
+	t_hash	*tmp;
 
-	if (g_table == NULL || com == NULL)
+	if (!g_table || !command)
 		return (NULL);
-	hash = ft_hash_function(com);
-	if (g_table[hash].lst)
+	hash = ft_hash_function(command);
+	if ((tmp = g_table[hash]))
 	{
-		tmp = g_table[hash].lst;
 		while (tmp)
 		{
-			if (!ft_strcmp(com, tmp->com))
-				return (ft_strdup(tmp->pth));
+			if (!ft_strcmp(tmp->command, command))
+				return (ft_strdup(tmp->filename)); // ???
 			tmp = tmp->next;
 		}
 	}
 	return (NULL);
 }
 
-void	ft_hash_remove_element(char *com)
+void	ft_hash_remove_element(char *command)
 {
-	t_lst	*tmp;
-	t_lst	*prev;
-	t_lst	*next;
+	t_hash	**entry;
+	t_hash	*tmp;
+	int		hash;
 
-	if (g_table == NULL || com == NULL)
+	if (!g_table || !command)
 		return ;
-	if (g_table[ft_hash_function(com)].lst)
+	hash = ft_hash_function(command);
+	if (g_table[hash])
 	{
-		tmp = g_table[ft_hash_function(com)].lst;
-		while (tmp)
+		entry = &g_table[hash];
+		while (*entry)
 		{
-			if (!ft_strcmp(com, tmp->com))
+			if (!ft_strcmp((*entry)->command, command))
 			{
-				next = tmp->next;
-				free(tmp->com);
-				free(tmp->pth);
+				tmp = *entry;
+				entry = &(*entry)->next;
+				free(tmp->command);
+				free(tmp->filename);
 				free(tmp);
-				prev->next = next;
 				return ;
 			}
-			prev = tmp;
-			tmp = tmp->next;
+			entry = &(*entry)->next;
 		}
 	}
 }

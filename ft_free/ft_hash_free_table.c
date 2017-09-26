@@ -12,16 +12,16 @@
 
 #include "ft_free_private.h"
 
-void	ft_free_elem(t_lst *lst)
+static void	free_elem(t_hash *elem)
 {
-	t_lst	*tmp;
+	t_hash	*tmp;
 
-	while (lst)
+	while (elem)
 	{
-		tmp = lst;
-		lst = lst->next;
-		free(tmp->com);
-		free(tmp->pth);
+		tmp = elem;
+		elem = elem->next;
+		free(tmp->command);
+		free(tmp->filename);
 		free(tmp);
 	}
 }
@@ -30,13 +30,13 @@ void	ft_hash_free_table(void)
 {
 	int		i;
 
-	i = 0;
-	if (g_table == NULL)
+	if (!g_table)
 		return ;
+	i = 0;
 	while(i < HASH_SIZE)
 	{
-		if (g_table[i].lst != NULL)
-			ft_free_elem(g_table[i].lst); 
+		if (g_table[i])
+			free_elem(g_table[i]);
 		i++;
 	}
 	free(g_table);

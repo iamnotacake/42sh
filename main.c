@@ -1,16 +1,8 @@
-#include <stdio.h>
-#include <string.h>
-#include "ft_readline.h"
-#include "ft_hash_table.h"
-#include "ft_lexer.h"
-#include "ft_parser.h"
-#include "ft_env.h"
-#include "ft_free.h"
-#include "ft_preprocessing.h"
+#include "shell.h"
 
 char	*g_promt;
 t_his	*g_history;
-t_hash	*g_table;
+t_hash	**g_table;
 t_token	*g_prev_tok;
 t_token	*g_curr_sym;
 t_token	*g_next_sym;

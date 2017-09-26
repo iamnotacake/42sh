@@ -10,71 +10,64 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash_table_private.h"
+#include "ft_hash_table.h"
 
-t_lst	*ft_new_lst(char *d_name, char *full_pth)
+static t_hash	*new_entry(char *command, char *filename)
 {
-	t_lst	*new;
+	t_hash	*new;
 
-	new = NULL;
-	if (!(new = (t_lst *)malloc(sizeof(t_lst))))
+	if (!(new = malloc(sizeof(t_hash))))
 		return (NULL);
-	new->com = ft_strdup(d_name);
-	new->pth = ft_strdup(full_pth);
+	new->command = ft_strdup(command);
+	new->filename = ft_strdup(filename);
 	new->next = NULL;
 	return (new);
 }
 
-void	ft_add_to_table(char *d_name, char *full_pth)
+void			ft_add_to_table(char *command, char *filename)
 {
-	t_lst	*new;
-	t_lst	*tmp;
-	int		i;
+	t_hash	*entry;
+	t_hash	*last;
+	int		index;
 
-
-	new = NULL;
-	i = ft_hash_function(d_name);
-	if (!(new = ft_new_lst(d_name, full_pth)))
+	if (!(entry = new_entry(command, filename)))
 		return ;
-	if (!(g_table[i].lst))
-		g_table[i].lst = new;
+	index = ft_hash_function(command);
+	if (!(g_table[index]))
+		g_table[index] = entry;
 	else
 	{
-		tmp = g_table[i].lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		last = g_table[index];
+		while (last->next)
+			last = last->next;
+		last->next = entry;
 	}
 }
 
-void	ft_readdir(char *pth)
+void			ft_hash_create_lst(char **path)
 {
-	DIR				*d;
-	struct dirent	*dir;
+	DIR				*dir;
+	struct dirent	*entry;
+	char			*filename;
 	char			*tmp;
-	char			*full_pth;
-
-	if (!(d = opendir(pth)))
-		return ;
-	while ((dir = readdir(d)))
-	{
-		tmp = ft_strjoin(pth, "/");
-		full_pth = ft_freejoin(tmp, dir->d_name, 1);
-		if (access(full_pth, X_OK) == 0 && (dir->d_type == 8 || dir->d_type == 10))
-			ft_add_to_table(dir->d_name, full_pth);
-		free(full_pth);
-	}
-	closedir(d);
-}
-
-void	ft_hash_create_lst(char **pth)
-{
-	int		i;
+	int				i;
 
 	i = 0;
-	while (pth[i])
+	while (path[i])
 	{
-		ft_readdir(pth[i]);
+		dir = opendir(path[i]);
+		while (dir && (entry = readdir(dir)))
+		{
+			tmp = ft_strjoin(path[i], "/");
+			filename = ft_strjoin(tmp, entry->d_name);
+			free(tmp);
+			if (!access(filename, X_OK) && \
+				(entry->d_type == DT_REG || entry->d_type == DT_LNK))
+				ft_add_to_table(entry->d_name, filename);
+			free(filename);
+		}
+		if (dir)
+			closedir(dir);
 		i++;
 	}
 }

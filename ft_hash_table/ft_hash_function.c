@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash_table_private.h"
+#include "ft_hash_table.h"
 
-int	ft_hash_function(char *com)
+int	ft_hash_function(char *command)
 {
 	unsigned int	hash;
 	int				i;
 
 	hash = 0;
 	i = 0;
-	while (com[i])
+	while (command[i])
 	{
-		hash = (hash << 5) + (hash >> sizeof(hash)) + com[i];
+		hash = (hash << 5) + (hash >> sizeof(hash)) + command[i];
 		i++;
 	}
 	return (hash % HASH_SIZE);
