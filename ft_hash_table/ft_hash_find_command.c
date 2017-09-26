@@ -25,7 +25,7 @@ char	*ft_hash_find_command(char *command)
 		while (tmp)
 		{
 			if (!ft_strcmp(tmp->command, command))
-				return (ft_strdup(tmp->filename)); // ???
+				return (ft_strdup(tmp->filename));
 			tmp = tmp->next;
 		}
 	}

@@ -21,7 +21,6 @@
 
 # define HASH_SIZE 1000
 
-
 typedef struct		s_hash
 {
 	char			*command;
