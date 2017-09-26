@@ -14,7 +14,7 @@ char	**g_env_l;
 void	init_42(const char *const envp[])
 {
 	g_table = ft_hash_table(envp);
-	ft_env_init(&g_env_g, envp);
+	g_env_g = ft_env_init(envp);
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
 	// ft_print_table();

@@ -12,70 +12,118 @@
 
 #include "ft_env.h"
 
-extern char		**g_env_g;
-extern char		**g_env_l;
+extern char	**g_env_g;
+extern char	**g_env_l;
 
-void			ft_env_init(char ***env, const char *const envp[])
+char			**ft_env_init(const char *const envp[])
 {
-	int			i;
+	char	**env;
+	int		i;
 
 	i = 0;
 	while (envp[i])
 		i++;
-	(*env) = malloc(sizeof(char *) * (i + 1));
+	env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (envp[i])
 	{
-		(*env)[i] = strdup(envp[i]);
+		env[i] = strdup(envp[i]);
 		i++;
 	}
-	(*env)[i] = NULL;
+	env[i] = NULL;
+	return (env);
 }
 
-int				ft_env_set(char ***env, const char *var, const char *val)
+static void		env_add(char ***env, char *entry)
 {
-	char		*str;
-	int			index;
+	char	**new_env;
+	int		i;
 
-	str = malloc(strlen(var) + strlen(val) + 2);
-	strcpy(str, var);
-	strcat(str, "=");
-	strcat(str, val);
-	if ((index = ft_env_util_find(*env, var)) == -1)
+	if (!env || !*env || !entry)
+		return ;
+	i = 0;
+	while ((*env)[i])
+		i++;
+	if (!(new_env = malloc(sizeof(char *) * (i + 2))))
+		return ;
+	i = 0;
+	while ((*env)[i])
 	{
-		index = ft_env_util_realloc(env);
-		(*env)[index] = str;
-		(*env)[index + 1] = NULL;
+		new_env[i] = (*env)[i];
+		i++;
+	}
+	new_env[i] = entry;
+	new_env[i + 1] = NULL;
+	free(*env);
+	*env = new_env;
+}
+
+void			ft_env_set(char ***env, const char *key, const char *val)
+{
+	char	*entry;
+	size_t	len;
+	int		i;
+
+	if (!env || !*env || !key)
+		return ;
+	len = ft_strlen(key);
+	entry = ft_memalloc(len + ft_strlen(val) + 2);
+	ft_strcpy(ft_strcpy(ft_strcpy(entry, key), "="), val);
+	i = 0;
+	while ((*env)[i])
+	{
+		if (!ft_strncmp((*env)[i], key, len) && (*env)[i][len] == '=')
+			break ;
+		i++;
+	}
+	if ((*env)[i])
+	{
+		free((*env)[i]);
+		(*env)[i] = entry;
 	}
 	else
-	{
-		free((*env)[index]);
-		(*env)[index] = str;
-	}
-	return (1);
+		env_add(env, entry);
 }
 
-char			*ft_env_get(char **env, const char *var)
+char			*ft_env_get(char **env, const char *key)
 {
-	int			index;
+	size_t	len;
+	int		i;
 
-	if ((index = ft_env_util_find(env, var)) == -1)
+	if (!key)
 		return (NULL);
-	return (env[index] + strlen(var) + 1);
+	len = ft_strlen(key);
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], key, len) && env[i][len] == '=')
+			return (&env[i][len]);
+		i++;
+	}
+	return (NULL);
 }
 
-int				ft_env_del(char ***env, const char *var)
+void			ft_env_remove(char ***env, const char *key)
 {
-	int			index;
-	int			count;
+	size_t	len;
+	int		i;
+	int		j;
 
-	if ((index = ft_env_util_find(*env, var)) == -1)
-		return (0);
-	free((*env)[index]);
-	count = index;
-	while ((*env)[count])
-		count++;
-	count -= index;
-	memmove(env[index], env[index + 1], sizeof(char *) * count);
-	return (1);
+	if (!env || !key)
+		return ;
+	len = ft_strlen(key);
+	i = 0;
+	while ((*env)[i])
+	{
+		if (!ft_strncmp((*env)[i], key, len) && (*env)[i][len] == '=')
+			break ;
+		i++;
+	}
+	if (!(*env)[i])
+		return ;
+	free((*env)[i]);
+	j = i + 1;
+	while ((*env)[j])
+		j++;
+	ft_memmove((*env)[i], (*env)[i + 1], (*env)[j] - (*env)[i + 1]);
 }
