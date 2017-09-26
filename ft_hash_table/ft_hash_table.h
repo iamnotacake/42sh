@@ -27,7 +27,7 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-void				ft_hash_create_lst(t_hash **table, char **path);
+t_hash				**ft_hash_table(const char *const envp[]);
 void				ft_hash_add(t_hash **table, char *command, \
 																char *filename);
 void				ft_hash_remove(t_hash **table, char *command);

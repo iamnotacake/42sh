@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_hash_table.h"
+#include "ft_free_private.h"
 
 static char	**get_path(const char *const env[])
 {
