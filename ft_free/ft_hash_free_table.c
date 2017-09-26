@@ -12,6 +12,8 @@
 
 #include "ft_free_private.h"
 
+extern t_hash	**g_table;
+
 static void	free_elem(t_hash *elem)
 {
 	t_hash	*tmp;

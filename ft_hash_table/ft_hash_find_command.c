@@ -12,38 +12,65 @@
 
 #include "ft_hash_table.h"
 
-char	*ft_hash_find_command(char *command)
+static int		ft_hash_function(char *command)
 {
-	int		hash;
-	t_hash	*tmp;
+	unsigned int	hash;
+	int				i;
 
-	if (!g_table || !command)
-		return (NULL);
-	hash = ft_hash_function(command);
-	if ((tmp = g_table[hash]))
+	hash = 0;
+	i = 0;
+	while (command[i])
 	{
-		while (tmp)
-		{
-			if (!ft_strcmp(tmp->command, command))
-				return (ft_strdup(tmp->filename));
-			tmp = tmp->next;
-		}
+		hash = (hash << 5) + (hash >> sizeof(hash)) + command[i];
+		i++;
 	}
-	return (NULL);
+	return (hash % HASH_SIZE);
 }
 
-void	ft_hash_remove_element(char *command)
+static t_hash	*new_entry(char *command, char *filename)
+{
+	t_hash	*new;
+
+	if (!(new = malloc(sizeof(t_hash))))
+		return (NULL);
+	new->command = ft_strdup(command);
+	new->filename = ft_strdup(filename);
+	new->next = NULL;
+	return (new);
+}
+
+void			ft_hash_add(t_hash **table, char *command, char *filename)
+{
+	t_hash	*entry;
+	t_hash	*last;
+	int		index;
+
+	if (!(entry = new_entry(command, filename)))
+		return ;
+	index = ft_hash_function(command);
+	if (!(table[index]))
+		table[index] = entry;
+	else
+	{
+		last = table[index];
+		while (last->next)
+			last = last->next;
+		last->next = entry;
+	}
+}
+
+void			ft_hash_remove(t_hash **table, char *command)
 {
 	t_hash	**entry;
 	t_hash	*tmp;
 	int		hash;
 
-	if (!g_table || !command)
+	if (!table || !command)
 		return ;
 	hash = ft_hash_function(command);
-	if (g_table[hash])
+	if (table[hash])
 	{
-		entry = &g_table[hash];
+		entry = &table[hash];
 		while (*entry)
 		{
 			if (!ft_strcmp((*entry)->command, command))
@@ -58,4 +85,24 @@ void	ft_hash_remove_element(char *command)
 			entry = &(*entry)->next;
 		}
 	}
+}
+
+char			*ft_hash_find(t_hash **table, char *command)
+{
+	int		hash;
+	t_hash	*tmp;
+
+	if (!table || !command)
+		return (NULL);
+	hash = ft_hash_function(command);
+	if ((tmp = table[hash]))
+	{
+		while (tmp)
+		{
+			if (!ft_strcmp(tmp->command, command))
+				return (ft_strdup(tmp->filename));
+			tmp = tmp->next;
+		}
+	}
+	return (NULL);
 }

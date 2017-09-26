@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <dirent.h>
 # include "../libft/libft.h"
-# include "ft_free_private.h"
 
 # define HASH_SIZE 1000
 
@@ -28,12 +27,10 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-extern t_hash		**g_table;
-
-void				ft_hash_create_lst(char **path);
-void				ft_add_to_table(char *command, char *filename);
-char				*ft_hash_find_command(char *command);
-void				ft_hash_remove_element(char *command);
-int					ft_hash_function(char *command);
+void				ft_hash_create_lst(t_hash **table, char **path);
+void				ft_hash_add(t_hash **table, char *command, \
+																char *filename);
+void				ft_hash_remove(t_hash **table, char *command);
+char				*ft_hash_find(t_hash **table, char *command);
 
 #endif
