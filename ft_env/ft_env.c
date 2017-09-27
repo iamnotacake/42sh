@@ -68,7 +68,7 @@ void			ft_env_set(char ***env, const char *key, const char *val)
 		return ;
 	len = ft_strlen(key);
 	entry = ft_memalloc(len + ft_strlen(val) + 2);
-	ft_strcpy(ft_strcpy(ft_strcpy(entry, key), "="), val);
+	ft_strcat(ft_strcat(ft_strcat(entry, key), "="), val);
 	i = 0;
 	while ((*env)[i])
 	{
@@ -107,7 +107,6 @@ void			ft_env_remove(char ***env, const char *key)
 {
 	size_t	len;
 	int		i;
-	int		j;
 
 	if (!env || !key)
 		return ;
@@ -122,8 +121,10 @@ void			ft_env_remove(char ***env, const char *key)
 	if (!(*env)[i])
 		return ;
 	free((*env)[i]);
-	j = i + 1;
-	while ((*env)[j])
-		j++;
-	ft_memmove((*env)[i], (*env)[i + 1], (*env)[j] - (*env)[i + 1]);
+	while ((*env)[i + 1])
+	{
+		(*env)[i] = (*env)[i + 1];
+		i++;
+	}
+	(*env)[i] = NULL;
 }
