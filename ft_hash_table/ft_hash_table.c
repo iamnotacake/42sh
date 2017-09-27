@@ -12,27 +12,7 @@
 
 #include "ft_hash_table.h"
 #include "ft_free_private.h"
-
-static char	**get_path(const char *const env[])
-{
-	char	**ret;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PATH", 4) && env[i][4] == '=')
-		{
-			tmp = ft_strdup(&env[i][6]);
-			ret = ft_strsplit(tmp, ':');
-			free(tmp);
-			return (ret);
-		}
-		i++;
-	}
-	return (NULL);
-}
+#include "ft_env.h"
 
 static void	init_table(t_hash **table, char **path)
 {
@@ -53,7 +33,7 @@ static void	init_table(t_hash **table, char **path)
 			free(tmp);
 			if (!access(filename, X_OK) && \
 				(entry->d_type == DT_REG || entry->d_type == DT_LNK))
-				ft_hash_add(table, entry->d_name, filename);
+				ft_hash_set(table, entry->d_name, filename);
 			free(filename);
 		}
 		if (dir)
@@ -90,16 +70,16 @@ static void	print_table(t_hash **table)
 	}
 }
 
-t_hash		**ft_hash_table(const char *const envp[])
+t_hash		**ft_hash_table(char **env)
 {
 	t_hash	**table;
 	char	**path;
 
-	if (!(path = get_path(envp)))
+	if (!(path = ft_strsplit(ft_env_get(env, "PATH"), ':')))
 		return (NULL);
 	table = ft_memalloc(sizeof(t_hash *) * HASH_SIZE + 1);
 	init_table(table, path);
-	print_table(table);
+//	print_table(table);
 	ft_free_mas(path);
 	return (table);
 }

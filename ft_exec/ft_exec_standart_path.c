@@ -82,7 +82,7 @@ int		ft_exec_old_method(t_proc **proc)
 		{
 			wt_free_pth(pth);
 			(*proc)->path = f_pth;
-			ft_hash_add(g_table, (*proc)->argv[0], (*proc)->path);
+			ft_hash_set(g_table, (*proc)->argv[0], (*proc)->path);
 			return (0);
 		}
 		free(f_pth);
@@ -96,7 +96,7 @@ int		ft_exec_standart_path(t_proc **proc)
 {
 	char	*com;
 
-	if ((com = ft_hash_find(g_table, (*proc)->argv[0])) != NULL)
+	if ((com = ft_hash_get(g_table, (*proc)->argv[0])) != NULL)
 	{
 		(*proc)->path = com;
 		if (!access((*proc)->path, X_OK))

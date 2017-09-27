@@ -27,10 +27,11 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-t_hash				**ft_hash_table(const char *const envp[]);
-void				ft_hash_add(t_hash **table, char *command, \
+t_hash				**ft_hash_table(char **env);
+void				ft_hash_set(t_hash **table, char *command, \
 																char *filename);
+char				*ft_hash_get(t_hash **table, char *command);
 void				ft_hash_remove(t_hash **table, char *command);
-char				*ft_hash_find(t_hash **table, char *command);
+
 
 #endif

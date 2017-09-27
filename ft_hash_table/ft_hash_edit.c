@@ -39,7 +39,7 @@ static t_hash	*new_entry(char *command, char *filename)
 	return (new);
 }
 
-void			ft_hash_add(t_hash **table, char *command, char *filename)
+void			ft_hash_set(t_hash **table, char *command, char *filename)
 {
 	t_hash	*entry;
 	t_hash	*last;
@@ -87,7 +87,7 @@ void			ft_hash_remove(t_hash **table, char *command)
 	}
 }
 
-char			*ft_hash_find(t_hash **table, char *command)
+char			*ft_hash_get(t_hash **table, char *command)
 {
 	int		hash;
 	t_hash	*tmp;
