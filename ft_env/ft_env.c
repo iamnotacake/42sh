@@ -97,7 +97,7 @@ char			*ft_env_get(char **env, const char *key)
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], key, len) && env[i][len] == '=')
-			return (&env[i][len]);
+			return (&env[i][len + 1]);
 		i++;
 	}
 	return (NULL);
