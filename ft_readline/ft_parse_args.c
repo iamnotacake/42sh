@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline_private.h"
+#include "ft_readline.h"
 
 // t_dt	*ft_do_now(char **str, char **env, t_his **his)
 // {

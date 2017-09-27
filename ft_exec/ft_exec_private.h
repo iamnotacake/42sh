@@ -8,6 +8,7 @@
 # include "ft_builtin.h"
 # include "../libft/libft.h"
 # include "ft_hash_table.h"
+# include "ft_history.h"
 
 void			ft_exec_dup(t_proc *proc);
 void			ft_exec_close_except(t_proc *proc);

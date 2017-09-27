@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline_private.h"
+#include "ft_readline.h"
 
 t_match	*ft_history_match(t_his *his, char *new, int l)
 {

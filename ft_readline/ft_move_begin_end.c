@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline_private.h"
+#include "ft_readline.h"
 
 void	ft_move_begin(char **lft, char **rgt)
 {

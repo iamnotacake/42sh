@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_readline_private.h"
+#include "ft_readline.h"
 
 char	*ft_cmp_left_right(char *left, char *right)
 {

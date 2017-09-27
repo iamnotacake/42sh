@@ -1,6 +1,5 @@
-#include "ft_readline_private.h"
+#include "ft_readline.h"
 
-// t_his			*g_history;
 void	ft_terminal_set(void)
 {
 	struct termios	termios;

@@ -16,15 +16,4 @@ typedef struct		s_proc
 
 int					ft_exec(t_proc **proc);
 
-// t_proc **p = malloc(sizeof(t_proc *) * 3);
-// p[0] = ...;
-// p[1] = ...;
-// p[2] = NULL;
-//
-// int i = 0;
-// while (proc[i]) {
-// 	asdasdasd;
-// 	i++;
-// }
-
 #endif

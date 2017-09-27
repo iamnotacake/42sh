@@ -36,7 +36,13 @@ int		ft_exec_builtins(t_proc **proc)
 
 	status = 1;
 	if (!ft_strcmp("exit", (*proc)->argv[0]))
+	{
+		ft_history_load();
 		exit(0);
+	}
+	else if (!ft_strcmp("history", (*proc)->argv[0]) || 
+		!ft_strncmp("!", (*proc)->argv[0], 1))
+		status = ft_history_print(proc);
 	else if (!ft_strcmp("setenv", (*proc)->argv[0]))
 		status = ft_built_setenv(&g_env_g, (*proc)->argv);
 	else if (!ft_strcmp("unsetenv", (*proc)->argv[0]))

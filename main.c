@@ -7,8 +7,11 @@
 #include "ft_env.h"
 #include "ft_free.h"
 #include "ft_preprocessing.h"
+#include "ft_history.h"
 
 // void	ft_tree_print(t_syntax_tree *tree, int level);
+
+// t_his				*g_history;
 
 void	init_42(const char *const envp[])
 {
@@ -99,9 +102,11 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	(void)argc;
 	(void)argv;
 	g_promt = ft_strdup("wtf ?> ");
-	g_history = NULL;
-	// ft_signals();
 	init_42(envp);
+	g_history = NULL;
+	ft_history_upload();
+	// ft_signals();
+	// init_42(envp);
 	go_42();
 	ft_free();
 	return (0);
