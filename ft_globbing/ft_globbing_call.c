@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <string.h>
 #include "ft_globbing.h"
 
 int				g_index;
@@ -64,7 +62,6 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 			tmp = strdup(arguments->tree[g_index]->args[0]);
 			syntax_tree_free(arguments->tree[g_index]);
 			ptr_arr_remove(arguments->tree, g_index);
-			ft_globbing_do(tmp);
 		}
 		else
 			g_index += 1;

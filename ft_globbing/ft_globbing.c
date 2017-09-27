@@ -1,16 +1,47 @@
-#include <stdio.h>
-#include <string.h>
 #include "ft_globbing.h"
 
-int				ft_globbing_is_pattern(const char *pattern)
+static int			ft_do_globing(char *tokens, int flag, int cur_char, int c)
 {
-	// TODO
-	return (pattern[0] == '+');
+	char			*pwd;
+	struct dirent	*dirbuf;
+	DIR 			*dfd;
+
+	pwd = ft_env_get(g_env_g, "PWD");
+	if ((dfd = opendir(pwd)) == NULL)
+		return (0);
+	while ((dirbuf = readdir(dfd)) != NULL )
+	{
+		if (dirbuf->d_ino == 0)
+			continue;
+		if (ft_strcmp(dirbuf->d_name, ".") == 0 || ft_strcmp(dirbuf->d_name, "..") == 0 
+			|| *(dirbuf->d_name) == '.')
+			continue;
+		if (ft_match(dirbuf->d_name, tokens, cur_char, c))
+		{
+			ft_globbing_callback(strdup(dirbuf->d_name));
+			flag = 1;
+		}
+	}
+	closedir(dfd);
+	return (flag);
 }
 
-void			ft_globbing_do(const char *pattern)
+int				ft_globbing_is_pattern(char *pattern)
 {
-	ft_globbing_callback(strdup("SHIT1"));
-	ft_globbing_callback(strdup("SHIT2"));
- 	// TODO
+	static char		globchars[] = "*?[{";
+	char			*p;
+	int 			cur_char;
+	int				c;
+
+
+	cur_char = 0;
+	c = 0;
+	p = pattern;
+	while (*p)
+	{
+		if (ft_strchr(globchars, *p))
+			return (ft_do_globing(pattern, 0, cur_char, c));
+		p++;
+	}
+	return (0);
 }
