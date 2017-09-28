@@ -10,81 +10,76 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash_table_private.h"
+#include "ft_hash_table.h"
+#include "ft_free_private.h"
+#include "ft_env.h"
 
-t_hash	*g_table;
-
-void	ft_free_pth(char **pth)
+static void	init_table(t_hash **table, char **path)
 {
-	int	i;
+	DIR				*dir;
+	struct dirent	*entry;
+	char			*filename;
+	char			*tmp;
+	int				i;
 
 	i = 0;
-	while (pth[i])
+	while (path[i])
 	{
-		free(pth[i]);
-		i++;
-	}
-	free(pth[i]);
-	free(pth);
-}
-
-void	ft_create_table(void)
-{
-	int		i;
-
-	i = 0;
-	g_table = NULL;
-	if (!(g_table = (t_hash *)malloc(sizeof(t_hash) * (HASH_SIZE + 1))))
-		return ;
-	while (i <= HASH_SIZE)
-	{
-		g_table[i].lst = NULL;
+		dir = opendir(path[i]);
+		while (dir && (entry = readdir(dir)))
+		{
+			tmp = ft_strjoin(path[i], "/");
+			filename = ft_strjoin(tmp, entry->d_name);
+			free(tmp);
+			if (!access(filename, X_OK) && \
+				(entry->d_type == DT_REG || entry->d_type == DT_LNK))
+				ft_hash_set(table, entry->d_name, filename);
+			free(filename);
+		}
+		if (dir)
+			closedir(dir);
 		i++;
 	}
 }
 
-void	ft_print_table(void)
+static void	print_table(t_hash **table)
 {
+	t_hash	*entry;
 	int		i;
-	t_lst	*tmp;
 	int		n;
 
 	i = 0;
-	while(i < HASH_SIZE)
+	while (i < HASH_SIZE)
 	{
-		if (g_table[i].lst != NULL)
+		if ((entry = table[i]))
 		{
-			ft_putstr("\n");
-			tmp = g_table[i].lst;
-			if (tmp->next)
+			n = 1;
+			while (entry->next)
 			{
-				n = 1;
-				while (tmp->next)
-				{
-					n++;
-					tmp = tmp->next;
-				}
-				ft_putnbr(n);
+				entry = entry->next;
+				n++;
 			}
-			else
-				ft_putstr("1");
+			ft_putnbr(n);
 		}
-		ft_putstr("-");
+		else
+			write(1, "-", 1);
+		write(1, " ", 1);
+		if (!((i + 1) % 25))
+			write(1, "\n", 1);
 		i++;
 	}
-	write(1, "\n", 1);
 }
 
-void	ft_hash_table(const char *const envp[])
+t_hash		**ft_hash_table(char **env)
 {
+	t_hash	**table;
 	char	**path;
 
-	if (g_table != NULL)
-		ft_hash_free_table();
-	if (!(path = ft_get_path(envp, "PATH")))
-		return ;
-	ft_create_table();
-	ft_hash_create_lst(path);	
-	// ft_print_table();
-	ft_free_pth(path);
+	if (!(path = ft_strsplit(ft_env_get(env, "PATH"), ':')))
+		return (NULL);
+	table = ft_memalloc(sizeof(t_hash *) * HASH_SIZE + 1);
+	init_table(table, path);
+//	print_table(table);
+	ft_free_mas(path);
+	return (table);
 }

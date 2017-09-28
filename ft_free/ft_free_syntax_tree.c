@@ -12,9 +12,9 @@
 
 #include "ft_parser_private.h"
 
-t_token			*g_prev_tok;
-t_token			*g_curr_sym;
-t_token			*g_next_sym;
+extern t_token	*g_prev_tok;
+extern t_token	*g_curr_sym;
+extern t_token	*g_next_sym;
 
 void			prev_symbol(void)
 {

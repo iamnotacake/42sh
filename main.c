@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include "ft_readline.h"
-#include "ft_hash_table.h"
-#include "ft_lexer.h"
-#include "ft_parser.h"
-#include "ft_env.h"
-#include "ft_free.h"
-#include "ft_preprocessing.h"
-#include "ft_history.h"
+#include "shell.h"
+
+char	*g_promt;
+t_his	*g_history;
+t_hash	**g_table;
+t_token	*g_prev_tok;
+t_token	*g_curr_sym;
+t_token	*g_next_sym;
+char	**g_env_g;
+char	**g_env_l;
 
 // void	ft_tree_print(t_syntax_tree *tree, int level);
 
@@ -15,9 +15,8 @@
 
 void	init_42(const char *const envp[])
 {
-	g_table = NULL;
-	ft_hash_table(envp);
-	ft_env_init(&g_env_g, envp);
+	g_table = ft_hash_table((char **)envp);
+	g_env_g = ft_env_init(envp);
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
 	// ft_print_table();
