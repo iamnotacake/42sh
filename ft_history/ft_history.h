@@ -35,8 +35,10 @@ typedef struct			s_fd
 
 extern t_his	*g_history;
 void			ft_history_upload(void);
-void			ft_history_load(void);
+void	ft_history_load(char *str, int fl);
 int		get_next_line(const int fd, char **line);
-int	ft_history_print(t_proc **proc);
+int		ft_history_print(t_proc **proc);
+void	ft_history_error(t_proc **proc, char *er);
+int		ft_history_stdout_clear(t_proc **proc);
 
 #endif

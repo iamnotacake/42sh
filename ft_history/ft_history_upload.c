@@ -35,7 +35,7 @@ void	ft_history_read(char *tmp)
 
 void	ft_history_upload(void)
 {
-	int	e;
+	int		e;
 	char	*str;
 	char	*tmp;
 	

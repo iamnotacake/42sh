@@ -104,7 +104,9 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	g_promt = ft_strdup("wtf ?> ");
 	init_42(envp);
 	g_history = NULL;
+	// sleep(2);
 	ft_history_upload();
+	// sleep(2);
 	// ft_signals();
 	// init_42(envp);
 	go_42();

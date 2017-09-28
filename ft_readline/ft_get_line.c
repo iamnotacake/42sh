@@ -40,7 +40,13 @@ void	ft_re_print(char *rgt)
 void	ft_if_printchar(char **lft, char **rgt, char *buf)
 {
 	char	*tmp;
+	int		t;
 
+	// t = buf[0] + buf[1];
+	// if (t > 127)
+	// 	return ;
+	// if (buf[0] <= 32 || buf[0] >= 126) // юникод
+	// 	return ;
 	ft_putstr(buf);
 	if (!(*lft))
 		(*lft) = ft_strdup(buf);

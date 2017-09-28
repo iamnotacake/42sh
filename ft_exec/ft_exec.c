@@ -37,7 +37,7 @@ int		ft_exec_builtins(t_proc **proc)
 	status = 1;
 	if (!ft_strcmp("exit", (*proc)->argv[0]))
 	{
-		ft_history_load();
+		// ft_history_load();
 		exit(0);
 	}
 	else if (!ft_strcmp("history", (*proc)->argv[0]) || 

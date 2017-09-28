@@ -36,11 +36,17 @@ void	ft_till_the_end(char **lft, char **rgt)
 
 void	ft_get_line_save(char **lft, char **rgt, char **line, t_his **his)
 {
+	int	fl;
+
+	fl = O_APPEND;
 	ft_till_the_end(lft, rgt);
 	(*line) = ft_line((*lft), (*rgt));
 	if ((*line))
 		if (ft_strlen((*line)) != 0)
+		{
 			ft_add_to_history(his, *line);
+			ft_history_load(*line, fl);
+		}
 	if ((*his))
 		ft_free_tmp(his);
 }
