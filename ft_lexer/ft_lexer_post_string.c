@@ -6,7 +6,7 @@
 /*   By: mvarga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:41:28 by mvarga            #+#    #+#             */
-/*   Updated: 2017/09/28 17:43:10 by mvarga           ###   ########.fr       */
+/*   Updated: 2017/09/28 18:16:15 by mvarga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ static void		ft_lexer_join(t_token **tok)
 	char		*data;
 	t_token		*tmp;
 
-	match = malloc(strlen((*tok)->match) + ft_strlen((*tok)->next->match) + 1);
-	ft_strcat(strcpy(match, (*tok)->match), (*tok)->next->match);
+	match = malloc(ft_strlen((*tok)->match) + \
+ft_strlen((*tok)->next->match) + 1);
+	ft_strcat(ft_strcpy(match, (*tok)->match), (*tok)->next->match);
 	free((*tok)->match);
 	(*tok)->match = match;
-	data = malloc(strlen((*tok)->data) + ft_strlen((*tok)->next->data) + 1);
-	ft_strcat(strcpy(data, (*tok)->data), (*tok)->next->data);
+	data = malloc(ft_strlen((*tok)->data) + ft_strlen((*tok)->next->data) + 1);
+	ft_strcat(ft_strcpy(data, (*tok)->data), (*tok)->next->data);
 	free((*tok)->data);
 	(*tok)->data = data;
 	tmp = (*tok)->next->next;
