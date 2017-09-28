@@ -82,9 +82,7 @@ int		ft_char_analysis(unsigned char key, char **lft, char **rgt, t_his **his)
 	if (key == '\n')
 		return (0);
 	else if (key == ESC)
-	{
 		ft_move_escape(lft, rgt, his);
-	}
 	else if (key == K_BACKSP)
 			ft_move_backslash(lft, rgt);
 	else if (key == K_CTR_R)
