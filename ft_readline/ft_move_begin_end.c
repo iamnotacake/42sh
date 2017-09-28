@@ -86,16 +86,16 @@ void	ft_move_end(char **lft, char **rgt, int len)
 	ft_move_row(r, l, len);
 }
 
-void	ft_move_begin_end(char **lft, char **rgt, char *buf)
+void	ft_move_begin_end(char **lft, char **rgt, unsigned long key)
 {
 	struct winsize	size;
 	int				len;
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, SHTL))
+	if (key == K_SHT_LFT)
 		ft_move_begin(lft, rgt);
-	if (!ft_strcmp(buf, SHTR))
+	if (key == K_SHT_RGT)
 	{
 		ft_move_end(lft, rgt, len);
 	}

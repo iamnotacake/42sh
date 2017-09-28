@@ -84,10 +84,10 @@ void	ft_arrow_down(char **lft, char **rgt, t_his **his)
 	}
 }
 
-void	ft_move_history(char *buf, char **lft, char **rgt, t_his **his)
+void	ft_move_history(unsigned long key, char **lft, char **rgt, t_his **his)
 {
-	if (!ft_strcmp(buf, ARRU) && (*his))
+	if (key == K_UP && (*his))
 		ft_arrow_up(lft, rgt, his);
-	if (!ft_strcmp(buf, ARRD) && (*his))
+	if (key == K_DWN && (*his))
 		ft_arrow_down(lft, rgt, his);
 }

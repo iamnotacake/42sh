@@ -40,13 +40,7 @@ void	ft_re_print(char *rgt)
 void	ft_if_printchar(char **lft, char **rgt, char *buf)
 {
 	char	*tmp;
-	int		t;
 
-	// t = buf[0] + buf[1];
-	// if (t > 127)
-	// 	return ;
-	// if (buf[0] <= 32 || buf[0] >= 126) // юникод
-	// 	return ;
 	ft_putstr(buf);
 	if (!(*lft))
 		(*lft) = ft_strdup(buf);
@@ -61,31 +55,52 @@ void	ft_if_printchar(char **lft, char **rgt, char *buf)
 		ft_re_print(*rgt);
 }
 
-int		ft_char_analysis(char *buf, char **lft, char **rgt, t_his **his)
+void	ft_move_escape(char **lft, char **rgt, t_his **his)
 {
-	if (!ft_strcmp(buf, "\n"))
-		return (0);
-	else if (!ft_strcmp(buf, ARRL) || !ft_strcmp(buf, ARRR))
-		ft_move_cursor(lft, rgt, buf);
-	else if (!ft_strcmp(buf, ARRU) || !ft_strcmp(buf, ARRD))
-		ft_move_history(buf, lft, rgt, his);
-	else if (!ft_strcmp(buf, "\x7f"))
-		ft_move_backslash(lft, rgt);
-	else if (!ft_strcmp(buf, SHTR) || !ft_strcmp(buf, SHTL))
-		ft_move_begin_end(lft, rgt, buf);
-	else if (!ft_strcmp(buf, ALTR) || !ft_strcmp(buf, ALTL))
-		ft_move_words(lft, rgt, buf);
-	else if (!ft_strcmp(buf, ALTU) || !ft_strcmp(buf, ALTD))
-		ft_move_line(lft, rgt, buf);
-	else if (!ft_strcmp(buf, "\t"))
-		ft_move_tab(lft, rgt);
-	else if (!ft_strcmp(buf, "\x12"))
+	unsigned long	key;
+
+	key = 0;
+	if (read(0, &key, sizeof(key)))
 	{
-		ft_history_find(lft, rgt, *his);
-		return (1);
+		if (key == K_LFT || key == K_RGT)
+			ft_move_cursor(lft, rgt, key);
+		else if (key == K_UP || key == K_DWN)
+			ft_move_history(key, lft, rgt, his);
+		else if (key == K_SHT_RGT || key == K_SHT_LFT)
+			ft_move_begin_end(lft, rgt, key);
+		else if (key == K_ALT_RGT || key == K_ALT_LFT)
+			ft_move_words(lft, rgt, key);
+		else if (key == K_ALT_UP || key == K_ALT_DWN)
+			ft_move_line(lft, rgt, key);
 	}
-	else
+}
+
+int		ft_char_analysis(unsigned char key, char **lft, char **rgt, t_his **his)
+{
+	char	*buf;
+
+	if (key == '\n')
+		return (0);
+	else if (key == ESC)
+	{
+		ft_move_escape(lft, rgt, his);
+	}
+	else if (key == K_BACKSP)
+			ft_move_backslash(lft, rgt);
+	else if (key == K_CTR_R)
+		ft_history_find(lft, rgt, *his);
+	else if (key == '\t')
+		ft_move_tab(lft, rgt);
+	else if (ft_isascii(key) && key)
+	{
+		if (!(buf = (char *)malloc(sizeof(char) * (READ_SIZE + 1))))
+			return (0);
+		ft_bzero(buf, (READ_SIZE));
+		buf[READ_SIZE] = '\0';
+		buf[0] = key;
 		ft_if_printchar(lft, rgt, buf);
+		free(buf);
+	}
 	return (1);
 }
 
@@ -107,25 +122,18 @@ void	ft_free_all(char *buf, char **lft, char **rgt)
 
 void	ft_get_line(char **line, t_his **his)
 {
-	char	*buf;
-	char	*lft;
-	char	*rgt;
+	unsigned char	key;
+	char			*lft;
+	char			*rgt;
 
 	lft = NULL;
 	rgt = NULL;
-	if (!(buf = (char *)malloc(sizeof(char) * (READ_SIZE + 1))))
-		return ;
-	ft_bzero(buf, (READ_SIZE));
-	buf[READ_SIZE] = '\0';
-	while (read(0, buf, READ_SIZE))
+	while (read(0, &key, sizeof(key)))
 	{
-		if (!(ft_char_analysis(buf, &lft, &rgt, his)))
+		if (!(ft_char_analysis(key, &lft, &rgt, his)))
 		{
-			free(buf);
 			ft_get_line_save(&lft, &rgt, line, his);
 			return ;
 		}
-		ft_bzero(buf, READ_SIZE);
-		buf[READ_SIZE] = '\0';
 	}
 }

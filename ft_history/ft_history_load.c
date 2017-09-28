@@ -41,7 +41,7 @@ void	ft_history_load(char *str, int fl)
 		home++;
 	if (home != NULL)
 		home++;
-	printf("%s\n", home);
+	// printf("%s\n", home);
 	pth = ft_strjoin(home, "/.42sh_history");
 	ft_exec_write_42history(pth, str, fl);
 	free(pth);

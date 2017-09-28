@@ -48,7 +48,7 @@ void	ft_history_upload(void)
 		str++;
 	if (str != NULL)
 		str++;
-	printf("%s\n", str);
+	// printf("%s\n", str);
 	tmp = ft_strjoin(str, "/.42sh_history");
 	ft_history_read(tmp);
 	free(tmp);

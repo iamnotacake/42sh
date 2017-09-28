@@ -65,15 +65,15 @@ void	ft_move_line_up(char **lft, char **rgt, int len)
 	ft_move_line_up_cursor(l, len);
 }
 
-void	ft_move_line(char **lft, char **rgt, char *buf)
+void	ft_move_line(char **lft, char **rgt, unsigned long key)
 {
 	struct winsize	size;
 	int				len;
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, ALTU))
+	if (key == K_ALT_UP)
 		ft_move_line_up(lft, rgt, len);
-	if (!ft_strcmp(buf, ALTD))
+	if (key == K_ALT_DWN)
 		ft_move_line_down(lft, rgt, len);
 }

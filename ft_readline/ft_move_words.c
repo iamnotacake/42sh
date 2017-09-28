@@ -62,15 +62,15 @@ void	ft_move_left(char **lft, char **rgt)
 		write(1, "\033[D", 3);
 }
 
-void	ft_move_words(char **lft, char **rgt, char *buf)
+void	ft_move_words(char **lft, char **rgt, unsigned long key)
 {
 	struct winsize	size;
 	int				len;
 
 	ioctl(0, TIOCGWINSZ, &size);
 	len = size.ws_col;
-	if (!ft_strcmp(buf, ALTL))
+	if (key == K_ALT_LFT)
 		ft_move_left(lft, rgt);
-	if (!ft_strcmp(buf, ALTR))
+	if (key == K_ALT_RGT)
 		ft_move_word_right(lft, rgt, len);
 }
