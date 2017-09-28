@@ -12,36 +12,36 @@
 
 #include "ft_history.h"
 
-void	ft_history_in(char *str)
-{
-	int	len;
+// void	ft_history_in(char *str)
+// {
+// 	int	len;
 
-	len = ft_strlen(str);
-	while (*str)
-	{
-		ioctl(0, TIOCSTI, str);
-		str++;
-	}
-	while (len--)
-		ft_putstr(ARRL);
-	len = ft_strlen(str);
-	while (len--)
-		ft_putstr(" ");
-	len = ft_strlen(str);
-	while (len--)
-		ft_putstr(ARRL);
-}
+// 	len = ft_strlen(str);
+// 	while (*str)
+// 	{
+// 		ioctl(0, TIOCSTI, str);
+// 		str++;
+// 	}
+// 	while (len--)
+// 		ft_putstr(ARRL);
+// 	len = ft_strlen(str);
+// 	while (len--)
+// 		ft_putstr(" ");
+// 	len = ft_strlen(str);
+// 	while (len--)
+// 		ft_putstr(ARRL);
+// }
 
-int		ft_history_stdin(t_proc **proc)
-{
-	if ((*proc)->argv[1])
-	{
-		ft_history_error(proc, "to match arguments\n");
-		return (-1);
-	}
-	ft_history_in((*proc)->argv[0] + 1);
-	return (0);
-}
+// int		ft_history_stdin(t_proc **proc)
+// {
+// 	if ((*proc)->argv[1])
+// 	{
+// 		ft_history_error(proc, "to match arguments\n");
+// 		return (-1);
+// 	}
+// 	ft_history_in((*proc)->argv[0] + 1);
+// 	return (0);
+// }
 
 int		ft_history_if(t_proc **proc)
 {
@@ -50,7 +50,7 @@ int		ft_history_if(t_proc **proc)
 	st = -1;
 	if (!ft_strcmp("history", (*proc)->argv[0]))
 		st = ft_history_stdout_clear(proc);
-	else if (!ft_strncmp("!", (*proc)->argv[0], 1))
+	else if ((*proc)->argv[0][0] == '!')
 		st = ft_history_stdin(proc);
 	return (st);
 }

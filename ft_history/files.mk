@@ -17,3 +17,4 @@ SOURCES += ft_history/ft_history_upload.c \
 			ft_history/ft_history_print.c \
 			ft_history/ft_history_error.c \
 			ft_history/ft_history_stdout_clear.c \
+			ft_history/ft_history_stdin.c \
