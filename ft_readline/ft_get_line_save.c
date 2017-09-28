@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+#include "ft_history.h"
 
 char	*ft_line(char *lft, char *rgt)
 {
