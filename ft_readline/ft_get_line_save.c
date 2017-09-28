@@ -44,8 +44,11 @@ void	ft_get_line_save(char **lft, char **rgt, char **line, t_his **his)
 	if ((*line))
 		if (ft_strlen((*line)) != 0)
 		{
-			ft_add_to_history(his, *line);
-			ft_history_load(*line, fl);
+			if (*line[0] != '!')
+			{
+				ft_add_to_history(his, *line);
+				ft_history_load(*line, fl);
+			}
 		}
 	if ((*his))
 		ft_free_tmp(his);
