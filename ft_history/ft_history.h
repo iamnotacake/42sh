@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include "ft_readline.h"
-// # include "ft_readline_private.h"
 # include "ft_builtin.h"
 # include <fcntl.h>
 
@@ -41,5 +40,7 @@ int		ft_history_print(t_proc **proc);
 void	ft_history_error(t_proc **proc, char *er);
 int		ft_history_stdout_clear(t_proc **proc);
 int		ft_history_stdin(t_proc **proc);
+t_his	*ft_history_up(void);
+t_his	*ft_history_dwn(void);
 
 #endif

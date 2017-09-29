@@ -13,7 +13,7 @@
 #include "ft_history.h"
 #include "ft_free.h"
 
-t_his	*ft_history_up()
+t_his	*ft_history_up(void)
 {
 	t_his	*his;
 
@@ -22,6 +22,18 @@ t_his	*ft_history_up()
 		return (NULL);
 	while (his->prev)
 		his = his->prev;
+	return (his);
+}
+
+t_his	*ft_history_dwn(void)
+{
+	t_his	*his;
+
+	his = NULL;
+	if (!(his = g_history))
+		return (NULL);
+	while (his->next)
+		his = his->next;
 	return (his);
 }
 
@@ -50,6 +62,7 @@ void	ft_history_clear(void)
 int		ft_history_stdout_clear(t_proc **proc)
 {
 	char	*err;
+	char	*tmp;
 
 	if (!(*proc)->argv[1])
 	{
@@ -60,9 +73,9 @@ int		ft_history_stdout_clear(t_proc **proc)
 		ft_history_clear();
 	else
 	{
-		err = ft_strjoin("event not found: ", (*proc)->argv[1]);
+		tmp = ft_strjoin("event not found: ", (*proc)->argv[1]);
+		err = ft_freejoin(tmp, "\n", 1);
 		ft_history_error(proc, err);
-		ft_putstr("\n");
 		free(err);
 		return (-1);
 	}

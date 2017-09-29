@@ -42,33 +42,33 @@ static void	init_table(t_hash **table, char **path)
 	}
 }
 
-static void	print_table(t_hash **table)
-{
-	t_hash	*entry;
-	int		i;
-	int		n;
+// static void	print_table(t_hash **table)
+// {
+// 	t_hash	*entry;
+// 	int		i;
+// 	int		n;
 
-	i = 0;
-	while (i < HASH_SIZE)
-	{
-		if ((entry = table[i]))
-		{
-			n = 1;
-			while (entry->next)
-			{
-				entry = entry->next;
-				n++;
-			}
-			ft_putnbr(n);
-		}
-		else
-			write(1, "-", 1);
-		write(1, " ", 1);
-		if (!((i + 1) % 25))
-			write(1, "\n", 1);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < HASH_SIZE)
+// 	{
+// 		if ((entry = table[i]))
+// 		{
+// 			n = 1;
+// 			while (entry->next)
+// 			{
+// 				entry = entry->next;
+// 				n++;
+// 			}
+// 			ft_putnbr(n);
+// 		}
+// 		else
+// 			write(1, "-", 1);
+// 		write(1, " ", 1);
+// 		if (!((i + 1) % 25))
+// 			write(1, "\n", 1);
+// 		i++;
+// 	}
+// }
 
 t_hash		**ft_hash_table(char **env)
 {

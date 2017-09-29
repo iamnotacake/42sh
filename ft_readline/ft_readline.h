@@ -105,5 +105,6 @@ void				ft_free_tmp(t_his **his);
 int					ft_add_match(t_match **head, char *file);
 void				ft_history_get_tory(char **lft, t_his *his);
 int					ft_add_to_tmp(char **lft, char **rgt, t_his **his);
+void				ft_history_down(t_his **his);
 
 #endif

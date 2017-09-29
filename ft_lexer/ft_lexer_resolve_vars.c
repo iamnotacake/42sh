@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lexer_resolve_vars.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvarga <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/28 17:45:29 by mvarga            #+#    #+#             */
+/*   Updated: 2017/09/28 18:03:46 by mvarga           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_env.h"
 #include "ft_lexer_private.h"
 
 static char	const	*ft_get_var_content(const char *var, int len)
 {
-	char const	*res;
-	static char	tmp[64];
+	char const		*res;
+	static char		tmp[64];
 
-	bzero(tmp, sizeof(tmp));
-	strncpy(tmp, var, len);
+	ft_bzero(tmp, sizeof(tmp));
+	ft_strncpy(tmp, var, len);
 	if (var[0] == '$')
 	{
 		sprintf(tmp, "%d", getpid());
@@ -19,7 +31,7 @@ static char	const	*ft_get_var_content(const char *var, int len)
 	res = ft_env_get(g_env_g, tmp);
 	if (res)
 		return (res);
-	return "";
+	return ("");
 }
 
 static int			ft_xxyy(t_token *tok, int i)
@@ -28,7 +40,8 @@ static int			ft_xxyy(t_token *tok, int i)
 	char			*tmp;
 
 	j = 1;
-	while (isalpha(tok->data[i + j]) || (j > 1 && isalnum(tok->data[i + j])))
+	while (ft_isalpha(tok->data[i + j]) ||\
+(j > 1 && ft_isalnum(tok->data[i + j])))
 		j += 1;
 	if (j > 1 || (tok->data[i + j] == '$' && (j += 1)))
 	{
@@ -40,6 +53,7 @@ static int			ft_xxyy(t_token *tok, int i)
 		tok->data = tmp;
 		return (j);
 	}
+	return (0);
 }
 
 void				ft_lexer_resolve_vars(t_token *toks)

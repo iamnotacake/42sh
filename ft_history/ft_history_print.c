@@ -70,7 +70,7 @@ int		ft_history_print(t_proc **proc)
 	st = ft_history_if(proc);
 	if (old1)
 	{
-		dup2(old1, 2);
+		dup2(old1, 1);
 	}
 	return (st);
 }
