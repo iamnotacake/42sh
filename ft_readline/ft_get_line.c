@@ -12,6 +12,9 @@
 
 #include "ft_readline.h"
 
+extern char	*g_lft;
+extern char	*g_rgt;
+
 void	ft_re_print(char *rgt)
 {
 	size_t	r;
@@ -121,17 +124,17 @@ void	ft_free_all(char *buf, char **lft, char **rgt)
 void	ft_get_line(char **line, t_his **his)
 {
 	unsigned char	key;
-	char			*lft;
-	char			*rgt;
 
-	lft = NULL;
-	rgt = NULL;
+	g_lft = NULL;
+	g_rgt = NULL;
 	while (read(0, &key, sizeof(key)))
 	{
-		if (!(ft_char_analysis(key, &lft, &rgt, his)))
+		if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
 		{
-			ft_get_line_save(&lft, &rgt, line, his);
+			ft_get_line_save(&g_lft, &g_rgt, line, his);
 			return ;
 		}
 	}
+	g_lft = NULL;
+	g_rgt = NULL;
 }

@@ -67,8 +67,9 @@ typedef struct		s_his
 	struct s_his	*next;
 }					t_his;
 
-char				*g_promt;
-t_his				*g_history;
+extern char			*g_promt;
+extern t_his		*g_history;
+
 char				*ft_readline();
 void				ft_get_line(char **line, t_his **his);
 void				ft_add_to_history(t_his **his, char *line);

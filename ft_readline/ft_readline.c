@@ -1,4 +1,5 @@
 #include "ft_readline.h"
+#include "ft_signals.h"
 
 void	ft_terminal_set(void)
 {
@@ -14,9 +15,11 @@ char			*ft_readline(void)
 	char		*line;
 
 	line = NULL;
+	ft_signals_input();
 	ft_terminal_set();
 	ft_putstr(g_promt);
 	ft_get_line(&line, &g_history);
 	ft_terminal_set();
+	ft_signals();
 	return (line);
 }

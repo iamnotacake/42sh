@@ -1,6 +1,8 @@
 #include "ft_exec_private.h"
 #include "ft_env.h"
 
+extern int	g_parent;
+
 void	ft_exec_dup(t_proc *proc)
 {
 	int	i;
@@ -100,6 +102,7 @@ void	ft_exec_spawn(t_proc **proc)
 	pid = fork();
 	if (pid == 0)
 	{
+		g_parent = 0;
 		ft_exec_close_except(*proc);
 		ft_exec_dup(*proc);
 		if (!ft_exec_is_builtin(proc))

@@ -12,5 +12,7 @@
 # include "ft_free.h"
 # include "ft_preprocessing.h"
 # include "ft_history.h"
+# include "ft_signals.h"
+# include "libft/libft.h"
 
 #endif /* shell_h */

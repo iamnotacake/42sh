@@ -8,18 +8,20 @@ t_token	*g_curr_sym;
 t_token	*g_next_sym;
 char	**g_env_g;
 char	**g_env_l;
+int		g_parent;
+char	*g_lft;
+char	*g_rgt;
 
 // void	ft_tree_print(t_syntax_tree *tree, int level);
 
-// t_his				*g_history;
-
 void	init_42(const char *const envp[])
 {
+	g_parent = 1;
 	g_table = ft_hash_table((char **)envp);
 	g_env_g = ft_env_init(envp);
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
-	// ft_print_table();
+	ft_signals();
 	// parser_init();
 }
 
@@ -106,7 +108,6 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	// sleep(2);
 	ft_history_upload();
 	// sleep(2);
-	// ft_signals();
 	// init_42(envp);
 	go_42();
 	ft_free();

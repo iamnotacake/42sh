@@ -29,7 +29,7 @@ include ft_env/files.mk
 include ft_preprocessing/files.mk
 include ft_globbing/files.mk
 include ft_builtin/files.mk
-
+include ft_signals/files.mk
 
 .PHONY: all clean fclean norm
 
