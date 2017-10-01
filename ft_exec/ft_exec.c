@@ -84,6 +84,8 @@ int		ft_exec(t_proc **proc)
 	t_proc	*tmp;
 	t_proc	*head;
 
+	ft_pre_print_proc(*proc);
+	
 	if (!(*proc))
 		return (-1);
 	ft_exec_proc_up(proc);

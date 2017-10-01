@@ -93,7 +93,7 @@ void	go_42(void)
 			parser_simplify(&tree);
 			parser_simplify(&tree);
 			write(1, "\n", 1);
-			// ft_tree_print(tree, 0);
+			ft_tree_print(tree, 0);
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			token_free_all(tokens);

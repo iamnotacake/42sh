@@ -71,6 +71,7 @@ void	ft_pre_fill_list(t_syntax_tree *tree, t_proc **proc, int *lock)
 	fd = 0;
 	while (tree->tree[i])
 	{
+		ft_pre_pipe_fd(tree, proc, i, &fd);
 		ft_pre_by_type(tree->tree[i], proc, lock);
 		if (i > 0 && !(*proc))
 		{
@@ -78,7 +79,7 @@ void	ft_pre_fill_list(t_syntax_tree *tree, t_proc **proc, int *lock)
 				close(fd);
 			return ;
 		}
-		ft_pre_pipe_fd(tree, proc, i, &fd);
+		// ft_pre_pipe_fd(tree, proc, i, &fd);
 		if (tree->tree[i + 1])
 			ft_pre_add_proc_to_end(proc);
 		i++;
