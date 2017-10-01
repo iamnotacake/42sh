@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 15:56:58 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/10/01 15:57:19 by olyuboch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_exec_private.h"
 
 void	ft_exec_proc_up(t_proc **proc)
@@ -21,7 +33,6 @@ void	ft_exec_close_parent_fd(t_proc *proc)
 		{
 			if (tmp->dup[i] != i && tmp->dup[i] > 2)
 			{
-				// printf("close parrent: %d\n", tmp->dup[i]);
 				close(tmp->dup[i]);
 			}
 			i++;
@@ -37,10 +48,9 @@ int		ft_exec_builtins(t_proc **proc)
 	status = 1;
 	if (!ft_strcmp("exit", (*proc)->argv[0]))
 	{
-		// ft_history_load();
 		exit(0);
 	}
-	else if (!ft_strcmp("history", (*proc)->argv[0]) || 
+	else if (!ft_strcmp("history", (*proc)->argv[0]) ||
 		!ft_strncmp("!", (*proc)->argv[0], 1))
 		status = ft_history_print(proc);
 	else if (!ft_strcmp("setenv", (*proc)->argv[0]))
@@ -49,7 +59,7 @@ int		ft_exec_builtins(t_proc **proc)
 		status = ft_built_unsetenv(&g_env_g, (*proc)->argv);
 	else if (!ft_strcmp("cd", (*proc)->argv[0]))
 		status = ft_built_cd(&g_env_g, (*proc)->argv);
-	else if (!ft_strcmp("env", (*proc)->argv[0]) || 
+	else if (!ft_strcmp("env", (*proc)->argv[0]) ||
 			!ft_strcmp("echo", (*proc)->argv[0]))
 	{
 		ft_exec_spawn(proc);
@@ -70,7 +80,6 @@ int		ft_exec_check(t_proc **proc)
 
 int		ft_exec(t_proc **proc)
 {
-	// int		status;
 	int		result;
 	t_proc	*tmp;
 	t_proc	*head;

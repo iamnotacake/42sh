@@ -43,7 +43,6 @@ void	ft_pre_read_from_dup(int *fd, t_proc **proc)
 	free(buf);
 	if (!str)
 		return ;
-	// printf("str: %s\n", str);
 	ft_pre_split_args(str, proc);
 	free(str);
 }

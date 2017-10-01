@@ -18,8 +18,6 @@ void	ft_pre_exec(t_proc **proc)
 		return ;
 	if (!(*proc)->argv)
 		return ;
-	// printf("EXECVE\n");
-	// ft_pre_print_proc(*proc);
 	ft_exec(proc);
 	ft_free_proc(*proc);
 	*proc = NULL;
