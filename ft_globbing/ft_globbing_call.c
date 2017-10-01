@@ -6,7 +6,7 @@
 /*   By: mvarga <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 16:47:11 by mvarga            #+#    #+#             */
-/*   Updated: 2017/09/28 16:47:14 by mvarga           ###   ########.fr       */
+/*   Updated: 2017/10/01 15:16:39 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		**ptr_arr_insert(void **ptrs, int index, void *ptr)
 {
 	int			len;
 
-	len = ptr_arr_len(ptrs);
+	len = ptr_arr_len((t_syntax_tree **)ptrs);
 	ptrs = realloc(ptrs, sizeof(void *) * (len + 2));
 	memmove((void *)&ptrs[index + 1],
 			(void *)&ptrs[index],
