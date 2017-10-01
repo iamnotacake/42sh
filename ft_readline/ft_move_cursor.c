@@ -6,11 +6,14 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 17:58:18 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/10/01 16:02:09 by alischyn         ###   ########.fr       */
+/*   Updated: 2017/10/01 16:39:33 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+extern char	*g_lft;
+extern char	*g_rgt;
 
 void	ft_move_cursor(char **lft, char **rgt, unsigned long key)
 {
