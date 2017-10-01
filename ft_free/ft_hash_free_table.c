@@ -12,7 +12,7 @@
 
 #include "ft_free_private.h"
 
-extern t_hash	**g_table;
+extern t_hash **g_table;
 
 static void	free_elem(t_hash *elem)
 {
@@ -28,14 +28,14 @@ static void	free_elem(t_hash *elem)
 	}
 }
 
-void	ft_hash_free_table(void)
+void		ft_hash_free_table(void)
 {
 	int		i;
 
 	if (!g_table)
 		return ;
 	i = 0;
-	while(i < HASH_SIZE)
+	while (i < HASH_SIZE)
 	{
 		if (g_table[i])
 			free_elem(g_table[i]);

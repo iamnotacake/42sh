@@ -23,7 +23,7 @@ void			prev_symbol(void)
 	g_prev_tok = g_curr_sym ? g_curr_sym->prev : NULL;
 }
 
-void	ft_free_syntax_tree(t_syntax_tree *tree)
+void			ft_free_syntax_tree(t_syntax_tree *tree)
 {
 	int			i;
 

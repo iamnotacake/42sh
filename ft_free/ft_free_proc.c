@@ -12,9 +12,9 @@
 
 #include "ft_free_private.h"
 
-void	ft_free_close_fd(int *fd)
+void		ft_free_close_fd(int *fd)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (i < 10)
@@ -25,36 +25,41 @@ void	ft_free_close_fd(int *fd)
 	}
 }
 
-void	ft_free_proc(t_proc *proc)
+static void	ft_free_one_proc(t_proc *proc)
 {
 	t_proc	*tmp;
 	int		i;
 
+	if (proc->path)
+	{
+		free(proc->path);
+		proc->path = NULL;
+	}
+	if (proc->argv)
+	{
+		i = 0;
+		while (proc->argv[i])
+		{
+			free(proc->argv[i]);
+			proc->argv[i] = NULL;
+			i++;
+		}
+		free(proc->argv);
+	}
+	ft_free_close_fd(proc->dup);
+	tmp = proc;
+	free(tmp);
+}
+
+void		ft_free_proc(t_proc *proc)
+{
 	if (!proc)
 		return ;
 	while (proc->prev)
 		proc = proc->prev;
 	while (proc)
 	{
-		if (proc->path)
-		{
-			free(proc->path);
-			proc->path = NULL;
-		}
-		if (proc->argv)
-		{
-			i = 0;
-			while (proc->argv[i])
-			{
-				free(proc->argv[i]);
-				proc->argv[i] = NULL;
-				i++;
-			}
-			free(proc->argv);
-		}
-		ft_free_close_fd(proc->dup);
-		tmp = proc;
+		ft_free_one_proc(proc);
 		proc = proc->next;
-		free(tmp);
 	}
 }
