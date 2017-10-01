@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exec_spawn.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 15:55:40 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/10/01 15:55:42 by olyuboch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_exec_private.h"
 #include "ft_env.h"
 
@@ -28,7 +40,6 @@ void	ft_exec_close_fd(t_proc *proc, int fl)
 		{
 			if (proc->dup[i] != i && proc->dup[i] > 2)
 			{
-				// printf("close child: %d\n", proc->dup[i]);
 				close(proc->dup[i]);
 			}
 			i++;
@@ -64,6 +75,5 @@ void	ft_exec_spawn(t_proc **proc)
 		if (!ft_exec_is_builtin(proc))
 			execve((*proc)->path, (*proc)->argv, g_env_g);
 	}
-	// printf("pid: %d\n", pid);
 	(*proc)->pid = pid;
 }

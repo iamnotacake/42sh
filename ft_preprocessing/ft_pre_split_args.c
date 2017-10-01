@@ -83,10 +83,8 @@ void	ft_pre_split_args(char *str, t_proc **proc)
 			str[i] = ' ';
 		i++;
 	}
-	// printf("%s\n", str);
 	if (!(sp = ft_strsplit(str, ' ')))
 		return ;
 	ft_pre_realloc_args(sp, proc);
 	ft_free_mas(sp);
 }
-

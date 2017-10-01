@@ -62,7 +62,6 @@ void	ft_exec_error(t_proc **proc)
 	if (old2)
 	{
 		dup2(old2, 2);
-		// close((*proc)->dup[2]);
 	}
 }
 
@@ -70,18 +69,14 @@ int		ft_exec_command_access(t_proc **proc)
 {
 	if (ft_exec_user_path(proc) == 0)
 	{
-		// printf("USER\n");
 		ft_exec_spawn(proc);
 		return (0);
 	}
 	else if (ft_exec_standart_path(proc) == 0)
 	{
-		// printf("STANDART\n");
 		ft_exec_spawn(proc);
 		return (0);
 	}
 	ft_exec_error(proc);
-	// write(2, "wtf?: command not found: ", 25);
-	// ft_putendl_fd((*proc)->argv[0], 2);
 	return (-1);
 }
