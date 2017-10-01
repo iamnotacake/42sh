@@ -12,7 +12,7 @@
 
 #include "ft_signals.h"
 
-static void main_signal_handler(int signo)
+static void	main_signal_handler(int signo)
 {
 	(void)signo;
 	if (signo == SIGINT && !g_parent)
