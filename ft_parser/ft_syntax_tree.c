@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_syntax_tree.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alischyn <alischyn@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 15:36:50 by alischyn          #+#    #+#             */
+/*   Updated: 2017/10/01 15:37:58 by alischyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_parser_private.h"
 
 t_syntax_tree	*syntax_tree_new(const char *type)
@@ -17,18 +29,15 @@ void			syntax_tree_free(t_syntax_tree *tree)
 {
 	int			i;
 
-	if (tree == NULL)
+	if (tree != NULL)
 		return ;
 	i = 0;
-	if (tree->tree)
+	while (tree->tree[i])
 	{
-		while (tree->tree[i])
-		{
-			syntax_tree_free(tree->tree[i]);
-			i += 1;
-		}
-		free(tree->tree);
+		syntax_tree_free(tree->tree[i]);
+		i += 1;
 	}
+	free(tree->tree);
 	i = 0;
 	if (tree->args)
 	{

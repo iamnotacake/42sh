@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parser.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alischyn <alischyn@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 15:33:56 by alischyn          #+#    #+#             */
+/*   Updated: 2017/10/01 15:36:06 by alischyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef __FT_PARSER_H
-# define  __FT_PARSER_H
+# define __FT_PARSER_H
 
 # include "ft_lexer.h"
 
@@ -27,24 +39,24 @@ typedef struct	s_syntax_tree
 	int						need_globbing;
 }				t_syntax_tree;
 
-void 			syntax_tree_free(t_syntax_tree *tree);
+void			syntax_tree_free(t_syntax_tree *tree);
 
-void 			parser_init_symbol(t_token *tok);
+void			parser_init_symbol(t_token *tok);
 
-t_syntax_tree 	*syntax_arg(void);
-t_syntax_tree 	*syntax_args(void);
-t_syntax_tree 	*syntax_redir(void);
-t_syntax_tree 	*syntax_expr(void);
-t_syntax_tree 	*syntax_pexpr(void);
+t_syntax_tree	*syntax_arg(void);
+t_syntax_tree	*syntax_args(void);
+t_syntax_tree	*syntax_redir(void);
+t_syntax_tree	*syntax_expr(void);
+t_syntax_tree	*syntax_pexpr(void);
 t_syntax_tree	*syntax_lexpr(void);
-t_syntax_tree 	*syntax_exprl(void);
-t_syntax_tree 	*syntax_bquote(void);
+t_syntax_tree	*syntax_exprl(void);
+t_syntax_tree	*syntax_bquote(void);
 
-t_syntax_tree 	*syntax_tree_new(const char *type);
-void 			syntax_tree_append(t_syntax_tree *tree,
+t_syntax_tree	*syntax_tree_new(const char *type);
+void			syntax_tree_append(t_syntax_tree *tree,
 									t_syntax_tree *tr,
 									char *arg);
 
-void 			parser_simplify(t_syntax_tree **tree);
+void			parser_simplify(t_syntax_tree **tree);
 
 #endif
