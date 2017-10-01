@@ -12,13 +12,22 @@
 
 #include "ft_builtin_private.h"
 
-char	*ft_make_home(char ***env, int h)
+char	*ft_make_home(char ***env, int h, char **mas, i)
 {
 	char	*pth;
+	char	*tmp;
 
 	pth = NULL;
-	if (!(pth = ft_strdup((*env)[h] + 5)))
+	tmp = NULL;
+	if (!(tmp = ft_strdup((*env)[h] + 5)))
 		return (NULL);
+	if (!mas[1])
+		return (tmp);
+	else
+	{
+		pth = ft_freejoin(tmp, mas[i] + 1, 1);
+		// printf("\n%s\n", pth);
+	}
 	return (pth);
 }
 
@@ -81,8 +90,8 @@ char	*ft_cmp_path(char ***env, char **mas, int p, int o)
 	while (mas[i])
 		i++;
 	i--;
-	if (!ft_strcmp("~", mas[i]) || !mas[1])
-		pth = ft_make_home(env, h);
+	if (!mas[1] || mas[i][0] == '~')
+		pth = ft_make_home(env, h, mas, i);
 	else if (!ft_strcmp("..", mas[i]))
 		pth = ft_up_pth((*env)[p]);
 	else if (!ft_strcmp("-", mas[i]))
