@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+#define SHIT {g_lft = NULL;	g_rgt = NULL;}
 
 extern char	*g_lft;
 extern char	*g_rgt;
@@ -33,25 +34,26 @@ void	ft_get_line(char **line, t_his **his)
 {
 	unsigned char	key;
 
-	g_lft = NULL;
-	g_rgt = NULL;
+	SHIT;
 	while (read(0, &key, sizeof(key)))
 	{
-		if (key == 4 && !g_lft && !g_rgt)
+		if (key == 4)
 		{
-			if (g_heredoc)
+			if ((!g_lft || !g_lft[0]) && (!g_rgt || !g_rgt[0]))
 			{
-				(*line) = ft_strdup(g_heredoc);
-				return ;
+				if (g_heredoc)
+				{
+					(*line) = ft_strdup(g_heredoc);
+					return ;
+				}
+				exit(0);
 			}
-			exit(0);
 		}
-		if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
+		else if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
 		{
 			ft_get_line_save(&g_lft, &g_rgt, line, his);
 			return ;
 		}
 	}
-	g_lft = NULL;
-	g_rgt = NULL;
+	SHIT;
 }

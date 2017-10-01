@@ -12,8 +12,6 @@ int		g_parent;
 char	*g_lft;
 char	*g_rgt;
 
-// void	ft_tree_print(t_syntax_tree *tree, int level);
-
 void	init_42(const char *const envp[])
 {
 	g_parent = 1;
@@ -22,7 +20,6 @@ void	init_42(const char *const envp[])
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
 	ft_signals();
-	// parser_init();
 }
 
 int 	unclosed_quote(t_token *t, int i)
@@ -96,7 +93,7 @@ void	go_42(void)
 			parser_simplify(&tree);
 			parser_simplify(&tree);
 			write(1, "\n", 1);
-			ft_tree_print(tree, 0);
+			// ft_tree_print(tree, 0);
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			token_free_all(tokens);
@@ -114,10 +111,7 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	g_promt = ft_strdup("wtf ?> ");
 	init_42(envp);
 	g_history = NULL;
-	// sleep(2);
 	ft_history_upload();
-	// sleep(2);
-	// init_42(envp);
 	go_42();
 	ft_free();
 	return (0);
