@@ -48,14 +48,14 @@ $(obj)/%.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 %.c: %.lex
-	@echo "\033[1;33mFLEX \033[0;33m$@\033[0m"
+	@#echo "\033[1;33mFLEX \033[0;33m$@\033[0m"
 	@flex -o $@ $<
 
 clean:
 	rm -rf build-*/obj
 
 fclean:
-	rm -rf build-* $(NAME)
+	rm -rf build-debug build-release $(NAME)
 
 re: fclean all
 
