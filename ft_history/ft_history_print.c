@@ -6,42 +6,11 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 17:20:03 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/09/27 17:20:04 by olyuboch         ###   ########.fr       */
+/*   Updated: 2017/10/01 15:26:44 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_history.h"
-
-// void	ft_history_in(char *str)
-// {
-// 	int	len;
-
-// 	len = ft_strlen(str);
-// 	while (*str)
-// 	{
-// 		ioctl(0, TIOCSTI, str);
-// 		str++;
-// 	}
-// 	while (len--)
-// 		ft_putstr(ARRL);
-// 	len = ft_strlen(str);
-// 	while (len--)
-// 		ft_putstr(" ");
-// 	len = ft_strlen(str);
-// 	while (len--)
-// 		ft_putstr(ARRL);
-// }
-
-// int		ft_history_stdin(t_proc **proc)
-// {
-// 	if ((*proc)->argv[1])
-// 	{
-// 		ft_history_error(proc, "to match arguments\n");
-// 		return (-1);
-// 	}
-// 	ft_history_in((*proc)->argv[0] + 1);
-// 	return (0);
-// }
 
 int		ft_history_if(t_proc **proc)
 {

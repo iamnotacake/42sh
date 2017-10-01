@@ -6,7 +6,7 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 14:45:37 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/09/27 14:45:38 by olyuboch         ###   ########.fr       */
+/*   Updated: 2017/10/01 15:29:43 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_history_upload(void)
 	int		e;
 	char	*str;
 	char	*tmp;
-	
+
 	if (!g_env_g)
 		return ;
 	if (!(e = ft_built_find_path(g_env_g, "HOME")))
@@ -48,7 +48,6 @@ void	ft_history_upload(void)
 		str++;
 	if (str != NULL)
 		str++;
-	// printf("%s\n", str);
 	tmp = ft_strjoin(str, "/.42sh_history");
 	ft_history_read(tmp);
 	free(tmp);
