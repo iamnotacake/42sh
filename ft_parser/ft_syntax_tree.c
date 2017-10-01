@@ -29,7 +29,7 @@ void			syntax_tree_free(t_syntax_tree *tree)
 {
 	int			i;
 
-	if (tree != NULL)
+	if (tree == NULL)
 		return ;
 	i = 0;
 	while (tree->tree[i])

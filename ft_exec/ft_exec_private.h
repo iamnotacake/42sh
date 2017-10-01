@@ -33,5 +33,6 @@ int		ft_exec_standart(t_proc **proc);
 int		ft_exec_command_access(t_proc **proc);
 int		ft_exec_standart_path(t_proc **proc);
 void	ft_exec_proc_up(t_proc **proc);
+int		ft_exec_is_builtin(t_proc **proc);
 
 #endif
