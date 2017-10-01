@@ -25,7 +25,7 @@ int		ft_built_unsetenv(char ***env, char **mas)
 			return (-1);
 		ft_del_env(env, mas, new);
 		ft_hash_free_table();
-		ft_hash_table(*env);
+		g_table = ft_hash_table(*env);
 	}
 	return (0);
 }

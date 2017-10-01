@@ -19,6 +19,8 @@
 # include "ft_hash_table.h"
 # include "ft_free.h"
 
+extern	t_hash	**g_table;
+
 int		ft_built_setenv(char ***env, char **mas);
 int		ft_built_unsetenv(char ***env, char **mas);
 int		ft_built_cd(char ***env, char **mas);
