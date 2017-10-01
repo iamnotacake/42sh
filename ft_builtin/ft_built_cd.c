@@ -24,10 +24,7 @@ char	*ft_make_home(char ***env, int h, char **mas, int i)
 	if (!mas[1])
 		return (tmp);
 	else
-	{
 		pth = ft_freejoin(tmp, mas[i] + 1, 1);
-		// printf("\n%s\n", pth);
-	}
 	return (pth);
 }
 
