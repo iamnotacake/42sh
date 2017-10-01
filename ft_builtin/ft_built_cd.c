@@ -12,7 +12,7 @@
 
 #include "ft_builtin_private.h"
 
-char	*ft_make_home(char ***env, int h, char **mas, i)
+char	*ft_make_home(char ***env, int h, char **mas, int i)
 {
 	char	*pth;
 	char	*tmp;
