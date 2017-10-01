@@ -14,6 +14,7 @@
 
 extern char	*g_lft;
 extern char	*g_rgt;
+char		*g_heredoc;
 
 void	ft_move_cursor(char **lft, char **rgt, unsigned long key)
 {
@@ -36,6 +37,15 @@ void	ft_get_line(char **line, t_his **his)
 	g_rgt = NULL;
 	while (read(0, &key, sizeof(key)))
 	{
+		if (key == 4 && !g_lft && !g_rgt)
+		{
+			if (g_heredoc)
+			{
+				(*line) = ft_strdup(g_heredoc);
+				return ;
+			}
+			exit(0);
+		}
 		if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
 		{
 			ft_get_line_save(&g_lft, &g_rgt, line, his);

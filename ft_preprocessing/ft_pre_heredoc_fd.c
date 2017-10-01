@@ -12,6 +12,8 @@
 
 #include "ft_preprocessing_private.h"
 
+extern char	*g_heredoc;
+
 int		ft_fd_to_test(void)
 {
 	int		fd;
@@ -57,6 +59,7 @@ char	*ft_read_from_heredoc(char *doc)
 	char	*cmp;
 
 	line = NULL;
+	g_heredoc = doc;
 	while (1)
 	{
 		ft_terminal_set();
@@ -75,6 +78,7 @@ char	*ft_read_from_heredoc(char *doc)
 		}
 		ft_add_to_line(&line, &cmp);
 	}
+	g_heredoc = NULL;
 	return (NULL);
 }
 
