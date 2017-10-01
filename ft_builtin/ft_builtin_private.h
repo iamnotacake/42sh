@@ -25,5 +25,7 @@ int		ft_built_cd(char ***env, char **mas);
 int		ft_built_find_path(char **env, char *str);
 void	ft_built_change_pwd(char ***env, char *oldpwd, int p, int o);
 char	*ft_built_dir_by_path(char *mas);
+int		ft_ch_mas(char **env, char **mas);
+void	ft_del_env(char ***env, char **mas, char **new);
 
 #endif
