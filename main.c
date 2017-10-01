@@ -25,10 +25,19 @@ void	init_42(const char *const envp[])
 	// parser_init();
 }
 
-int 	unclosed_quote(t_token *t)
+int 	unclosed_quote(t_token *t, int i)
 {
 	while (t->next)
+	{
+		i += (t->type == T_OP_BQUOTE);
 		t = t->next;
+	}
+	i += (t->type == T_OP_BQUOTE);
+	if (i & 1)
+	{
+		g_promt = ("bquote> ");
+		return (1);
+	}
 	if (t->subtype == ST_DQUOTE_EOF)
 	{
 		g_promt = ("dquote> ");
@@ -60,7 +69,7 @@ void	ft_find_quotes(t_token **tokens, char **cmd)
 	char	*oldpromt;
 
 	oldpromt = g_promt;
-	while (unclosed_quote(*tokens))
+	while (unclosed_quote(*tokens, 0))
 	{
 		write(1, "\n", 1);
 		token_free_all(*tokens);
