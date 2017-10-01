@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_readline.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alischyn <alischyn@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 15:59:55 by alischyn          #+#    #+#             */
+/*   Updated: 2017/10/01 15:59:56 by alischyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_readline.h"
 #include "ft_signals.h"
 
-void	ft_terminal_set(void)
+void			ft_terminal_set(void)
 {
 	struct termios	termios;
 

@@ -6,7 +6,7 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 13:51:04 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/04/26 13:51:05 by olyuboch         ###   ########.fr       */
+/*   Updated: 2017/10/01 16:02:43 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		ft_char_analysis(unsigned char key, char **lft, char **rgt, t_his **his)
 	else if (key == ESC)
 		ft_move_escape(lft, rgt, his);
 	else if (key == K_BACKSP)
-			ft_move_backslash(lft, rgt);
+		ft_move_backslash(lft, rgt);
 	else if (key == K_CTR_R)
 		ft_history_find(lft, rgt, *his);
 	else if (key == '\t')
@@ -121,20 +121,6 @@ void	ft_free_all(char *buf, char **lft, char **rgt)
 	}
 }
 
-void	ft_get_line(char **line, t_his **his)
-{
-	unsigned char	key;
-
-	g_lft = NULL;
-	g_rgt = NULL;
-	while (read(0, &key, sizeof(key)))
-	{
-		if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
-		{
-			ft_get_line_save(&g_lft, &g_rgt, line, his);
-			return ;
-		}
-	}
-	g_lft = NULL;
-	g_rgt = NULL;
-}
+/*
+** ft_get_line moved to ft_move_cursor.c for norm
+*/

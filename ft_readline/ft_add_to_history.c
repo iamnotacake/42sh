@@ -6,7 +6,7 @@
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 13:51:02 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/04/30 13:51:04 by olyuboch         ###   ########.fr       */
+/*   Updated: 2017/10/01 15:58:09 by alischyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ void	ft_history_down(t_his **his)
 
 void	ft_add_to_history(t_his **his, char *line)
 {
-	// int	fl;
-
-	// fl = O_APPEND;
 	if (!(*his))
 		ft_add_first(his, line);
 	else
@@ -62,5 +59,4 @@ void	ft_add_to_history(t_his **his, char *line)
 		ft_add_next(his);
 	}
 	ft_history_down(his);
-	// ft_history_load(line, fl);
 }

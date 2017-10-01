@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_readline.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alischyn <alischyn@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/01 16:00:13 by alischyn          #+#    #+#             */
+/*   Updated: 2017/10/01 16:00:55 by alischyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef __FT_READLINE_H
 # define __FT_READLINE_H
 # define BUFF_SIZE 100
@@ -46,7 +58,6 @@
 # define K_SHT_LFT 0x44323b315b
 # define K_SHT_RGT 0x43323b315b
 
-
 typedef struct		s_match
 {
 	char			*find;
@@ -84,7 +95,8 @@ void				ft_move_cursor_right(char **lft, char **rgt, int len);
 void				ft_move_history(unsigned long key, char **lft, char **rgt,
 					t_his **his);
 void				ft_move_backslash(char **lft, char **rgt);
-void				ft_move_begin_end(char **lft, char **rgt, unsigned long key);
+void				ft_move_begin_end(char **lft, char **rgt,
+										unsigned long key);
 void				ft_move_end(char **lft, char **rgt, int len);
 void				ft_move_words(char **lft, char **rgt, unsigned long key);
 void				ft_move_word_right(char **lft, char **rgt, int len);
