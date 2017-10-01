@@ -79,6 +79,7 @@ OP_LOGIC		"||"|"&&"
 {OP_SEMICOLON}	PUSH(T_OP_SEMICOLON, ST_NONE);
 {OP_BRACKET}	PUSH(T_OP_BRACKET, *yytext == '(' ? ST_LEFT : ST_RIGHT);
 {OP_LOGIC}		PUSH(T_OP_LOGIC, *yytext == '|' ? ST_OR : ST_AND);
+\n				{}
 
 %%
 
