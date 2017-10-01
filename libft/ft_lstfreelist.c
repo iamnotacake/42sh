@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstfreelist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 18:29:54 by mbraslav          #+#    #+#             */
-/*   Updated: 2016/11/30 18:29:58 by mbraslav         ###   ########.fr       */
+/*   Created: 2017/07/05 16:12:18 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/07/05 16:12:20 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstfreelist(t_list **list, void (*freecont)(void *content))
 {
-	if (!(*alst))
+	t_list	*tmp;
+
+	if (!list || !*list)
 		return ;
-	(del)((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		if (freecont)
+			freecont((*list)->content);
+		free(*list);
+		*list = tmp;
+	}
+	*list = NULL;
 }

@@ -15,7 +15,9 @@ int			ft_exec_wait(t_proc **proc)
 		// printf("if: %d\n", (*proc)->pid);
 		if ((*proc)->pid)
 		{
+			g_proc = (*proc);
 			waitpid((*proc)->pid, &status, WUNTRACED);
+			g_proc = 0;
 			// printf("pid wait: %d, status: %d\n", (*proc)->pid, status);
 			(*proc)->status = status;
 			if (status != 0)

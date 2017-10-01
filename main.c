@@ -11,6 +11,8 @@ char	**g_env_l;
 int		g_parent;
 char	*g_lft;
 char	*g_rgt;
+t_proc	*g_proc;
+t_list	*g_jobs;
 
 // void	ft_tree_print(t_syntax_tree *tree, int level);
 

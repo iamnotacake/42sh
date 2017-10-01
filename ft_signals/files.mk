@@ -11,4 +11,5 @@
 #******************************************************************************#
 
 CFLAGS += -Ift_signals
-SOURCES += ft_signals/ft_signals.c
+SOURCES += ft_signals/ft_signals.c\
+			ft_signals/ft_sigtstp.c

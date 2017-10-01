@@ -1,4 +1,4 @@
-CFLAGS += -Ilibft
+CFLAGS += -Ilibft -Ift_list
 SOURCES += 	libft/ft_strtrim.c \
 			libft/ft_tolower.c \
 			libft/ft_memdel.c \
@@ -59,3 +59,18 @@ SOURCES += 	libft/ft_strtrim.c \
 			libft/ft_isprint.c \
 			libft/ft_strcat.c \
 			libft/ft_lstadd.c \
+			libft/ft_lstlen.c\
+			libft/ft_lstswap.c\
+			libft/ft_lstinsertelem.c\
+			libft/ft_lstremoveelem.c\
+			libft/ft_lstsort.c\
+			libft/ft_lstrsort.c\
+			libft/ft_lstfreelist.c\
+			libft/ft_lstfreeelem.c\
+			libft/ft_lstpushback.c\
+			libft/ft_lstpushfront.c\
+			libft/ft_lstgetlast.c\
+			libft/ft_lstisinlist.c\
+			libft/ft_lstdup.c\
+			libft/ft_lstdupelem.c\
+			libft/ft_lstfind.c

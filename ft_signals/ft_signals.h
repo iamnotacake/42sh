@@ -15,14 +15,18 @@
 
 # include <signal.h>
 # include <sys/ioctl.h>
+
 # include "../libft/libft.h"
+# include "ft_exec.h"
 
-extern int	g_parent;
-extern char	*g_promt;
-extern char	*g_lft;
-extern char	*g_rgt;
+extern int		g_parent;
+extern char		*g_promt;
+extern char		*g_lft;
+extern char		*g_rgt;
+extern t_proc	*g_proc;
+extern t_list	*g_jobs;
 
-void		ft_signals(void);
-void		ft_signals_input(void);
+void			ft_signals(void);
+void			ft_signals_input(void);
 
 #endif

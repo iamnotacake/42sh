@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstpushfront.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 18:29:54 by mbraslav          #+#    #+#             */
-/*   Updated: 2016/11/30 18:29:58 by mbraslav         ###   ########.fr       */
+/*   Created: 2017/06/14 14:42:50 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/06/14 14:42:51 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstpushfront(t_list **list, t_list *elem)
 {
-	if (!(*alst))
+	if (!(*list))
+		*list = elem;
+	if (!elem)
 		return ;
-	(del)((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	(*list)->prev = elem;
+	elem->next = *list;
+	elem->prev = NULL;
+	*list = elem;
 }

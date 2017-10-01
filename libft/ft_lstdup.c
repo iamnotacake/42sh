@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 18:29:54 by mbraslav          #+#    #+#             */
-/*   Updated: 2016/11/30 18:29:58 by mbraslav         ###   ########.fr       */
+/*   Created: 2017/07/05 16:09:14 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/07/05 16:09:16 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+t_list	*ft_lstdup(t_list *list)
 {
-	if (!(*alst))
-		return ;
-	(del)((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	t_list	*duplist;
+	t_list	*dupelem;
+
+	duplist = NULL;
+	while (list)
+	{
+		dupelem = ft_lstnew(list->content, list->content_size);
+		ft_lstpushback(&duplist, dupelem);
+		list = list->next;
+	}
+	return (duplist);
 }

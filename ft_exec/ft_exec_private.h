@@ -10,6 +10,8 @@
 # include "ft_hash_table.h"
 # include "ft_history.h"
 
+extern t_proc	*g_proc;
+
 void			ft_exec_dup(t_proc *proc);
 void			ft_exec_close_except(t_proc *proc);
 void			ft_exec_spawn(t_proc **proc);

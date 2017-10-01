@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_sigtstp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 18:29:54 by mbraslav          #+#    #+#             */
-/*   Updated: 2016/11/30 18:29:58 by mbraslav         ###   ########.fr       */
+/*   Created: 2017/09/29 19:29:56 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/09/29 19:29:57 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_list.h"
+#include "ft_signals.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	sigtstp_handler(int signo)
 {
-	if (!(*alst))
-		return ;
-	(del)((*alst)->content, (*alst)->content_size);
-	free(*alst);
-	*alst = NULL;
+	t_list *last;
+	t_list *elem;
+
+	(void)signo;
+	if (g_parent && g_proc)
+	{
+		last = g_jobs;
+		elem = ft_lstnew(NULL, 0);
+		elem->content = g_proc;
+		while (last->next)
+		{
+			if (last->content_size == 1)
+				last->content_size = 2;
+			last = last->next;
+		}
+		last->next = elem;
+		elem->prev = last;
+	}
 }

@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstrsort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 20:08:28 by mbraslav          #+#    #+#             */
-/*   Updated: 2016/11/30 20:08:32 by mbraslav         ###   ########.fr       */
+/*   Created: 2017/03/22 15:21:35 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/03/22 15:21:37 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+void	ft_lstrsort(t_list **list, int (*cmp)(void *a, void *b))
 {
-	t_list	*new;
+	t_list	*sorted;
 	t_list	*last;
+	int		swapped;
 
-	if (!lst)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	last = new;
-	while (lst->next)
+	swapped = 1;
+	sorted = NULL;
+	while (swapped == 1)
 	{
-		last->next = f(lst->next);
-		last = last->next;
-		lst = lst->next;
+		swapped = 0;
+		last = *list;
+		while (last->next)
+		{
+			if (cmp(last, last->next) < 0)
+			{
+				ft_lstswap(list, last, last->next);
+				swapped = 1;
+			}
+			if (last->next == NULL || last->next == sorted)
+			{
+				sorted = last;
+				continue ;
+			}
+			last = last->next;
+		}
 	}
-	return (new);
 }
