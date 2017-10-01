@@ -101,21 +101,3 @@ void	ft_envp(char **env)
 		i++;
 	}
 }
-
-int		ft_built_unsetenv(char ***env, char **mas)
-{
-	int		m;
-	int		word;
-	char	**new;
-
-	if ((m = ft_ch_mas(*env, mas)))
-	{
-		word = ft_count_env((*env)) - m;
-		if (!(new = (char **)malloc(sizeof(char *) * (word + 1))))
-			return (-1);
-		ft_del_env(env, mas, new);
-		ft_hash_free_table();
-		ft_hash_table(*env);
-	}
-	return (0);
-}

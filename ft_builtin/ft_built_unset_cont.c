@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_wait.c                                     :+:      :+:    :+:   */
+/*   ft_built_unset_cont.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdemeshk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/01 15:05:35 by vdemeshk          #+#    #+#             */
-/*   Updated: 2017/10/01 15:05:39 by vdemeshk         ###   ########.fr       */
+/*   Created: 2017/10/01 14:01:36 by vdemeshk          #+#    #+#             */
+/*   Updated: 2017/10/01 14:01:48 by vdemeshk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_exec_private.h"
+#include "ft_builtin_private.h"
 
-int			ft_exec_wait(t_proc **proc)
+int		ft_built_unsetenv(char ***env, char **mas)
 {
-	int			status;
-	t_proc		*tmp;
-	int			result;
+	int		m;
+	int		word;
+	char	**new;
 
-	result = 0;
-	tmp = (*proc);
-	ft_exec_proc_up(proc);
-	while ((*proc))
+	if ((m = ft_ch_mas(*env, mas)))
 	{
-		if ((*proc)->pid)
-		{
-			waitpid((*proc)->pid, &status, WUNTRACED);
-			(*proc)->status = status;
-			if (status != 0)
-				result = status;
-		}
-		(*proc) = (*proc)->next;
+		word = ft_count_env((*env)) - m;
+		if (!(new = (char **)malloc(sizeof(char *) * (word + 1))))
+			return (-1);
+		ft_del_env(env, mas, new);
+		ft_hash_free_table();
+		ft_hash_table(*env);
 	}
-	(*proc) = tmp;
-	return (result);
+	return (0);
 }

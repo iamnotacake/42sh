@@ -12,9 +12,9 @@
 
 #include "ft_builtin_private.h"
 
-int		ft_count_env(char **en)
+int			ft_count_env(char **en)
 {
-	int	w;
+	int		w;
 
 	w = 0;
 	while (en[w])
@@ -22,7 +22,7 @@ int		ft_count_env(char **en)
 	return (w);
 }
 
-void	ft_add_env(char ***env, char **mas)
+void		ft_add_env(char ***env, char **mas)
 {
 	int		w;
 	char	**new;
@@ -49,9 +49,9 @@ void	ft_add_env(char ***env, char **mas)
 	}
 }
 
-int		ft_ch_env(char **mas)
+int			ft_ch_env(char **mas)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (mas[2] != NULL)
@@ -69,9 +69,9 @@ int		ft_ch_env(char **mas)
 	return (0);
 }
 
-int	ft_built_setenv_find_match(char ***env, char **mas, int w)
+int			ft_built_setenv_find_match(char ***env, char **mas, int w)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while ((*env)[w][i] == mas[1][i])
@@ -92,7 +92,7 @@ int	ft_built_setenv_find_match(char ***env, char **mas, int w)
 	return (1);
 }
 
-int	ft_built_setenv(char ***env, char **mas)
+int			ft_built_setenv(char ***env, char **mas)
 {
 	int		w;
 
@@ -108,4 +108,3 @@ int	ft_built_setenv(char ***env, char **mas)
 	ft_add_env(env, mas);
 	return (0);
 }
-
