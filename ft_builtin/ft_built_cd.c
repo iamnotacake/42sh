@@ -113,6 +113,7 @@ int		ft_built_cd(char ***env, char **mas)
 	{
 		write(1, "cd: no such file or directory: ", 31);
 		ft_putendl(mas[1]);
+		free(pth);
 		return (-1);
 	}
 	else
