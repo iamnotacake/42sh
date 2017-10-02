@@ -14,9 +14,20 @@ char	*g_rgt;
 
 void	init_42(const char *const envp[])
 {
+	char	*shlvl_str;
+
 	g_parent = 1;
 	g_table = ft_hash_table((char **)envp);
 	g_env_g = ft_env_init(envp);
+	g_history = NULL;
+	g_promt = ft_strdup("wtf?> ");
+	ft_env_set(&g_env_g, "SHELL", "42sh");
+	if ((shlvl_str = ft_env_get(g_env_g, "SHLVL")))
+	{
+		shlvl_str = ft_itoa(ft_atoi(shlvl_str) + 1);
+		ft_env_set(&g_env_g, "SHLVL", shlvl_str);
+		free(shlvl_str);
+	}
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
 	ft_signals();
@@ -108,9 +119,7 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 {
 	(void)argc;
 	(void)argv;
-	g_promt = ft_strdup("wtf ?> ");
 	init_42(envp);
-	g_history = NULL;
 	ft_history_upload();
 	go_42();
 	ft_free();
