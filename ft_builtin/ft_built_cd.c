@@ -57,19 +57,19 @@ char	*ft_old_pth(char **env, int o, int h)
 {
 	char	*oldpwd;
 	char	*home;
-	size_t	ih;
+	size_t	lenh;
 
 	oldpwd = ft_strdup(env[o] + 7);
 	home = ft_strdup(env[h] + 5);
-	ih = ft_strlen(home);
+	lenh = ft_strlen(home);
 	if (ft_strcmp(oldpwd, home) < 0)
 		ft_putendl(oldpwd);
 	else if (!ft_strcmp(oldpwd, home))
 		ft_putendl("~");
 	else
 	{
-		write(1, "~", 1);
-		ft_putendl(oldpwd + ih);
+		// write(1, "~", 1);
+		// ft_putendl(oldpwd + lenh);
 	}
 	free(home);
 	return (oldpwd);
