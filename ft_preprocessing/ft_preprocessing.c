@@ -97,10 +97,7 @@ void	ft_pre_by_type(t_syntax_tree *tree, t_proc **proc, int *lock)
 	else if (!ft_strcmp(tree->type, "bquote"))
 		ft_pre_bquote(tree, proc);
 	if (*proc && !(*lock))
-	{
-		// printf("run exec\n");
 		ft_pre_exec(proc);
-	}
 }
 
 void	ft_preprocessing(t_syntax_tree *tree)
@@ -111,4 +108,5 @@ void	ft_preprocessing(t_syntax_tree *tree)
 	proc = NULL;
 	lock = 0;
 	ft_pre_by_type(tree, &proc, &lock);
+	ft_free_proc(&proc);
 }
