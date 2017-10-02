@@ -24,7 +24,7 @@ char			**ft_env_init(const char *const envp[])
 	i = 0;
 	while (envp[i])
 	{
-		env[i] = strdup(envp[i]);
+		env[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	env[i] = NULL;

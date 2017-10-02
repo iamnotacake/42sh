@@ -71,7 +71,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 			arguments->tree[g_index]->args[0] &&
 			ft_globbing_is_pattern(arguments->tree[g_index]->args[0]))
 		{
-			tmp = strdup(arguments->tree[g_index]->args[0]);
+			tmp = ft_strdup(arguments->tree[g_index]->args[0]);
 			syntax_tree_free(arguments->tree[g_index]);
 			ptr_arr_remove(arguments->tree, g_index);
 		}
