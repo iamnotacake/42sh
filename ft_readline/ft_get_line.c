@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+#define SHIT {g_lft = NULL;	g_rgt = NULL;}
 
 extern char	*g_lft;
 extern char	*g_rgt;
+char		*g_heredoc;
 
 void	ft_re_print(char *rgt)
 {
@@ -105,22 +107,49 @@ int		ft_char_analysis(unsigned char key, char **lft, char **rgt, t_his **his)
 	return (1);
 }
 
-void	ft_free_all(char *buf, char **lft, char **rgt)
-{
-	if (buf)
-		free(buf);
-	if (*lft)
-	{
-		free(*lft);
-		(*lft) = NULL;
-	}
-	if (*rgt)
-	{
-		free(*rgt);
-		(*rgt) = NULL;
-	}
-}
-
 /*
-** ft_get_line moved to ft_move_cursor.c for norm
+** void	ft_free_all(char *buf, char **lft, char **rgt)
+** {
+** 	if (buf)
+** 		free(buf);
+** 	if (*lft)
+** 	{
+** 		free(*lft);
+** 		(*lft) = NULL;
+** 	}
+** 	if (*rgt)
+** 	{
+** 		free(*rgt);
+** 		(*rgt) = NULL;
+** 	}
+** }
 */
+
+void	ft_get_line(char **line, t_his **his)
+{
+	unsigned char	key;
+
+	SHIT;
+	while (read(0, &key, sizeof(key)))
+	{
+		if (key == 4)
+		{
+			if ((!g_lft || !g_lft[0]) && (!g_rgt || !g_rgt[0]))
+			{
+				if (g_heredoc)
+				{
+					(*line) = ft_strdup(g_heredoc);
+					g_heredoc = NULL;
+					return ;
+				}
+				exit(0);
+			}
+		}
+		else if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
+		{
+			ft_get_line_save(&g_lft, &g_rgt, line, his);
+			return ;
+		}
+	}
+	SHIT;
+}

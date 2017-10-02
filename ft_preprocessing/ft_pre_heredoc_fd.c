@@ -72,13 +72,13 @@ char	*ft_read_from_heredoc(char *doc)
 			if (!ft_strcmp(cmp, doc))
 			{
 				free(cmp);
-				line = ft_freejoin(line, "\n", 1);
+				if (!(line = ft_freejoin(line, "\n", 1)))
+					line = ft_strdup("");
 				return (line);
 			}
 		}
 		ft_add_to_line(&line, &cmp);
 	}
-	g_heredoc = NULL;
 	return (NULL);
 }
 
