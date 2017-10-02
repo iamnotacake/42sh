@@ -15,7 +15,6 @@ char	*g_rgt;
 void	init_42(const char *const envp[])
 {
 	char	*shlvl_str;
-	char	*logname;
 
 	g_parent = 1;
 	g_table = ft_hash_table((char **)envp);
@@ -28,9 +27,6 @@ void	init_42(const char *const envp[])
 		ft_env_set(&g_env_g, "SHLVL", shlvl_str);
 		free(shlvl_str);
 	}
-	logname = NULL;
-	logname = ft_env_get(g_env_g, "LOGNAME");
-	g_promt = ft_strjoin(logname ? logname : "#", "> ");
 	g_env_l = malloc(sizeof(char *) * 2);
 	g_env_l[0] = NULL;
 	ft_signals();
