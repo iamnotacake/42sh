@@ -22,7 +22,7 @@
 
 void	ft_hash_free_table(void);
 void	ft_free_history(void);
-void	ft_free_proc(t_proc *proc);
+void	ft_free_proc(t_proc **proc);
 void	ft_free_mas(char **sp);
 
 /*

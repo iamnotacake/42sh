@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_exec_private.h"
+#include <sys/stat.h>
 
 int		wt_last_slash(char **argv)
 {
@@ -32,11 +33,17 @@ int		ft_exec_user_path(t_proc **proc)
 {
 	int		sl;
 	char	*tmp;
+	struct stat	st;
 
 	if (!access((*proc)->argv[0], X_OK))
 	{
 		sl = wt_last_slash((*proc)->argv);
 		(*proc)->path = ft_strdup((*proc)->argv[0]);
+		if (lstat((*proc)->path, &st) == 0)
+		{
+			if (S_ISDIR(st.st_mode) || S_ISLNK(st.st_mode))
+				return (-1);
+		}
 		*((*proc)->argv[0] + sl) = '\0';
 		tmp = ft_strdup((*proc)->argv[0] + sl + 1);
 		free((*proc)->argv[0]);

@@ -84,10 +84,10 @@ int		ft_exec(t_proc **proc)
 	t_proc	*tmp;
 	t_proc	*head;
 
-	// ft_pre_print_proc(*proc);
-	
-	if (!(*proc))
+	//ft_pre_print_proc(*proc);
+	if (!(*proc) || !(*proc)->argv || !(*proc)->argv[0] || !ft_strcmp((*proc)->argv[0], ""))
 		return (-1);
+	// printf("argv:%s!!!\n", (*proc)->argv[0]);
 	ft_exec_proc_up(proc);
 	head = (*proc);
 	tmp = (*proc);

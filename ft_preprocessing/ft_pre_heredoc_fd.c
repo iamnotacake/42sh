@@ -89,7 +89,7 @@ void	ft_pre_heredoc_fd(t_syntax_tree *tree, t_proc **proc)
 
 	if (!(fd = ft_fd_to_test()))
 	{
-		ft_free_proc(*proc);
+		ft_free_proc(proc);
 		*proc = NULL;
 		write(2, "wtf: error", 10);
 	}
@@ -100,7 +100,7 @@ void	ft_pre_heredoc_fd(t_syntax_tree *tree, t_proc **proc)
 		close(fd);
 		if (!(fd = ft_fd_from_test()))
 		{
-			ft_free_proc(*proc);
+			ft_free_proc(proc);
 			*proc = NULL;
 			write(2, "wtf: error", 10);
 			ft_putendl(tree->args[1]);

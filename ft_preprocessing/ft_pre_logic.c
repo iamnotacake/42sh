@@ -33,7 +33,7 @@ void	ft_pre_logic_while(t_syntax_tree *tree, t_proc **proc, int *lock)
 		}
 		if (tree->args[i])
 			logic = tree->args[i];
-		ft_free_proc((*proc));
+		ft_free_proc(proc);
 		(*proc) = NULL;
 		i++;
 	}

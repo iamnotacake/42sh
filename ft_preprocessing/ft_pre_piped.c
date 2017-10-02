@@ -20,7 +20,7 @@ void	ft_pre_add_proc_to_end(t_proc **proc)
 		return ;
 	if (!(tmp = ft_pre_create_proc()))
 	{
-		ft_free_proc((*proc));
+		ft_free_proc(proc);
 		return ;
 	}
 	(*proc)->next = tmp;

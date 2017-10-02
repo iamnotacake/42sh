@@ -59,12 +59,12 @@ void	ft_pre_run_bquote(t_syntax_tree *tree, t_proc **proc)
 		return ;
 	dup2(fd[1], 1);
 	ft_pre_find_args(tree, &bq);
-	if (bq)
-		ft_exec(&bq);
+	// if (bq)
+	// 	ft_exec(&bq);
 	close(fd[1]);
 	dup2(old1, 1);
 	close(old1);
-	ft_free_proc(bq);
+	// ft_free_proc(&bq);
 	ft_pre_read_from_dup(&fd[0], proc);
 	close(fd[0]);
 }

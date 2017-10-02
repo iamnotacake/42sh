@@ -25,41 +25,43 @@ void		ft_free_close_fd(int *fd)
 	}
 }
 
-static void	ft_free_one_proc(t_proc *proc)
+static void	ft_free_one_proc(t_proc **proc)
 {
 	t_proc	*tmp;
 	int		i;
 
-	if (proc->path)
+	if ((*proc)->path != NULL)
 	{
-		free(proc->path);
-		proc->path = NULL;
+		free((*proc)->path);
+		(*proc)->path = NULL;
 	}
-	if (proc->argv)
+	if ((*proc)->argv != NULL)
 	{
 		i = 0;
-		while (proc->argv[i])
+		while ((*proc)->argv[i] != NULL)
 		{
-			free(proc->argv[i]);
-			proc->argv[i] = NULL;
+			free((*proc)->argv[i]);
+			(*proc)->argv[i] = NULL;
 			i++;
 		}
-		free(proc->argv);
+		free((*proc)->argv);
+		(*proc)->argv = NULL;
 	}
-	ft_free_close_fd(proc->dup);
-	tmp = proc;
+	ft_free_close_fd((*proc)->dup);
+	tmp = (*proc);
 	free(tmp);
+	tmp = NULL;
 }
 
-void		ft_free_proc(t_proc *proc)
+void		ft_free_proc(t_proc **proc)
 {
-	if (!proc)
+	if ((*proc) == NULL)
 		return ;
-	while (proc->prev)
-		proc = proc->prev;
-	while (proc)
+	while ((*proc)->prev != NULL)
+		(*proc) = (*proc)->prev;
+	while ((*proc) != NULL)
 	{
 		ft_free_one_proc(proc);
-		proc = proc->next;
+		(*proc) = (*proc)->next;
 	}
 }

@@ -19,6 +19,6 @@ void	ft_pre_exec(t_proc **proc)
 	if (!(*proc)->argv)
 		return ;
 	ft_exec(proc);
-	ft_free_proc(*proc);
+	ft_free_proc(proc);
 	*proc = NULL;
 }
