@@ -20,6 +20,7 @@ void	init_42(const char *const envp[])
 	g_table = ft_hash_table((char **)envp);
 	g_env_g = ft_env_init(envp);
 	g_history = NULL;
+	g_promt = ft_strdup("wtf?> ");
 	ft_env_set(&g_env_g, "SHELL", "42sh");
 	if ((shlvl_str = ft_env_get(g_env_g, "SHLVL")))
 	{
