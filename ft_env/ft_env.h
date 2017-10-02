@@ -17,9 +17,6 @@
 # include <string.h>
 # include "../libft/libft.h"
 
-extern char		**g_env_g;
-extern char		**g_env_l;
-
 char			**ft_env_init(const char *const envp[]);
 void			ft_env_set(char ***env, const char *key, const char *value);
 char			*ft_env_get(char **env, const char *key);

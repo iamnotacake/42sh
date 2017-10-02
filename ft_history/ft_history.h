@@ -25,11 +25,13 @@
 # define GNL_INSIDE 1
 # define BUFF 32
 
+extern char		**g_env_g;
+
 typedef struct	s_fd
 {
-	int				fd;
-	char			*s_tmp;
-	struct s_fd		*next;
+	int			fd;
+	char		*s_tmp;
+	struct s_fd	*next;
 }				t_fd;
 
 extern t_his	*g_history;

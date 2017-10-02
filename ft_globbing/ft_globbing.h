@@ -22,6 +22,8 @@
 
 # define U(c) ((c) & 0377)
 
+extern char		**g_env_g;
+
 void			ft_globbing_call(t_syntax_tree *arguments);
 void			ft_globbing_callback(char *str);
 int				ft_globbing_is_pattern(char *pattern);

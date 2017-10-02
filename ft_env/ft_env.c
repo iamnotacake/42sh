@@ -12,9 +12,6 @@
 
 #include "ft_env.h"
 
-extern char	**g_env_g;
-extern char	**g_env_l;
-
 char			**ft_env_init(const char *const envp[])
 {
 	char	**env;

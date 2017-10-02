@@ -25,9 +25,6 @@ static char	const	*ft_get_var_content(const char *var, int len)
 		sprintf(tmp, "%d", getpid());
 		return (tmp);
 	}
-	res = ft_env_get(g_env_l, tmp);
-	if (res)
-		return (res);
 	res = ft_env_get(g_env_g, tmp);
 	if (res)
 		return (res);

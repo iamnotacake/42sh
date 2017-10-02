@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/02 18:11:32 by mbraslav          #+#    #+#             */
+/*   Updated: 2017/10/02 18:11:33 by mbraslav         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
 char	*g_promt;
@@ -7,12 +19,11 @@ t_token	*g_prev_tok;
 t_token	*g_curr_sym;
 t_token	*g_next_sym;
 char	**g_env_g;
-char	**g_env_l;
 int		g_parent;
 char	*g_lft;
 char	*g_rgt;
 
-void	init_42(const char *const envp[])
+static void	init_42(const char *const envp[])
 {
 	char	*shlvl_str;
 
@@ -20,6 +31,7 @@ void	init_42(const char *const envp[])
 	g_table = ft_hash_table((char **)envp);
 	g_env_g = ft_env_init(envp);
 	g_history = NULL;
+	ft_history_upload();
 	g_promt = ft_strdup("wtf?> ");
 	ft_env_set(&g_env_g, "SHELL", "42sh");
 	if ((shlvl_str = ft_env_get(g_env_g, "SHLVL")))
@@ -28,12 +40,12 @@ void	init_42(const char *const envp[])
 		ft_env_set(&g_env_g, "SHLVL", shlvl_str);
 		free(shlvl_str);
 	}
-	g_env_l = malloc(sizeof(char *) * 2);
-	g_env_l[0] = NULL;
+	else
+		ft_env_set(&g_env_g, "SHLVL", "1");
 	ft_signals();
 }
 
-int 	unclosed_quote(t_token *t, int i)
+int		unclosed_quote(t_token *t, int i)
 {
 	while (t->next)
 	{
@@ -63,10 +75,10 @@ char	*ft_join_quote(char *a, char *b)
 {
 	char *res;
 
-	res = malloc(strlen(a) + 1 + strlen(b ?: "") + 1);
-	strcpy(res, a);
-	strcat(res, "\n");
-	strcat(res, b ?: "");
+	res = malloc(ft_strlen(a) + 1 + ft_strlen(b ? b : "") + 1);
+	ft_strcpy(res, a);
+	ft_strcat(res, "\n");
+	ft_strcat(res, b ? b : "");
 	free(a);
 	free(b);
 	return (res);
@@ -82,7 +94,7 @@ void	ft_find_quotes(t_token **tokens, char **cmd)
 		write(1, "\n", 1);
 		token_free_all(*tokens);
 		(*cmd) = ft_join_quote(*cmd, ft_readline());
-		(*tokens) = token_scan_string((*cmd) ?: "");
+		(*tokens) = token_scan_string((*cmd) ? (*cmd) : "");
 	}
 	g_promt = oldpromt;
 }
@@ -97,7 +109,7 @@ void	go_42(void)
 	{
 		if ((cmd = ft_readline()))
 		{
-			tokens = token_scan_string(cmd ?: "");
+			tokens = token_scan_string(cmd ? cmd : "");
 			ft_find_quotes(&tokens, &cmd);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();
@@ -120,7 +132,6 @@ int		main(int argc, const char *const argv[], const char *const envp[])
 	(void)argc;
 	(void)argv;
 	init_42(envp);
-	ft_history_upload();
 	go_42();
 	ft_free();
 	return (0);

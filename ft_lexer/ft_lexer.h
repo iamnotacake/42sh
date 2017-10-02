@@ -51,6 +51,8 @@ typedef struct	s_token
 	char			*data;
 }				t_token;
 
+extern char		**g_env_g;
+
 t_token			*token_new(t_token_type type,
 							t_token_subtype subtype,
 							const char *match);
