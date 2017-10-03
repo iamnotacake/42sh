@@ -44,7 +44,7 @@ void		ft_add_env(char ***env, char **mas)
 	*env = new;
 	if (!ft_strncmp((*env)[i], "PATH=", 5))
 	{
-		ft_hash_free_table();
+		ft_free_hash_table();
 		g_table = ft_hash_table(*env);
 	}
 }
@@ -82,7 +82,7 @@ int			ft_built_setenv_find_match(char ***env, char **mas, int w)
 			(*env)[w] = ft_strdup(mas[1]);
 			if (!ft_strncmp((*env)[w], "PATH=", i - 1))
 			{
-				ft_hash_free_table();
+				ft_free_hash_table();
 				g_table = ft_hash_table(*env);
 			}
 			return (0);

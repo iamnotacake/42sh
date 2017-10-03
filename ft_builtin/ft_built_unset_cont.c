@@ -24,7 +24,7 @@ int		ft_built_unsetenv(char ***env, char **mas)
 		if (!(new = (char **)malloc(sizeof(char *) * (word + 1))))
 			return (-1);
 		ft_del_env(env, mas, new);
-		ft_hash_free_table();
+		ft_free_hash_table();
 		g_table = ft_hash_table(*env);
 	}
 	return (0);

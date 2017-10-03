@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_free_private.h"
+#include "ft_free.h"
 
 void	ft_free(void)
 {
-	ft_hash_free_table();
+	ft_free_hash_table();
 	ft_free_history();
 }

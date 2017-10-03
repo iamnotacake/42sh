@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_free_private.h"
+#include "ft_free.h"
 
 void	ft_free_mas(char **mas)
 {

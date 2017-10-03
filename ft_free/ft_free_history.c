@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_free_private.h"
+#include "ft_free.h"
 
 extern t_his	*g_history;
 

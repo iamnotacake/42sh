@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_hash_table.h"
-#include "ft_free_private.h"
+#include "ft_free.h"
 #include "ft_env.h"
 
 static void	init_table(t_hash **table, char **path)

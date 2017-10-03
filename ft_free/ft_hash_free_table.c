@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_free_private.h"
+#include "ft_free.h"
 
 extern t_hash **g_table;
 
@@ -28,7 +28,7 @@ static void	free_elem(t_hash *elem)
 	}
 }
 
-void		ft_hash_free_table(void)
+void		ft_free_hash_table(void)
 {
 	int		i;
 
