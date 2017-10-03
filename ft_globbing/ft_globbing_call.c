@@ -63,6 +63,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 {
 	char		*tmp;
 
+	ft_tilda_exchange(arguments);
 	g_index = 0;
 	g_tree = arguments;
 	while (arguments->tree[g_index])

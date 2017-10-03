@@ -12,7 +12,9 @@
 
 #include "ft_globbing.h"
 
-char g_str[256];
+char			g_str[256];
+int				g_index;
+t_syntax_tree	*g_tree;
 
 static char			*ft_check_patch(char *pattern, char *s, char *str, int cnt)
 {
@@ -105,4 +107,27 @@ int					ft_globbing_is_pattern(char *pattern)
 		p++;
 	}
 	return (0);
+}
+
+void				ft_tilda_exchange(t_syntax_tree *arguments)
+{
+	char		*tmp;
+
+	g_index = 0;
+	g_tree = arguments;
+	while (arguments->tree[g_index])
+	{
+		if (arguments->tree[g_index]->args[0] &&
+			arguments->tree[g_index]->args[0][0] == '~')
+		{
+			if (ft_strlen(arguments->tree[g_index]->args[0]) > 1)
+				tmp = ft_strjoin(ft_env_get(g_env_g, "HOME"),
+					arguments->tree[g_index]->args[0] + 1);
+			else
+				tmp = ft_strdup(ft_env_get(g_env_g, "HOME"));
+			ft_strdel(&arguments->tree[g_index]->args[0]);
+			arguments->tree[g_index]->args[0] = tmp;
+		}
+		g_index += 1;
+	}
 }

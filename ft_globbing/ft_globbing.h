@@ -29,5 +29,6 @@ void			ft_globbing_callback(char *str);
 int				ft_globbing_is_pattern(char *pattern);
 int				ft_match(char *s, char *p, int cur_char, int c);
 int				ft_brackets(char **p, int cur_char);
+void			ft_tilda_exchange(t_syntax_tree *arguments);
 
 #endif
