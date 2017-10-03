@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_globbing.h"
+#include "ft_free.h"
 
 int				g_index;
 t_syntax_tree	*g_tree;
@@ -73,7 +74,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 			ft_globbing_is_pattern(arguments->tree[g_index]->args[0]))
 		{
 			tmp = ft_strdup(arguments->tree[g_index]->args[0]);
-			syntax_tree_free(arguments->tree[g_index]);
+			ft_free_syntax_tree(arguments->tree[g_index]);
 			ptr_arr_remove(arguments->tree, g_index);
 			free(tmp);
 		}

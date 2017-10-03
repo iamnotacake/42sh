@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_parser_private.h"
+#include "ft_free.h"
 
 t_syntax_tree	*syntax_tree_new(const char *type)
 {
@@ -25,55 +26,53 @@ t_syntax_tree	*syntax_tree_new(const char *type)
 	return (tree);
 }
 
-void			syntax_tree_free(t_syntax_tree *tree)
+static void		append_tree_arr(t_syntax_tree ***tree, t_syntax_tree *new_elem)
 {
-	int			i;
+	t_syntax_tree	**new;
+	int				i;
 
-	if (tree == NULL)
-		return ;
 	i = 0;
-	while (tree->tree[i])
-	{
-		syntax_tree_free(tree->tree[i]);
-		i += 1;
-	}
-	free(tree->tree);
+	while ((*tree)[i])
+		i++;
+	new = malloc(sizeof(t_syntax_tree *) * (i + 2));
 	i = 0;
-	if (tree->args)
+	while ((*tree)[i])
 	{
-		while (tree->args[i])
-		{
-			free(tree->args[i]);
-			parser_prev_symbol();
-			i += 1;
-		}
-		free(tree->args);
+		new[i] = (*tree)[i];
+		i++;
 	}
-	free(tree);
+	new[i] = new_elem;
+	new[i + 1] = NULL;
+	free(*tree);
+	(*tree) = new;
 }
 
-void			syntax_tree_append(t_syntax_tree *tree,
-									t_syntax_tree *tr,
-									char *arg)
+static void		append_arg_arr(char ***args, char *new_elem)
 {
+	char	**new;
 	int		i;
 
 	i = 0;
-	if (tr)
-	{
-		while (tree->tree[i])
-			i += 1;
-		tree->tree = realloc(tree->tree, sizeof(void *) * (i + 2));
-		tree->tree[i] = tr;
-		tree->tree[i + 1] = NULL;
-	}
+	while ((*args)[i])
+		i++;
+	new = malloc(sizeof(char *) * (i + 2));
 	i = 0;
-	if (arg)
+	while ((*args)[i])
 	{
-		while (tree->args[i])
-			i += 1;
-		tree->args = realloc(tree->args, sizeof(void *) * (i + 2));
-		tree->args[i] = arg;
-		tree->args[i + 1] = NULL;
+		new[i] = (*args)[i];
+		i++;
 	}
+	new[i] = new_elem;
+	new[i + 1] = NULL;
+	free(*args);
+	(*args) = new;
+}
+
+void			syntax_tree_append(t_syntax_tree *tree, \
+										t_syntax_tree *subtree, char *arg)
+{
+	if (subtree)
+		append_tree_arr(&(tree->tree), subtree);
+	if (arg)
+		append_arg_arr(&(tree->args), arg);
 }

@@ -12,36 +12,25 @@
 
 #include "ft_parser_private.h"
 
-extern t_token	*g_prev_tok;
-extern t_token	*g_curr_sym;
-extern t_token	*g_next_sym;
-
-void			prev_symbol(void)
+void	ft_free_syntax_tree(t_syntax_tree *tree)
 {
-	g_next_sym = g_curr_sym;
-	g_curr_sym = g_next_sym ? g_next_sym->prev : NULL;
-	g_prev_tok = g_curr_sym ? g_curr_sym->prev : NULL;
-}
-
-void			ft_free_syntax_tree(t_syntax_tree *tree)
-{
-	int			i;
+	int		i;
 
 	if (!tree)
 		return ;
 	i = 0;
-	while (tree->tree[i])
+	while (tree->tree && tree->tree[i])
 	{
 		ft_free_syntax_tree(tree->tree[i]);
-		i += 1;
+		i++;
 	}
 	free(tree->tree);
 	i = 0;
-	while (tree->args[i])
+	while (tree->args && tree->args[i])
 	{
 		free(tree->args[i]);
-		prev_symbol();
-		i += 1;
+		parser_prev_symbol();
+		i++;
 	}
 	free(tree->args);
 	free(tree);

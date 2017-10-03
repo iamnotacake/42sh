@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "ft_parser_private.h"
+#include "ft_free.h"
 
 #define RETURN_SUCCESS() { return (tree); }
-#define RETURN_FAIL() { syntax_tree_free(tree); return (NULL); }
+#define RETURN_FAIL() { ft_free_syntax_tree(tree); return (NULL); }
 
 t_syntax_tree	*syntax_arg(void)
 {

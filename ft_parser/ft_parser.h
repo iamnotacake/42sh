@@ -39,8 +39,6 @@ typedef struct	s_syntax_tree
 	int						need_globbing;
 }				t_syntax_tree;
 
-void			syntax_tree_free(t_syntax_tree *tree);
-
 void			parser_init_symbol(t_token *tok);
 
 t_syntax_tree	*syntax_arg(void);
