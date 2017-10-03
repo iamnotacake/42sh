@@ -74,6 +74,7 @@ void			ft_globbing_call(t_syntax_tree *arguments)
 			tmp = ft_strdup(arguments->tree[g_index]->args[0]);
 			syntax_tree_free(arguments->tree[g_index]);
 			ptr_arr_remove(arguments->tree, g_index);
+			free(tmp);
 		}
 		else
 			g_index += 1;

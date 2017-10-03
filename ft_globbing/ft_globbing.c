@@ -55,24 +55,7 @@ static char			*ft_patch(char *pattern, char p, int cnt)
 	pattern = ft_check_patch(pattern, s, str, cnt);
 	return (pattern);
 }
-/*
-static int                      ft_do_gl2(char **tokens, struct dirent *dirbuf, int *cur_char, int *c)
-{
-  char *str;
 
-  if (ft_match(dirbuf->d_name, *tokens, *cur_char, *c))
-    {
-      str = ft_strjoin(g_str, dirbuf->d_name);
-      ft_globbing_callback(str)\
-	;
-      //str = NULL;
-      free(str);
-      //ft_strdel(&str);
-      return (1);
-    }
-  return (0);
-}
-*/
 static int			ft_do_globing(char *tokens, int flag, int cur_char, int c)
 {
 	char			*pwd;
@@ -97,8 +80,6 @@ static int			ft_do_globing(char *tokens, int flag, int cur_char, int c)
 			ft_globbing_callback(ft_strjoin(g_str, dirbuf->d_name));
 			flag = 1;
 		}
-		
-		//flag = ft_do_gl2(&tokens, dirbuf, &cur_char, &c);
 	}
 	closedir(dfd);
 	return (flag);
