@@ -121,6 +121,12 @@ int			main(int argc, const char *const argv[], const char *const envp[])
 {
 	(void)argc;
 	(void)argv;
+	if (argc > 1)
+	{
+		ft_putstr_fd("wtf?: non-interactive mode is not \
+supported yet\n", 2);
+		return (0);
+	}
 	init_42(envp);
 	go_42();
 	ft_free();
