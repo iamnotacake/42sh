@@ -73,7 +73,6 @@ void	ft_pre_fill_list(t_syntax_tree *tree, t_proc **proc, int *lock)
 	{
 		ft_pre_pipe_fd(tree, proc, i, &fd);
 		ft_pre_by_type(tree->tree[i], proc, lock);
-		// if (i > 0 && (!(*proc) || !(*proc)->argv[0]))
 		if ((!(*proc) || !(*proc)->argv[0]))
 		{
 			if (fd != 0)
