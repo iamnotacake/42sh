@@ -134,17 +134,8 @@ void	ft_get_line(char **line, t_his **his)
 	{
 		if (key == 4)
 		{
-			if ((!g_lft || !g_lft[0]) && (!g_rgt || !g_rgt[0]))
-			{
-				if (g_heredoc)
-				{
-					(*line) = ft_strdup(g_heredoc);
-					g_heredoc = NULL;
-					return ;
-				}
-				ft_terminal_set();
-				exit(0);
-			}
+			if (!ft_get_line_is_exit(line))
+				return ;
 		}
 		else if (!(ft_char_analysis(key, &g_lft, &g_rgt, his)))
 		{

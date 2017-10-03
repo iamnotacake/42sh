@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_exec_private.h"
-// #include <sys/stat.h>
 
 int		wt_last_slash(char **argv)
 {

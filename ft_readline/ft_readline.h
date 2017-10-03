@@ -112,6 +112,7 @@ void				ft_tab_try_to_paste(t_focu *fo, char *find,
 void				ft_history_find(char **lft, char **rgt, t_his *his);
 void				ft_history_check(char **new, t_his *his);
 void				ft_get_line(char **line, t_his **his);
+int					ft_get_line_is_exit(char **line);
 void				ft_free_match(t_match *head);
 void				ft_free_tmp(t_his **his);
 int					ft_add_match(t_match **head, char *file);

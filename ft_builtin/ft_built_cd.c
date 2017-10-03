@@ -56,22 +56,21 @@ char	*ft_up_pth(char *str)
 char	*ft_old_pth(char **env, int o, int h)
 {
 	char	*oldpwd;
-	char	*home;
-	size_t	lenh;
+	int		len_o;
+	int		len_h;
 
 	oldpwd = ft_strdup(env[o] + 7);
-	home = ft_strdup(env[h] + 5);
-	lenh = ft_strlen(home);
-	if (ft_strcmp(oldpwd, home) < 0)
+	len_o = ft_strlen(env[o] + 7);
+	len_h = ft_strlen(env[h] + 5);
+	if (len_o < len_h)
 		ft_putendl(oldpwd);
-	else if (!ft_strcmp(oldpwd, home))
+	else if (len_o == len_h)
 		ft_putendl("~");
-	else
+	else if (len_o > len_h)
 	{
-		// write(1, "~", 1);
-		// ft_putendl(oldpwd + lenh);
+		ft_putstr("~");
+		ft_putendl(oldpwd + len_h);
 	}
-	free(home);
 	return (oldpwd);
 }
 
