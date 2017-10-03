@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtin_private.h"
+#include "ft_builtin.h"
 
 char	*ft_root_dir(char *mas)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtin_private.h"
+#include "ft_builtin.h"
 
 int			ft_count_env(char **en)
 {

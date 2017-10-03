@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtin_private.h"
+#include "ft_builtin.h"
 
 int		ft_built_unsetenv(char ***env, char **mas)
 {

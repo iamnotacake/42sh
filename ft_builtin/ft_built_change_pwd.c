@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtin_private.h"
+#include "ft_builtin.h"
 
 void	ft_change_oldpwd(char ***env, char *oldpwd, int o)
 {
