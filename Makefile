@@ -4,7 +4,7 @@ obj = $(prefix)/obj
 bin = $(prefix)/$(NAME)
 
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 LDFLAGS =
 SOURCES = main.c \
 			ft_join_quote.c \
