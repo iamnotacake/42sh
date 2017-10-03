@@ -32,8 +32,7 @@ int		ft_add_to_tmp(char **lft, char **rgt, t_his **his)
 	{
 		if ((*his)->tmp)
 			free((*his)->tmp);
-		(*his)->tmp = ft_strdup(tmp);
-		free(tmp);
+		(*his)->tmp = tmp;
 		return (1);
 	}
 	return (0);
@@ -44,18 +43,21 @@ void	ft_free_tmp(t_his **his)
 	t_his	*new;
 
 	new = (*his);
-	if (new->tmp)
+	while ((*his)->next)
+		(*his) = (*his)->next;
+	if ((*his)->tmp)
 	{
-		free(new->tmp);
-		new->tmp = NULL;
+		free((*his)->tmp);
+		(*his)->tmp = NULL;
 	}
-	while (new->prev)
+	while ((*his)->prev)
 	{
-		new = new->prev;
-		if (new->tmp)
+		(*his) = (*his)->prev;
+		if ((*his)->tmp)
 		{
-			free(new->tmp);
-			new->tmp = NULL;
+			free((*his)->tmp);
+			(*his)->tmp = NULL;
 		}
 	}
+	(*his) = new;
 }

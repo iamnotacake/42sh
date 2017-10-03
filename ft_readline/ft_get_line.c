@@ -142,6 +142,7 @@ void	ft_get_line(char **line, t_his **his)
 					g_heredoc = NULL;
 					return ;
 				}
+				ft_terminal_set();
 				exit(0);
 			}
 		}

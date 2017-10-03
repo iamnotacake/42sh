@@ -43,6 +43,7 @@ void	ft_get_line_save(char **lft, char **rgt, char **line, t_his **his)
 	ft_till_the_end(lft, rgt);
 	(*line) = ft_line((*lft), (*rgt));
 	if ((*line))
+	{
 		if (ft_strlen((*line)) != 0)
 		{
 			if (*line[0] != '!')
@@ -51,6 +52,7 @@ void	ft_get_line_save(char **lft, char **rgt, char **line, t_his **his)
 				ft_history_load(*line, fl);
 			}
 		}
+	}
 	if ((*his))
 		ft_free_tmp(his);
 }

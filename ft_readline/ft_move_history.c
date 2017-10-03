@@ -40,10 +40,14 @@ void	ft_clear_line(char *lft, char *rgt)
 	}
 }
 
+/*
+**	if (!ft_add_to_tmp(lft, rgt, his))
+**		(*his)->tmp = ft_strdup("");
+*/
+
 void	ft_arrow_up(char **lft, char **rgt, t_his **his)
 {
-	if (!ft_add_to_tmp(lft, rgt, his))
-		(*his)->tmp = ft_strdup("");
+	ft_add_to_tmp(lft, rgt, his);
 	if ((*his)->prev)
 	{
 		ft_clear_line(*lft, *rgt);
@@ -71,7 +75,10 @@ void	ft_arrow_down(char **lft, char **rgt, t_his **his)
 		ft_clear_line(*lft, *rgt);
 		(*his) = (*his)->next;
 		if ((*lft))
+		{
 			free((*lft));
+			(*lft) = NULL;
+		}
 		if ((*rgt))
 		{
 			free((*rgt));

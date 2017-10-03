@@ -31,7 +31,10 @@ static void	main_signal_handler(int signo)
 static void	input_signal_handler(int signo)
 {
 	if (signo == SIGQUIT)
+	{
+		ft_terminal_set();
 		exit(0);
+	}
 	if (signo == SIGINT)
 	{
 		free(g_lft);

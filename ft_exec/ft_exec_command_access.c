@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_exec_private.h"
-#include <sys/stat.h>
+// #include <sys/stat.h>
 
 int		wt_last_slash(char **argv)
 {
@@ -29,10 +29,25 @@ int		wt_last_slash(char **argv)
 	return (sl);
 }
 
+int		ft_exec_check_on_exe(t_proc **proc)
+{
+	int	i;
+
+	i = 0;
+	while ((*proc)->argv[0][i])
+	{
+		if (((*proc)->argv[0][i] == '.' ||
+			(*proc)->argv[0][i] == '/'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		ft_exec_user_path(t_proc **proc)
 {
-	int		sl;
-	char	*tmp;
+	int			sl;
+	char		*tmp;
 	struct stat	st;
 
 	if (!access((*proc)->argv[0], X_OK))
@@ -44,6 +59,8 @@ int		ft_exec_user_path(t_proc **proc)
 			if (S_ISDIR(st.st_mode) || S_ISLNK(st.st_mode))
 				return (-1);
 		}
+		if (!ft_exec_check_on_exe(proc))
+			return (-1);
 		*((*proc)->argv[0] + sl) = '\0';
 		tmp = ft_strdup((*proc)->argv[0] + sl + 1);
 		free((*proc)->argv[0]);
