@@ -12,16 +12,16 @@
 
 #include "shell.h"
 
-char	*g_promt;
-t_his	*g_history;
-t_hash	**g_table;
-t_token	*g_prev_tok;
-t_token	*g_curr_sym;
-t_token	*g_next_sym;
-char	**g_env_g;
-int		g_parent;
-char	*g_lft;
-char	*g_rgt;
+char		*g_promt;
+t_his		*g_history;
+t_hash		**g_table;
+t_token		*g_prev_tok;
+t_token		*g_curr_sym;
+t_token		*g_next_sym;
+char		**g_env_g;
+int			g_parent;
+char		*g_lft;
+char		*g_rgt;
 
 static void	init_42(const char *const envp[])
 {
@@ -45,7 +45,7 @@ static void	init_42(const char *const envp[])
 	ft_signals();
 }
 
-int		unclosed_quote(t_token *t, int i)
+int			unclosed_quote(t_token *t, int i)
 {
 	while (t->next)
 	{
@@ -71,20 +71,7 @@ int		unclosed_quote(t_token *t, int i)
 	return (0);
 }
 
-char	*ft_join_quote(char *a, char *b)
-{
-	char *res;
-
-	res = malloc(ft_strlen(a) + 1 + ft_strlen(b ? b : "") + 1);
-	ft_strcpy(res, a);
-	ft_strcat(res, "\n");
-	ft_strcat(res, b ? b : "");
-	free(a);
-	free(b);
-	return (res);
-}
-
-void	ft_find_quotes(t_token **tokens, char **cmd)
+void		ft_find_quotes(t_token **tokens, char **cmd)
 {
 	char	*oldpromt;
 
@@ -99,7 +86,11 @@ void	ft_find_quotes(t_token **tokens, char **cmd)
 	g_promt = oldpromt;
 }
 
-void	go_42(void)
+/*
+**	ft_tree_print(tree, 0);
+*/
+
+void		go_42(void)
 {
 	char			*cmd;
 	t_syntax_tree	*tree;
@@ -116,7 +107,6 @@ void	go_42(void)
 			parser_simplify(&tree);
 			parser_simplify(&tree);
 			write(1, "\n", 1);
-			ft_tree_print(tree, 0);
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			token_free_all(tokens);
@@ -127,7 +117,7 @@ void	go_42(void)
 	}
 }
 
-int		main(int argc, const char *const argv[], const char *const envp[])
+int			main(int argc, const char *const argv[], const char *const envp[])
 {
 	(void)argc;
 	(void)argv;

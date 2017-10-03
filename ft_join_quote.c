@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   ft_join_quote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olyuboch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/01 16:09:44 by olyuboch          #+#    #+#             */
-/*   Updated: 2017/10/01 16:09:46 by olyuboch         ###   ########.fr       */
+/*   Created: 2017/10/03 16:40:29 by olyuboch          #+#    #+#             */
+/*   Updated: 2017/10/03 16:40:31 by olyuboch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "shell.h"
 
-# include <stdio.h>
-# include <string.h>
-# include "ft_readline.h"
-# include "ft_hash_table.h"
-# include "ft_lexer.h"
-# include "ft_parser.h"
-# include "ft_env.h"
-# include "ft_free.h"
-# include "ft_preprocessing.h"
-# include "ft_history.h"
-# include "ft_signals.h"
-# include "libft/libft.h"
+char	*ft_join_quote(char *a, char *b)
+{
+	char *res;
 
-char	*ft_join_quote(char *a, char *b);
-
-#endif
+	res = malloc(ft_strlen(a) + 1 + ft_strlen(b ? b : "") + 1);
+	ft_strcpy(res, a);
+	ft_strcat(res, "\n");
+	ft_strcat(res, b ? b : "");
+	free(a);
+	free(b);
+	return (res);
+}

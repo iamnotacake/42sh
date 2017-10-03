@@ -7,6 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra
 LDFLAGS =
 SOURCES = main.c \
+			ft_join_quote.c \
 
 OBJECTS = $(addprefix $(obj)/,$(subst .c,.o,$(SOURCES)))
 NAME = 42sh
