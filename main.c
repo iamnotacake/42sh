@@ -101,6 +101,7 @@ void		go_42(void)
 		if ((cmd = ft_readline()))
 		{
 			tokens = token_scan_string(cmd ? cmd : "");
+			ft_print_t_token(tokens);
 			ft_find_quotes(&tokens, &cmd);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();
