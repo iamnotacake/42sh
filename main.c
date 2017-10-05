@@ -90,19 +90,44 @@ void		ft_find_quotes(t_token **tokens, char **cmd)
 **	ft_tree_print(tree, 0);
 */
 
+void		print_tok_str(t_token *list)
+{
+	const char	*type[] = {"WHITESPACE", "STRING\t", "OP_BQUOTE", "OP_PIPE\t", \
+		"OP_REDIR", "OP_SEMICOLON", "OP_BRACKET", "OP_LOGIC\t"};
+	const char	*subtype[] = {"ANY\t\t", "NONE\t\t", "QUOTE\t", "DQUOTE\t", "QUOTE_EOF", \
+		"DQUOTE_EOF", "LEFT\t\t", "RIGHT\t", "OR\t\t", "AND\t\t"};
+	write(1, "\n----------------\n", 18);
+	while (list)
+	{
+		ft_putstr(list->data);
+		ft_putstr("\t");
+		ft_putstr(list->match);
+		ft_putstr("\t");
+		ft_putstr(type[list->type]);
+		ft_putstr("\t");
+		ft_putstr(subtype[list->subtype]);
+		ft_putstr("\n");
+		list = list->next;
+	}
+	write(1, "\n----------------\n", 18);
+}
+
 void		go_42(void)
 {
-	char			*cmd;
+	char			*input;
 	t_syntax_tree	*tree;
 	t_token			*tokens;
+	t_token			*tokens1;
 
 	while (1)
 	{
-		if ((cmd = ft_readline()))
+		if ((input = ft_readline()))
 		{
-			tokens = token_scan_string(cmd ? cmd : "");
-			ft_print_t_token(tokens);
-			ft_find_quotes(&tokens, &cmd);
+			tokens1 = get_token_list(input ? input : "");
+			tokens = token_scan_string(input ? input : "");
+			print_tok_str(tokens1);
+			print_tok_str(tokens);
+			ft_find_quotes(&tokens, &input);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();
 			parser_simplify(&tree);
@@ -111,7 +136,7 @@ void		go_42(void)
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			token_free_all(tokens);
-			free(cmd);
+			free(input);
 		}
 		else
 			write(1, "\n", 1);

@@ -51,6 +51,8 @@ typedef struct	s_token
 	char			*data;
 }				t_token;
 
+typedef size_t	(*lexfunc)(char *s, t_token **token);
+
 extern char		**g_env_g;
 
 t_token			*token_new(t_token_type type,
@@ -61,5 +63,7 @@ void			token_free(t_token *tok);
 void			token_free_all(t_token *tok);
 
 t_token			*token_scan_string(const char *string);
+
+t_token			*get_token_list(char *str);
 
 #endif

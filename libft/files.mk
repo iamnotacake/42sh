@@ -4,6 +4,7 @@ SOURCES += 	libft/ft_strtrim.c \
 			libft/ft_memdel.c \
 			libft/ft_strcpy.c \
 			libft/ft_isalnum.c \
+			libft/ft_isspace.c\
 			libft/ft_memmove.c \
 			libft/ft_striter.c \
 			libft/ft_strmapi.c \
