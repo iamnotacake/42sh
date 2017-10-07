@@ -43,13 +43,17 @@ static char		*r_seq(const char *op)
 size_t		is_whitespace(char *s, t_token **t)
 {
 	size_t	len;
+	char	*tmp;
 
 	len = 0;
 	if (ft_isspace(*s))
 	{
-		*t = token_new(T_WHITESPACE, ST_NONE, " ");
 		while (*(s + len) && ft_isspace(*(s + len)))
 			len++;
+		tmp = ft_strnew(len);
+		ft_memset(tmp, ' ', len);
+		*t = token_new(T_WHITESPACE, ST_NONE, tmp);
+		free(tmp);
 	}
 	return (len);
 }
@@ -60,15 +64,15 @@ size_t		is_string(char *s, t_token **t)
 	char	*tmp;
 
 	len = 0;
-	if (*s == '&' && *(s + 1))
-		len = 2;
-	else
-	{
-		while (!ft_strchr("|&;<>()`\\\"' \t\n#", *(s + len)) || \
-			(*(s + len) == '\\' && *(s + len + 1) != '\n') || \
-			(len && *(s + len - 1) == '\\'))
-			len++;
-	}
+    if (*s == '&' && *(s + 1))
+        len = 2;
+    else
+    {
+        while (!ft_strchr("|&;<>()`\\\"' \t\n#", *(s + len)) || \
+            (*(s + len) == '\\' && *(s + len + 1) != '\n') || \
+            (len && *(s + len - 1) == '\\'))
+            len++;
+    }
 	if (len)
 	{
 		*t = token_new(T_STRING, ST_NONE, tmp = ft_strsub(s, 0, len));

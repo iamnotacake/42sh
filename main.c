@@ -166,8 +166,8 @@ void		go_42(void)
 			tokens1 = get_token_list(input ? input : "");
 			tokens = token_scan_string(input ? input : "");
 			cmp_token_lists(tokens, tokens1);
-//			print_token_list(tokens);
-//			print_token_list(tokens1);
+//            print_token_list(tokens);
+//            print_token_list(tokens1);
 			ft_find_quotes(&tokens, &input);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();
@@ -177,6 +177,7 @@ void		go_42(void)
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			token_free_all(tokens);
+			token_free_all(tokens1);
 			free(input);
 		}
 		else
