@@ -23,4 +23,17 @@
 void			ft_lexer_post_string(t_token *toks);
 void			ft_lexer_resolve_vars(t_token *toks);
 
+size_t			is_whitespace(char *s, t_token **token);
+size_t			is_string(char *s, t_token **token);
+size_t			is_quote(char *s, t_token **token);
+size_t			is_quote_eof(char *s, t_token **token);
+size_t			is_dquote(char *s, t_token **token);
+size_t			is_dquote_eof(char *s, t_token **token);
+size_t			is_bquote(char *s, t_token **token);
+size_t			is_pipe(char *s, t_token **token);
+size_t			is_redir(char *s, t_token **token);
+size_t			is_bracket(char *s, t_token **token);
+size_t			is_semicolon(char *s, t_token **token);
+size_t			is_logic(char *s, t_token **token);
+
 #endif
