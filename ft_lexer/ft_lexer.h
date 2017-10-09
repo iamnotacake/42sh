@@ -51,7 +51,7 @@ typedef struct	s_token
 	char			*data;
 }				t_token;
 
-typedef size_t	(*lexfunc)(char *s, t_token **token);
+typedef size_t	(*t_lexfunc)(char *s, t_token **token);
 
 extern char		**g_env_g;
 

@@ -217,11 +217,9 @@ size_t		is_redir(char *s, t_token **t)
 		len = 2;
 	else if (rest > 1 && *s == '>' && *(s + 1) == '>')
 		len = 2;
-	else if (rest > 0 && *s == '>')
-		len = 1;
 	else if (rest > 1 && *s == '<' && *(s + 1) == '<')
 		len = 2;
-	else if (rest > 0 && *s == '<')
+	else if (rest > 0 && (*s == '>' || *s == '<'))
 		len = 1;
 	if (len)
 	{
@@ -274,14 +272,14 @@ size_t		is_logic(char *s, t_token **t)
 
 t_token		*get_token(char **s)
 {
-	const lexfunc	filter[] = {is_whitespace, is_string, is_quote, \
+	const t_lexfunc	filter[] = {is_whitespace, is_string, is_quote, \
 		is_quote_eof, is_dquote, is_dquote_eof, is_bquote, is_pipe, is_redir, \
 		is_bracket, is_semicolon, is_logic, NULL};
-	t_token	*token;
-	t_token	*tmp;
-	size_t	maxlen;
-	size_t	len;
-	int		i;
+	t_token			*token;
+	t_token			*tmp;
+	size_t			maxlen;
+	size_t			len;
+	int				i;
 
 	token = NULL;
 	maxlen = 0;
