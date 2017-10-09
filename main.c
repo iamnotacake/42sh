@@ -166,8 +166,8 @@ void		go_42(void)
 			tokens1 = get_token_list(input ? input : "");
 			tokens = token_scan_string(input ? input : "");
 			cmp_token_lists(tokens, tokens1);
-//            print_token_list(tokens);
-//            print_token_list(tokens1);
+//			print_token_list(tokens);
+//			print_token_list(tokens1);
 			ft_find_quotes(&tokens, &input);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();

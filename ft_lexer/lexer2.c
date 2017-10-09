@@ -64,18 +64,16 @@ size_t		is_string(char *s, t_token **t)
 	char	*tmp;
 
 	len = 0;
-    if (*s == '&' && *(s + 1))
-        len = 2;
-    else
-    {
-        while (!ft_strchr("|&;<>()`\\\"' \t\n#", *(s + len)) || \
-            (*(s + len) == '\\' && *(s + len + 1) != '\n') || \
-            (len && *(s + len - 1) == '\\'))
-            len++;
-    }
+	while (!ft_strchr("|&;<>()`\\\"' \t\n#", *(s + len)) || \
+		(*(s + len) == '\\' && *(s + len + 1) != '\n') || \
+		(len && *(s + len - 1) == '\\'))
+		len++;
+	if (!len && *s == '&' && ft_isdigit(*(s + 1)))
+		len = 2;
 	if (len)
 	{
-		*t = token_new(T_STRING, ST_NONE, tmp = ft_strsub(s, 0, len));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_STRING, ST_NONE, tmp);
 		free(tmp);
 	}
 	return (len);
@@ -96,7 +94,8 @@ size_t		is_quote(char *s, t_token **t)
 	if (len && *(s + len) == '\'')
 	{
 		len++;
-		*t = token_new(T_STRING, ST_QUOTE, tmp = ft_strsub(s, 0 , len));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_STRING, ST_QUOTE, tmp);
 		free(tmp);
 		return (len);
 	}
@@ -113,11 +112,19 @@ size_t		is_quote_eof(char *s, t_token **t)
 	{
 		len = 1;
 		while (*(s + len))
+		{
+			if (*(s + len) == '\'')
+			{
+				len = 0;
+				break ;
+			}
 			len++;
+		}
 	}
 	if (len)
 	{
-		*t = token_new(T_STRING, ST_QUOTE_EOF, tmp = ft_strsub(s, 0 , len));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_STRING, ST_QUOTE_EOF, tmp);
 		free(tmp);
 	}
 	return (len);
@@ -139,7 +146,8 @@ size_t		is_dquote(char *s, t_token **t)
 	if (len && *(s + len) == '\"')
 	{
 		len++;
-		*t = token_new(T_STRING, ST_DQUOTE, tmp = ft_strsub(s, 0 , len));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_STRING, ST_DQUOTE, tmp);
 		free(tmp);
 		return (len);
 	}
@@ -156,11 +164,19 @@ size_t		is_dquote_eof(char *s, t_token **t)
 	{
 		len = 1;
 		while (*(s + len))
+		{
+			if (*(s + len) == '\"')
+			{
+				len = 0;
+				break ;
+			}
 			len++;
+		}
 	}
 	if (len)
 	{
-		*t = token_new(T_STRING, ST_DQUOTE_EOF, tmp = ft_strsub(s, 0 , len));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_STRING, ST_DQUOTE_EOF, tmp);
 		free(tmp);
 	}
 	return (len);
@@ -196,20 +212,21 @@ size_t		is_redir(char *s, t_token **t)
 	len = 0;
 	if (rest > 2 && (ft_isdigit(*s) || *s == '&') && \
 											*(s + 1) == '>' && *(s + 2) == '>')
-		len += 3;
+		len = 3;
 	else if (rest > 1 && (ft_isdigit(*s) || *s == '&') && *(s + 1) == '>')
-		len += 2;
+		len = 2;
 	else if (rest > 1 && *s == '>' && *(s + 1) == '>')
-		len += 2;
+		len = 2;
 	else if (rest > 0 && *s == '>')
-		len += 1;
+		len = 1;
 	else if (rest > 1 && *s == '<' && *(s + 1) == '<')
-		len += 2;
+		len = 2;
 	else if (rest > 0 && *s == '<')
-		len += 1;
+		len = 1;
 	if (len)
 	{
-		*t = token_new(T_OP_REDIR, ST_NONE, r_seq(tmp = ft_strsub(s, 0, len)));
+		tmp = ft_strsub(s, 0, len);
+		*t = token_new(T_OP_REDIR, ST_NONE, r_seq(tmp));
 		free(tmp);
 	}
 	return (len);
@@ -257,23 +274,33 @@ size_t		is_logic(char *s, t_token **t)
 
 t_token		*get_token(char **s)
 {
+	const lexfunc	filter[] = {is_whitespace, is_string, is_quote, \
+		is_quote_eof, is_dquote, is_dquote_eof, is_bquote, is_pipe, is_redir, \
+		is_bracket, is_semicolon, is_logic, NULL};
 	t_token	*token;
-	lexfunc	filter[] = {is_whitespace, is_string, is_quote, is_quote_eof, \
-		is_dquote, is_dquote_eof, is_bquote, is_pipe, is_redir, is_bracket, \
-		is_semicolon, is_logic, NULL};
+	t_token	*tmp;
+	size_t	maxlen;
 	size_t	len;
 	int		i;
 
 	token = NULL;
-	len = 0;
-	while (!token)
+	maxlen = 0;
+	while (**s && !token)
 	{
 		i = 0;
-		while (**s && filter[i] && !(len = filter[i](*s, &token)))
-			i++;
-		if (!**s)
-			break ;
-		*s += (len) ? len : 1;
+		while (**s && filter[i])
+		{
+			tmp = NULL;
+			len = filter[i++](*s, &tmp);
+			if (len > maxlen)
+			{
+				if (token)
+					token_free(token);
+				token = tmp;
+				maxlen = len;
+			}
+		}
+		*s += (maxlen) ? maxlen : 1;
 	}
 	return (token);
 }
