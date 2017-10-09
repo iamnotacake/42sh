@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_lexer_private.h"
+#include "ft_free.h"
 
 t_token		*get_token(char **s)
 {
@@ -35,7 +36,7 @@ t_token		*get_token(char **s)
 			if (len > maxlen)
 			{
 				if (token)
-					token_free(token);
+					free_token(token);
 				token = tmp;
 				maxlen = len;
 			}

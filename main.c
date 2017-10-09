@@ -79,7 +79,7 @@ void		ft_find_quotes(t_token **tokens, char **cmd)
 	while (unclosed_quote(*tokens, 0))
 	{
 		write(1, "\n", 1);
-		token_free_all(*tokens);
+		free_token_list(*tokens);
 		(*cmd) = ft_join_quote(*cmd, ft_readline());
 		(*tokens) = token_scan_string((*cmd) ? (*cmd) : "");
 	}
@@ -176,8 +176,8 @@ void		go_42(void)
 			write(1, "\n", 1);
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
-			token_free_all(tokens);
-			token_free_all(tokens1);
+			free_token_list(tokens);
+			free_token_list(tokens1);
 			free(input);
 		}
 		else

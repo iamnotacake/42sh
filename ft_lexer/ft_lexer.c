@@ -38,24 +38,3 @@ t_token			*token_append(t_token **tok, t_token *next)
 	*tok = next;
 	return (next);
 }
-
-void			token_free(t_token *tok)
-{
-	free(tok->match);
-	free(tok->data);
-	free(tok);
-}
-
-void			token_free_all(t_token *tok)
-{
-	t_token		*next;
-
-	while (tok->prev)
-		tok = tok->prev;
-	while (tok)
-	{
-		next = tok->next;
-		token_free(tok);
-		tok = next;
-	}
-}

@@ -8,7 +8,6 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS =
 SOURCES = main.c \
 			ft_join_quote.c \
-			ft_print_token.c \
 
 OBJECTS = $(addprefix $(obj)/,$(subst .c,.o,$(SOURCES)))
 NAME = 42sh

@@ -5,6 +5,4 @@ SOURCES +=	ft_free/ft_free.c \
 			ft_free/ft_free_syntax_tree.c \
 			ft_free/ft_free_proc.c \
 			ft_free/ft_free_mas.c \
-
-	
-
+			ft_free/ft_free_token.c\

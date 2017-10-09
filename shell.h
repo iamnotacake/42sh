@@ -27,6 +27,5 @@
 # include "libft/libft.h"
 
 char	*ft_join_quote(char *a, char *b);
-void	ft_print_t_token(t_token *lst);
 
 #endif

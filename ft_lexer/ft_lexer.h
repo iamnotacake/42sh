@@ -59,11 +59,7 @@ t_token			*token_new(t_token_type type,
 							t_token_subtype subtype,
 							const char *match);
 t_token			*token_append(t_token **tok, t_token *next);
-void			token_free(t_token *tok);
-void			token_free_all(t_token *tok);
-
 t_token			*token_scan_string(const char *string);
-
 t_token			*get_token_list(char *str);
 
 #endif

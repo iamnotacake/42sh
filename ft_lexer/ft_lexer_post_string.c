@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_lexer_private.h"
+#include "ft_free.h"
 
 static void		ft_lexer_post_string_extract(t_token *tok)
 {
@@ -43,7 +44,7 @@ ft_strlen((*tok)->next->match) + 1);
 	free((*tok)->data);
 	(*tok)->data = data;
 	tmp = (*tok)->next->next;
-	token_free((*tok)->next);
+	free_token((*tok)->next);
 	(*tok)->next = tmp;
 	if (tmp)
 		tmp->prev = (*tok);
