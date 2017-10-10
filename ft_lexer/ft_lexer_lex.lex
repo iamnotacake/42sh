@@ -101,3 +101,8 @@ void			never_called_shit(void)
 	input();
 	yyunput(0, NULL);
 }
+
+int				yywrap()
+{
+	return (1);
+}

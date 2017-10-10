@@ -90,84 +90,17 @@ void		ft_find_quotes(t_token **tokens, char **cmd)
 **	ft_tree_print(tree, 0);
 */
 
-void		print_token(t_token *token)
-{
-	const char	*type[] = {"WHITESPACE", "STRING\t", "OP_BQUOTE", "OP_PIPE\t", \
-		"OP_REDIR", "OP_SEMICOLON", "OP_BRACKET", "OP_LOGIC\t"};
-	const char	*subtype[] = {"ANY\t\t", "NONE\t\t", "QUOTE\t", "DQUOTE\t", "QUOTE_EOF", \
-		"DQUOTE_EOF", "LEFT\t\t", "RIGHT\t", "OR\t\t", "AND\t\t"};
-	write(1, "\n----------------\n", 18);
-	ft_putstr(token->data);
-	ft_putstr("\t");
-	ft_putstr(token->match);
-	ft_putstr("\t");
-	ft_putstr(type[token->type]);
-	ft_putstr("\t");
-	ft_putstr(subtype[token->subtype]);
-	ft_putstr("\n");
-	write(1, "\n----------------\n", 18);
-}
-
-void		print_token_list(t_token *list)
-{
-	while (list)
-	{
-		print_token(list);
-		list = list->next;
-	}
-}
-
-void		cmp_token_lists(t_token *list1, t_token *list2)
-{
-	while (list1 && list2)
-	{
-		if ((list1->type != list2->type) || \
-			(list1->subtype != list2->subtype) || \
-//			ft_strcmp(list1->data, list2->data) || 
-			ft_strcmp(list1->match, list2->match))
-		{
-			ft_putstr("\033[32m");
-			print_token(list1);
-			ft_putstr("\033[31m");
-			print_token(list2);
-			ft_putstr("\033[0m");
-		}
-		list1 = list1->next;
-		list2 = list2->next;
-	}
-	if (list1 || list2)
-	{
-		ft_putstr("\033[31m\none of lists is not over!\n");
-		if (list1)
-		{
-			ft_putstr("\033[32m");
-			print_token_list(list1);
-		}
-		if (list2)
-		{
-			ft_putstr("\033[32m");
-			print_token_list(list2);
-		}
-		ft_putstr("\033[0m");
-	}
-}
-
 void		go_42(void)
 {
 	char			*input;
 	t_syntax_tree	*tree;
 	t_token			*tokens;
-	t_token			*tokens1;
 
 	while (1)
 	{
 		if ((input = ft_readline()))
 		{
-			tokens1 = get_token_list(input ? input : "");
-			tokens = token_scan_string(input ? input : "");
-			cmp_token_lists(tokens, tokens1);
-//			print_token_list(tokens);
-//			print_token_list(tokens1);
+			tokens = get_token_list(input ? input : "");
 			ft_find_quotes(&tokens, &input);
 			parser_init_symbol(tokens);
 			tree = syntax_exprl();
@@ -177,7 +110,6 @@ void		go_42(void)
 			ft_preprocessing(tree);
 			ft_free_syntax_tree(tree);
 			free_token_list(tokens);
-			free_token_list(tokens1);
 			free(input);
 		}
 		else

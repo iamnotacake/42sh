@@ -6,7 +6,7 @@
 /*   By: mbraslav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 15:22:22 by mbraslav          #+#    #+#             */
-/*   Updated: 2017/10/04 15:22:23 by mbraslav         ###   ########.fr       */
+/*   Updated: 2017/10/10 20:50:38 by mbraslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_token		*get_token_list(char *str)
 	{
 		if (new->type == T_OP_BQUOTE)
 			new->subtype = (bquote++) & 1 ? ST_RIGHT : ST_LEFT;
-		ft_lexer_post_string(new);
 		last->next = new;
 		new->prev = last;
 		last = new;
 	}
+	ft_lexer_post_string(list);
 	return (list);
 }
