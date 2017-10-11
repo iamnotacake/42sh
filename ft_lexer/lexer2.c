@@ -13,40 +13,49 @@
 #include "ft_lexer_private.h"
 #include "ft_free.h"
 
-t_token		*get_token(char **s)
+static size_t	get_best(const t_lexfunc filter[], char **s, t_token **token)
+{
+	t_token	*tmp;
+	size_t	maxlen;
+	size_t	len;
+	int		i;
+
+	maxlen = 0;
+	i = 0;
+	while (**s && filter[i])
+	{
+		tmp = NULL;
+		len = filter[i++](*s, &tmp);
+		if (len > maxlen)
+		{
+			if (*token)
+				free(*token);
+			*token = tmp;
+			maxlen = len;
+		}
+	}
+	return (maxlen);
+}
+
+static t_token	*get_token(char **s)
 {
 	const t_lexfunc	filter[] = {is_whitespace, is_string, is_quote, \
 		is_quote_eof, is_dquote, is_dquote_eof, is_bquote, is_pipe, is_redir, \
 		is_bracket, is_semicolon, is_logic, NULL};
 	t_token			*token;
-	t_token			*tmp;
-	size_t			maxlen;
 	size_t			len;
-	int				i;
 
 	token = NULL;
-	maxlen = 0;
+	len = 0;
 	while (**s && !token)
 	{
-		i = 0;
-		while (**s && filter[i])
-		{
-			tmp = NULL;
-			len = filter[i++](*s, &tmp);
-			if (len > maxlen)
-			{
-				if (token)
-					free_token(token);
-				token = tmp;
-				maxlen = len;
-			}
-		}
-		*s += (maxlen) ? maxlen : 1;
+		len = get_best(filter, s, &token);
+		*s += (len) ? len : 1;
 	}
 	return (token);
 }
 
-t_token		*get_token_list(char *str)
+t_token			*get_token_list(char *str)
 {
 	t_token	*list;
 	t_token	*last;
