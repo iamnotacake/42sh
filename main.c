@@ -81,7 +81,7 @@ void		ft_find_quotes(t_token **tokens, char **cmd)
 		write(1, "\n", 1);
 		free_token_list(*tokens);
 		(*cmd) = ft_join_quote(*cmd, ft_readline());
-		(*tokens) = token_scan_string((*cmd) ? (*cmd) : "");
+		(*tokens) = get_token_list((*cmd) ? (*cmd) : "");
 	}
 	g_promt = oldpromt;
 }

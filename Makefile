@@ -48,10 +48,6 @@ $(obj)/%.o: %.c
 	@mkdir -p $(obj)/$(shell dirname $<)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-%.c: %.lex
-	@#echo "\033[1;33mFLEX \033[0;33m$@\033[0m"
-	@flex -o $@ $<
-
 clean:
 	rm -rf build-*/obj
 
