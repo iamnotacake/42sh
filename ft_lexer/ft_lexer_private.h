@@ -20,6 +20,10 @@
 # include <unistd.h>
 # include "ft_lexer.h"
 
+t_token			*token_new(t_token_type type, t_token_subtype subtype, \
+															const char *match);
+t_token			*token_append(t_token **tok, t_token *next);
+
 void			ft_lexer_post_string(t_token *toks);
 void			ft_lexer_resolve_vars(t_token *toks);
 

@@ -12,9 +12,8 @@
 
 #include "ft_lexer_private.h"
 
-t_token			*token_new(t_token_type type,
-							t_token_subtype subtype,
-							const char *match)
+t_token	*token_new(t_token_type type, t_token_subtype subtype, \
+															const char *match)
 {
 	t_token		*res;
 
@@ -28,7 +27,7 @@ t_token			*token_new(t_token_type type,
 	return (res);
 }
 
-t_token			*token_append(t_token **tok, t_token *next)
+t_token	*token_append(t_token **tok, t_token *next)
 {
 	if (*tok)
 	{
