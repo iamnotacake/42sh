@@ -12,7 +12,7 @@
 
 CFLAGS += -Ift_lexer
 LDFLAGS += -ll
-SOURCES += ft_lexer/lexer2.c\
+SOURCES += ft_lexer/ft_lexer.c\
 			ft_lexer/ft_lexfunc.c\
 			ft_lexer/ft_lexfunc2.c\
 			ft_lexer/ft_lexfunc3.c\
